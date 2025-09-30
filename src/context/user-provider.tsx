@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
@@ -42,10 +43,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       if (storedUser) {
         setUserState(JSON.parse(storedUser));
       }
-      const storedAdminStatus = localStorage.getItem('isAdmin');
-      if (storedAdminStatus) {
-        setIsAdmin(JSON.parse(storedAdminStatus));
-      }
       const storedFeedback = localStorage.getItem('feedback');
       if (storedFeedback) {
         setFeedback(JSON.parse(storedFeedback));
@@ -68,7 +65,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const setAdminStatus = (status: boolean) => {
     setIsAdmin(status);
-    localStorage.setItem('isAdmin', JSON.stringify(status));
   };
 
   const addFeedback = (newFeedback: { name: string; feedback: string }) => {
@@ -82,7 +78,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
     setAdminStatus(false);
     localStorage.removeItem('userProfile');
-    localStorage.removeItem('isAdmin');
     // Keep feedback for demo purposes
     router.push('/onboarding');
   }
