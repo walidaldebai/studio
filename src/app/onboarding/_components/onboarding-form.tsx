@@ -25,9 +25,7 @@ const formSchema = z.object({
   specialization: z.string().min(2, {
     message: 'Please enter your specialization or profession.',
   }),
-  healthIssues: z.string().min(5, {
-    message: 'Please describe any health issues or concerns.',
-  }),
+  healthIssues: z.string().optional(),
 });
 
 type OnboardingFormProps = {
@@ -101,7 +99,7 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
               name="healthIssues"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Health Issues or Concerns</FormLabel>
+                  <FormLabel>Health Issues or Concerns (Optional)</FormLabel>
                   <FormControl>
                     <Textarea placeholder="E.g., Anxiety, trouble sleeping" {...field} />
                   </FormControl>

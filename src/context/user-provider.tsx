@@ -7,7 +7,7 @@ export interface UserProfile {
   name: string;
   gender: string;
   specialization: string;
-  healthIssues: string;
+  healthIssues?: string;
 }
 
 interface UserContextType {

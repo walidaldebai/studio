@@ -12,11 +12,11 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const PersonalizedWellnessAdviceInputSchema = z.object({
-  name: z.string().describe('The user\'s name.'),
-  gender: z.string().describe('The user\'s gender.'),
-  specialization: z.string().describe('The user\'s specialization or profession.'),
-  healthIssues: z.string().describe('The user\'s health issues or concerns.'),
-  needs: z.string().describe('The user\'s specific needs or questions regarding wellness.'),
+  name: z.string().describe("The user's name."),
+  gender: z.string().describe("The user's gender."),
+  specialization: z.string().describe("The user's specialization or profession."),
+  healthIssues: z.string().optional().describe("The user's health issues or concerns."),
+  needs: z.string().describe("The user's specific needs or questions regarding wellness."),
 });
 export type PersonalizedWellnessAdviceInput = z.infer<typeof PersonalizedWellnessAdviceInputSchema>;
 
@@ -41,7 +41,7 @@ const prompt = ai.definePrompt({
   Name: {{{name}}}
   Gender: {{{gender}}}
   Specialization: {{{specialization}}}
-  Health Issues: {{{healthIssues}}}
+  {{#if healthIssues}}Health Issues: {{{healthIssues}}}{{/if}}
 
   User Needs: {{{needs}}}
 

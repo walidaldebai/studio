@@ -27,7 +27,7 @@ const profileFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
   gender: z.string().min(1, 'Gender is required.'),
   specialization: z.string().min(2, 'Please enter your specialization.'),
-  healthIssues: z.string().min(5, 'Please describe any health issues.'),
+  healthIssues: z.string().optional(),
 });
 
 const adminFormSchema = z.object({
@@ -125,7 +125,7 @@ export default function SettingsPage() {
                       name="healthIssues"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Health Issues or Concerns</FormLabel>
+                          <FormLabel>Health Issues or Concerns (Optional)</FormLabel>
                           <FormControl><Textarea {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
