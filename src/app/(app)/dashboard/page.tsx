@@ -12,13 +12,14 @@ import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
 
 export default function DashboardPage() {
-  const { user } = useUser();
+  const { user, addFeedback } = useUser();
   const { toast } = useToast();
   const [feedback, setFeedback] = useState('');
   const heroImage = PlaceHolderImages.find(img => img.id === 'zen-dashboard-hero');
 
   const handleFeedbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) return;
     if (feedback.trim().length < 10) {
       toast({
         variant: 'destructive',
@@ -27,8 +28,9 @@ export default function DashboardPage() {
       });
       return;
     }
-    // In a real app, you'd send this to a server
-    console.log('Feedback submitted:', feedback);
+    
+    addFeedback({ name: user.name, feedback });
+
     toast({
       title: 'Feedback submitted',
       description: 'Thank you for helping us improve Zen Zone!',

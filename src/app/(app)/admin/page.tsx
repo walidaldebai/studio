@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-suggestions';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Lightbulb } from 'lucide-react';
+import { Lightbulb, MessageCircle } from 'lucide-react';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -21,7 +21,7 @@ const formSchema = z.object({
 });
 
 export default function AdminPage() {
-  const { isAdmin, isLoaded } = useUser();
+  const { isAdmin, isLoaded, feedback: userFeedbackItems } = useUser();
   const router = useRouter();
   const { toast } = useToast();
   const [suggestions, setSuggestions] = useState('');
@@ -70,13 +70,37 @@ export default function AdminPage() {
       <div className="max-w-4xl mx-auto space-y-8">
         <div>
           <h1 className="text-3xl font-headline font-bold">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Generate AI-powered suggestions for app improvement.</p>
+          <p className="text-muted-foreground">Oversee app feedback and generate AI-powered improvements.</p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Data Input</CardTitle>
-            <CardDescription>Provide summarized user feedback and usage data.</CardDescription>
+            <CardTitle className="flex items-center gap-2">
+              <MessageCircle className="h-6 w-6 text-primary" />
+              Live User Feedback
+            </CardTitle>
+            <CardDescription>Feedback submitted by users from the dashboard.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {userFeedbackItems && userFeedbackItems.length > 0 ? (
+              <div className="space-y-4 max-h-60 overflow-y-auto">
+                {userFeedbackItems.map((item) => (
+                  <div key={item.id} className="p-3 bg-muted/50 rounded-lg">
+                    <p className="text-sm font-semibold">{item.name}</p>
+                    <p className="text-sm text-muted-foreground">{item.feedback}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground text-center py-4">No feedback has been submitted yet.</p>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>AI Suggestion Generator</CardTitle>
+            <CardDescription>Provide summarized user feedback and usage data to get improvement ideas.</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
