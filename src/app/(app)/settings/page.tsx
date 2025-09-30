@@ -31,7 +31,7 @@ const profileFormSchema = z.object({
 });
 
 const adminFormSchema = z.object({
-  adminCode: z.string().refine(val => val === 'ADMIN123', {
+  adminCode: z.string().refine(val => val === '170321', {
     message: 'Invalid admin code.',
   }),
 });
