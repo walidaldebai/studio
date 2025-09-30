@@ -110,7 +110,7 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
           </CardContent>
           <CardFooter>
             <Button type="submit" className="w-full">
-              Begin Your Journey
+              Sign Up
             </Button>
           </CardFooter>
         </form>
