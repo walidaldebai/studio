@@ -3,6 +3,8 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 export interface UserProfile {
   name: string;
@@ -12,9 +14,10 @@ export interface UserProfile {
 }
 
 export interface Feedback {
-  id: number;
+  id: string; // Firestore uses string IDs
   name: string;
   feedback: string;
+  createdAt: Date;
 }
 
 interface UserContextType {
@@ -24,7 +27,7 @@ interface UserContextType {
   feedback: Feedback[];
   setUser: (user: UserProfile | null) => void;
   setAdminStatus: (status: boolean) => void;
-  addFeedback: (feedback: { name: string; feedback: string }) => void;
+  addFeedback: (feedback: { name: string; feedback: string }) => Promise<void>;
   logout: () => void;
 }
 
@@ -43,15 +46,32 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       if (storedUser) {
         setUserState(JSON.parse(storedUser));
       }
-      const storedFeedback = localStorage.getItem('feedback');
-      if (storedFeedback) {
-        setFeedback(JSON.parse(storedFeedback));
-      }
     } catch (error) {
       console.error("Failed to access localStorage", error);
     } finally {
       setIsLoaded(true);
     }
+
+    // Set up Firestore listener for feedback
+    const feedbackCollection = collection(db, 'feedback');
+    const q = query(feedbackCollection, orderBy('createdAt', 'desc'));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const feedbackData: Feedback[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        feedbackData.push({
+          id: doc.id,
+          name: data.name,
+          feedback: data.feedback,
+          createdAt: data.createdAt.toDate(),
+        });
+      });
+      setFeedback(feedbackData);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, []);
 
   const setUser = (user: UserProfile | null) => {
@@ -67,18 +87,21 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setIsAdmin(status);
   };
 
-  const addFeedback = (newFeedback: { name: string; feedback: string }) => {
-    const feedbackWithId = { ...newFeedback, id: Date.now() };
-    const updatedFeedback = [...feedback, feedbackWithId];
-    setFeedback(updatedFeedback);
-    localStorage.setItem('feedback', JSON.stringify(updatedFeedback));
+  const addFeedback = async (newFeedback: { name: string; feedback: string }) => {
+    try {
+      await addDoc(collection(db, "feedback"), {
+        ...newFeedback,
+        createdAt: new Date(),
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
   
   const logout = () => {
     setUser(null);
     setAdminStatus(false);
     localStorage.removeItem('userProfile');
-    // Keep feedback for demo purposes
     router.push('/onboarding');
   }
 

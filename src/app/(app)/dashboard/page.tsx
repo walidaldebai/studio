@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const [feedback, setFeedback] = useState('');
   const heroImage = PlaceHolderImages.find(img => img.id === 'zen-dashboard-hero');
 
-  const handleFeedbackSubmit = (e: React.FormEvent) => {
+  const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
     if (feedback.trim().length < 10) {
@@ -29,7 +29,7 @@ export default function DashboardPage() {
       return;
     }
     
-    addFeedback({ name: user.name, feedback });
+    await addFeedback({ name: user.name, feedback });
 
     toast({
       title: 'Feedback submitted',

@@ -24,6 +24,7 @@ import { ShieldCheck, User, Lightbulb, MessageCircle } from 'lucide-react';
 import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-suggestions';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { formatDistanceToNow } from 'date-fns';
 
 const profileFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -227,8 +228,13 @@ export default function SettingsPage() {
                       <div className="space-y-4 max-h-60 overflow-y-auto">
                         {userFeedbackItems.map((item) => (
                           <div key={item.id} className="p-3 bg-muted/50 rounded-lg">
-                            <p className="text-sm font-semibold">{item.name}</p>
-                            <p className="text-sm text-muted-foreground">{item.feedback}</p>
+                            <div className="flex justify-between items-start">
+                                <p className="text-sm font-semibold">{item.name}</p>
+                                <p className="text-xs text-muted-foreground">
+                                {formatDistanceToNow(item.createdAt, { addSuffix: true })}
+                                </p>
+                            </div>
+                            <p className="text-sm text-muted-foreground mt-1">{item.feedback}</p>
                           </div>
                         ))}
                       </div>
