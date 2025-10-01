@@ -3,19 +3,29 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
+  const { EMAIL_USER, EMAIL_PASS } = process.env;
+
+  if (!EMAIL_USER || !EMAIL_PASS) {
+    console.error('Missing email credentials in .env file');
+    return NextResponse.json(
+      { message: 'Server configuration error: Email credentials are not set up.' },
+      { status: 500 }
+    );
+  }
+
   try {
     const { name, feedback } = await request.json();
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
       },
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: EMAIL_USER,
       to: 'walidaldebai@gmail.com',
       subject: `New Feedback from ${name}`,
       text: `From: ${name}\n\nFeedback:\n${feedback}`,

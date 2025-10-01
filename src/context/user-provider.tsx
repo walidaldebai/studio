@@ -25,7 +25,7 @@ interface UserContextType {
   feedback: Feedback[];
   setUser: (user: UserProfile | null) => void;
   setAdminStatus: (status: boolean) => void;
-  addFeedback: (feedback: { name: string; feedback: string }) => Promise<void>;
+  addFeedback: (feedback: { name: string; feedback: string }) => Promise<{success: boolean, message?: string}>;
   logout: () => void;
 }
 
@@ -82,7 +82,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to send feedback');
+      const errorData = await response.json();
+      return { success: false, message: errorData.message || 'Failed to send feedback' };
     }
 
     const feedbackToAdd: Feedback = {
@@ -98,6 +99,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
         console.error("Could not save feedback to localStorage", error);
     }
+    return { success: true };
   };
   
   const logout = () => {

@@ -30,19 +30,19 @@ export default function DashboardPage() {
       return;
     }
     
-    try {
-      await addFeedback({ name: user.name, feedback });
+    const result = await addFeedback({ name: user.name, feedback });
+
+    if (result.success) {
       toast({
           title: 'Feedback sent!',
           description: 'Thank you for helping us improve Zen Zone!',
       });
       setFeedback('');
-    } catch (error) {
-       console.error("Failed to send feedback: ", error);
+    } else {
        toast({
         variant: 'destructive',
         title: 'Submission failed',
-        description: 'Could not send your feedback. Please try again.',
+        description: result.message || 'Could not send your feedback. Please try again.',
       });
     }
   };
