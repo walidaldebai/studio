@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Headset, Play, Pause, RefreshCw, Wand2 } from 'lucide-react';
-import { generateMeditationScript } from '@/ai/flows/generate-meditation';
+import { generateMeditationScript, type GenerateMeditationInput } from '@/ai/flows/generate-meditation';
 import { convertTextToSpeech } from '@/ai/flows/text-to-speech';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
 
@@ -37,7 +37,8 @@ export default function MeditationsPage() {
 
     try {
       // Step 1: Generate Script
-      const { title, script } = await generateMeditationScript({ theme: selectedTheme, language });
+      const meditationInput: GenerateMeditationInput = { theme: selectedTheme, language };
+      const { title, script } = await generateMeditationScript(meditationInput);
       setSession({ title, script, audio: null });
 
       // Step 2: Generate Audio

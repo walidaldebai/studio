@@ -13,16 +13,16 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 
-export const GenerateMeditationInputSchema = z.object({
+const GenerateMeditationInputSchema = z.object({
   theme: z.string().describe('The theme for the meditation, e.g., "Stress Relief", "Focus", "Sleep".'),
   language: z.enum(['en', 'ar']).default('en').describe('The language for the script.'),
 });
 
 export type GenerateMeditationInput = z.infer<typeof GenerateMeditationInputSchema>;
 
-export const GenerateMeditationOutputSchema = z.object({
+const GenerateMeditationOutputSchema = z.object({
   title: z.string().describe('The title of the meditation.'),
   script: z.string().describe('The full guided meditation script, with pauses indicated by "...". The script should be around 200-250 words.'),
 });
