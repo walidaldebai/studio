@@ -6,46 +6,12 @@ import Image from 'next/image';
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { MessageSquare, BrainCircuit, ArrowRight, Send } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useToast } from '@/hooks/use-toast';
-import { useState } from 'react';
 
 export default function DashboardPage() {
-  const { user, addFeedback } = useUser();
-  const { toast } = useToast();
-  const [feedback, setFeedback] = useState('');
+  const { user } = useUser();
   const heroImage = PlaceHolderImages.find(img => img.id === 'zen-dashboard-hero');
-
-  const handleFeedbackSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) return;
-    if (feedback.trim().length < 10) {
-      toast({
-        variant: 'destructive',
-        title: 'Feedback too short',
-        description: 'Please provide at least 10 characters of feedback.',
-      });
-      return;
-    }
-    
-    const result = await addFeedback({ name: user.name, feedback });
-
-    if (result.success) {
-      toast({
-          title: 'Feedback sent!',
-          description: 'Thank you for helping us improve Zen Zone!',
-      });
-      setFeedback('');
-    } else {
-       toast({
-        variant: 'destructive',
-        title: 'Submission failed',
-        description: result.message || 'Could not send your feedback. Please try again.',
-      });
-    }
-  };
 
   return (
     <div className="container mx-auto p-4 md:p-8">
@@ -115,18 +81,10 @@ export default function DashboardPage() {
               Have a suggestion or found a bug? Let us know how we can improve.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex-grow">
-            <form onSubmit={handleFeedbackSubmit} className="flex flex-col h-full">
-              <Textarea
-                placeholder="Tell us what you think..."
-                className="flex-grow"
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-              />
-              <Button type="submit" className="mt-4 w-full">
-                Send Feedback
-              </Button>
-            </form>
+          <CardContent className="flex-grow flex items-center justify-center">
+             <p className="text-center text-muted-foreground">
+                Send any feedback to <a href="mailto:walidaldebai@gmail.com" className="text-primary underline">walidaldebai@gmail.com</a>
+             </p>
           </CardContent>
         </Card>
       </div>
