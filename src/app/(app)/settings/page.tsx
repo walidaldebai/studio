@@ -20,11 +20,10 @@ import { useUser } from '@/context/user-provider';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
-import { ShieldCheck, User, Lightbulb, MessageCircle } from 'lucide-react';
+import { ShieldCheck, User, Lightbulb } from 'lucide-react';
 import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-suggestions';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
-import { formatDistanceToNow } from 'date-fns';
 
 const profileFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -46,7 +45,7 @@ const suggestionFormSchema = z.object({
 
 
 export default function SettingsPage() {
-  const { user, setUser, isAdmin, setAdminStatus, feedback: userFeedbackItems } = useUser();
+  const { user, setUser, isAdmin, setAdminStatus } = useUser();
   const { toast } = useToast();
   const [suggestions, setSuggestions] = useState('');
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
@@ -214,35 +213,6 @@ export default function SettingsPage() {
                   <h2 className="text-2xl font-headline font-bold">Admin Dashboard</h2>
                   <p className="text-muted-foreground">Oversee app feedback and generate AI-powered improvements.</p>
                 </div>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <MessageCircle className="h-6 w-6 text-primary" />
-                      Live User Feedback
-                    </CardTitle>
-                    <CardDescription>Feedback submitted by users from the dashboard.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {userFeedbackItems && userFeedbackItems.length > 0 ? (
-                      <div className="space-y-4 max-h-60 overflow-y-auto">
-                        {userFeedbackItems.map((item) => (
-                          <div key={item.id} className="p-3 bg-muted/50 rounded-lg">
-                            <div className="flex justify-between items-start">
-                                <p className="text-sm font-semibold">{item.name}</p>
-                                <p className="text-xs text-muted-foreground">
-                                {formatDistanceToNow(new Date(item.createdAt), { addSuffix: true })}
-                                </p>
-                            </div>
-                            <p className="text-sm text-muted-foreground mt-1">{item.feedback}</p>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-muted-foreground text-center py-4">No feedback has been submitted yet.</p>
-                    )}
-                  </CardContent>
-                </Card>
 
                 <Card>
                   <CardHeader>
