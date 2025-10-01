@@ -2,7 +2,7 @@
 'use client';
 
 import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-import { getFirestore, collection, doc, setDoc, onSnapshot, type Firestore } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, type Firestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   projectId: 'studio-8438523234-c4061',
@@ -32,12 +32,5 @@ const saveUser = async (db: Firestore, user: any) => {
   await setDoc(userRef, user, { merge: true });
 };
 
-const onUsersSnapshot = (db: Firestore, callback: (users: any[]) => void) => {
-  const usersCollection = collection(db, 'users');
-  return onSnapshot(usersCollection, (snapshot) => {
-    const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    callback(users);
-  });
-};
 
-export { initializeFirebase, saveUser, onUsersSnapshot };
+export { initializeFirebase, saveUser };

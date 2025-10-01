@@ -16,7 +16,6 @@ export interface UserProfile {
 
 interface UserContextType {
   user: UserProfile | null;
-  allUsers: UserProfile[];
   isAdmin: boolean;
   isLoaded: boolean;
   setUser: (user: Omit<UserProfile, 'id'>) => void;
@@ -28,7 +27,6 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUserState] = useState<UserProfile | null>(null);
-  const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [db, setDb] = useState<Firestore | null>(null);
@@ -48,13 +46,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       console.error("Failed to access localStorage", error);
     } finally {
       setIsLoaded(true);
-    }
-    
-    if (firestoreDb) {
-      const unsubscribe = onUsersSnapshot(firestoreDb, (users) => {
-        setAllUsers(users as UserProfile[]);
-      });
-      return () => unsubscribe();
     }
   }, []);
   
@@ -92,7 +83,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, allUsers, setUser, isAdmin, setAdminStatus, isLoaded, logout }}>
+    <UserContext.Provider value={{ user, setUser, isAdmin, setAdminStatus, isLoaded, logout }}>
       {children}
     </UserContext.Provider>
   );

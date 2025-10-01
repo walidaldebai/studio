@@ -20,11 +20,10 @@ import { useUser, type UserProfile } from '@/context/user-provider';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useEffect, useState } from 'react';
-import { ShieldCheck, User, Lightbulb, Users } from 'lucide-react';
+import { ShieldCheck, User, Lightbulb } from 'lucide-react';
 import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-suggestions';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 
 const profileFormSchema = z.object({
@@ -47,7 +46,7 @@ const suggestionFormSchema = z.object({
 
 
 export default function SettingsPage() {
-  const { user, setUser, isAdmin, setAdminStatus, allUsers } = useUser();
+  const { user, setUser, isAdmin, setAdminStatus } = useUser();
   const { toast } = useToast();
   const [suggestions, setSuggestions] = useState('');
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
@@ -114,10 +113,9 @@ export default function SettingsPage() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-headline font-bold mb-6">Settings</h1>
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className={cn("grid w-full", isAdmin ? "grid-cols-3" : "grid-cols-2")}>
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="profile"><User className="mr-2 h-4 w-4"/>Profile</TabsTrigger>
             <TabsTrigger value="admin" onClick={() => !isAdmin && adminCodeForm.setFocus('adminCode')}><ShieldCheck className="mr-2 h-4 w-4"/>Admin Panel</TabsTrigger>
-            {isAdmin && <TabsTrigger value="users"><Users className="mr-2 h-4 w-4"/>Users</TabsTrigger>}
           </TabsList>
           
           <TabsContent value="profile">
@@ -300,42 +298,6 @@ export default function SettingsPage() {
               </div>
             </div>
           </TabsContent>
-
-          <TabsContent value="users">
-             <Card>
-              <CardHeader>
-                <CardTitle>Registered Users</CardTitle>
-                <CardDescription>A list of all users who have signed up for Zen Zone.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Gender</TableHead>
-                      <TableHead>Specialization</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {allUsers.length > 0 ? (
-                      allUsers.map((u) => (
-                        <TableRow key={u.id}>
-                          <TableCell className="font-medium">{u.name}</TableCell>
-                          <TableCell>{u.gender}</TableCell>
-                          <TableCell>{u.specialization}</TableCell>
-                        </TableRow>
-                      ))
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={3} className="text-center">No users have signed up yet.</TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
         </Tabs>
       </div>
     </div>
