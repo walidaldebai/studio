@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from '@/components/ui/button';
 import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 
 export default function DashboardPage() {
   const { user } = useUser();
@@ -35,6 +36,8 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <DailyAffirmationCard />
+
         <Card className="flex flex-col hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
