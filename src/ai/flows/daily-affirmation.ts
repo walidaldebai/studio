@@ -4,10 +4,11 @@
  * @fileOverview A Genkit flow for generating a daily affirmation.
  *
  * This flow generates a short, positive affirmation to help users start their day
- * with a positive mindset.
+ * with a positive mindset, supporting multiple languages.
  *
  * @exports {
- *   getDailyAffirmation: () => Promise<DailyAffirmationOutput>;
+ *   getDailyAffirmation: (input: DailyAffirmationInput) => Promise<DailyAffirmationOutput>;
+ *   DailyAffirmationInput: type
  *   DailyAffirmationOutput: type
  * }
  */
@@ -15,7 +16,12 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-// No input schema needed for this flow
+const DailyAffirmationInputSchema = z.object({
+  language: z.enum(['en', 'ar']).default('en').describe('The language for the affirmation.'),
+});
+
+export type DailyAffirmationInput = z.infer<typeof DailyAffirmationInputSchema>;
+
 
 const DailyAffirmationOutputSchema = z.object({
   affirmation: z
@@ -30,21 +36,26 @@ export type DailyAffirmationOutput = z.infer<
 const dailyAffirmationFlow = ai.defineFlow(
   {
     name: 'dailyAffirmationFlow',
+    inputSchema: DailyAffirmationInputSchema,
     outputSchema: DailyAffirmationOutputSchema,
   },
-  async () => {
-    const {output} = await dailyAffirmationPrompt({});
+  async (input) => {
+    const {output} = await dailyAffirmationPrompt(input);
     return output!;
   }
 );
 
 const dailyAffirmationPrompt = ai.definePrompt({
   name: 'dailyAffirmationPrompt',
+  input: {
+      schema: DailyAffirmationInputSchema,
+  },
   output: {
     schema: DailyAffirmationOutputSchema,
   },
   prompt: `You are an AI assistant that provides short, uplifting daily affirmations.
-  Generate one positive affirmation. The affirmation should be a single sentence.
+  Generate one positive affirmation in the following language: {{{language}}}.
+  The affirmation should be a single sentence.
   Do not include quotation marks.
   `,
 });
@@ -54,6 +65,6 @@ const dailyAffirmationPrompt = ai.definePrompt({
  *
  * @returns A promise that resolves to an object containing the affirmation.
  */
-export async function getDailyAffirmation(): Promise<DailyAffirmationOutput> {
-  return dailyAffirmationFlow();
+export async function getDailyAffirmation(input: DailyAffirmationInput): Promise<DailyAffirmationOutput> {
+  return dailyAffirmationFlow(input);
 }

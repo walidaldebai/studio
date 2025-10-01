@@ -6,17 +6,18 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Sparkles, RefreshCw } from 'lucide-react';
 import { getDailyAffirmation } from '@/ai/flows/daily-affirmation';
-import { useAppTranslation } from '@/context/language-provider';
+import { useAppTranslation, useLanguage } from '@/context/language-provider';
 
 export function DailyAffirmationCard() {
   const { t } = useAppTranslation();
+  const { language } = useLanguage();
   const [affirmation, setAffirmation] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchAffirmation = async () => {
     setIsLoading(true);
     try {
-      const response = await getDailyAffirmation();
+      const response = await getDailyAffirmation({ language });
       setAffirmation(response.affirmation);
     } catch (error) {
       console.error('Failed to get affirmation:', error);
@@ -28,7 +29,7 @@ export function DailyAffirmationCard() {
 
   useEffect(() => {
     fetchAffirmation();
-  }, []);
+  }, [language]);
 
   return (
     <Card className="flex flex-col lg:col-span-2 hover:border-primary transition-colors">
