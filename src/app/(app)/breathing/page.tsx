@@ -49,8 +49,8 @@ export default function BreathingPage() {
           'relative rounded-full bg-primary flex items-center justify-center transition-transform ease-in-out',
         )}
         style={{
-          width: 'clamp(250px, 50vw, 500px)',
-          height: 'clamp(250px, 50vw, 500px)',
+          width: 'clamp(200px, 40vw, 400px)',
+          height: 'clamp(200px, 40vw, 400px)',
           transform: `scale(${currentCycle.scale})`,
           transitionDuration: `${currentCycle.duration}ms`,
         }}
