@@ -29,13 +29,20 @@ export default function DashboardPage() {
       return;
     }
     
-    await addFeedback({ name: user.name, feedback });
-
-    toast({
-      title: 'Feedback submitted',
-      description: 'Thank you for helping us improve Zen Zone!',
-    });
-    setFeedback('');
+    try {
+        await addFeedback({ name: user.name, feedback });
+        toast({
+          title: 'Feedback submitted',
+          description: 'Thank you for helping us improve Zen Zone!',
+        });
+        setFeedback('');
+    } catch (error) {
+        toast({
+            variant: 'destructive',
+            title: 'Submission failed',
+            description: 'Could not submit your feedback at this time.',
+        });
+    }
   };
 
   return (

@@ -68,6 +68,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         });
       });
       setFeedback(feedbackData);
+    }, (error) => {
+      console.error("Error fetching feedback: ", error);
     });
 
     // Cleanup subscription on unmount
@@ -88,14 +90,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addFeedback = async (newFeedback: { name: string; feedback: string }) => {
-    try {
-      await addDoc(collection(db, "feedback"), {
-        ...newFeedback,
-        createdAt: new Date(),
-      });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
+    await addDoc(collection(db, "feedback"), {
+      ...newFeedback,
+      createdAt: new Date(),
+    });
   };
   
   const logout = () => {
