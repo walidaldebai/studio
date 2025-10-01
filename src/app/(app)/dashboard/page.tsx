@@ -1,38 +1,24 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 
 export default function DashboardPage() {
   const { user } = useUser();
-  const heroImage = PlaceHolderImages.find(img => img.id === 'zen-dashboard-hero');
 
   return (
     <div className="container mx-auto p-4 md:p-8">
-      <div className="relative w-full h-64 rounded-xl overflow-hidden mb-8">
-        {heroImage && (
-          <Image
-            src={heroImage.imageUrl}
-            alt={heroImage.description}
-            data-ai-hint={heroImage.imageHint}
-            fill
-            className="object-cover"
-          />
-        )}
-        <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center p-4">
-          <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary-foreground">
-            Welcome, {user?.name}
-          </h1>
-          <p className="mt-2 text-lg text-primary-foreground/80">
-            Your space for calm and clarity awaits.
-          </p>
-        </div>
+      <div className="mb-8 text-center">
+        <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary">
+          Welcome, {user?.name}
+        </h1>
+        <p className="mt-2 text-lg text-muted-foreground">
+          Your space for calm and clarity awaits.
+        </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
