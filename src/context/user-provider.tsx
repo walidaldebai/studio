@@ -49,18 +49,21 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setIsLoaded(true);
     }
-
-    const unsubscribe = onUsersSnapshot(firestoreDb, (users) => {
-      setAllUsers(users as UserProfile[]);
-    });
-
-    return () => unsubscribe();
+    
+    if (firestoreDb) {
+      const unsubscribe = onUsersSnapshot(firestoreDb, (users) => {
+        setAllUsers(users as UserProfile[]);
+      });
+      return () => unsubscribe();
+    }
   }, []);
   
   const setUser = (profile: Omit<UserProfile, 'id'>) => {
     if (!db) return;
     
-    const userProfile: UserProfile = { id: user?.id || uuidv4(), ...profile };
+    // Check if user exists to decide whether to generate a new ID
+    const newId = user?.id || uuidv4();
+    const userProfile: UserProfile = { id: newId, ...profile };
     
     setUserState(userProfile);
     
