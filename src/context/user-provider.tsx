@@ -4,7 +4,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
 
 export interface UserProfile {
   name: string;
@@ -27,7 +27,7 @@ interface UserContextType {
   feedback: Feedback[];
   setUser: (user: UserProfile | null) => void;
   setAdminStatus: (status: boolean) => void;
-  addFeedback: (feedback: { name: string; feedback: string }) => void;
+  addFeedback: (feedback: { name: string; feedback: string }) => Promise<void>;
   logout: () => void;
 }
 
@@ -89,16 +89,16 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setIsAdmin(status);
   };
 
-  const addFeedback = (newFeedback: { name: string; feedback: string }) => {
-    addDoc(collection(db, "feedback"), {
+  const addFeedback = async (newFeedback: { name: string; feedback: string }) => {
+    await addDoc(collection(db, "feedback"), {
       ...newFeedback,
-      createdAt: new Date(),
+      createdAt: serverTimestamp(),
     });
   };
   
   const logout = () => {
     setUser(null);
-    setAdminStatus(false);
+    setIsAdmin(false);
     localStorage.removeItem('userProfile');
     router.push('/onboarding');
   }
