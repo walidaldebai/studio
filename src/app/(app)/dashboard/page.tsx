@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 
 export default function DashboardPage() {
@@ -78,7 +78,25 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         
-        <Card className="md:col-span-2 lg:col-span-3 hover:border-primary transition-colors">
+        <Card className="flex flex-col hover:border-primary transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <Wind className="h-6 w-6" /> Breathing Exercise
+            </CardTitle>
+            <CardDescription>
+              Follow a simple visual guide to calm your mind and body with a breathing exercise.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex-grow flex items-end">
+            <Link href="/breathing" className="w-full">
+              <Button className="w-full">
+                Begin Exercise <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+        
+        <Card className="md:col-span-2 lg:col-span-1 hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Mail className="h-6 w-6" /> Share Your Feedback

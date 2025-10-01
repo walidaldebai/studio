@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Mail } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Mail, Wind } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
@@ -22,6 +22,7 @@ const navLinks = [
   { href: '/rant-chat', label: 'Rant Chat', icon: MessageSquare },
   { href: '/guidance', label: 'Guidance', icon: BrainCircuit },
   { href: '/mood-journal', label: 'Mood Journal', icon: BookOpen },
+  { href: '/breathing', label: 'Breathing', icon: Wind },
 ];
 
 export function AppHeader() {
