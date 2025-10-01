@@ -5,6 +5,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 import { saveUser, onUsersSnapshot, initializeFirebase } from '@/lib/firebase';
 import { v4 as uuidv4 } from 'uuid';
+import type { Firestore } from 'firebase/firestore';
 
 export interface UserProfile {
   id: string;
@@ -31,36 +32,40 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [db, setDb] = useState<Firestore | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    initializeFirebase();
+    const { db: firestoreDb } = initializeFirebase();
+    setDb(firestoreDb);
 
-    const initialize = () => {
-      try {
-        const storedUser = localStorage.getItem('userProfile');
-        if (storedUser) {
-          const parsedUser = JSON.parse(storedUser);
-          setUserState(parsedUser);
-        }
-      } catch (error) {
-        console.error("Failed to access localStorage", error);
-      } finally {
-        setIsLoaded(true);
+    try {
+      const storedUser = localStorage.getItem('userProfile');
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        setUserState(parsedUser);
       }
-    };
+    } catch (error) {
+      console.error("Failed to access localStorage", error);
+    } finally {
+      setIsLoaded(true);
+    }
+  }, []);
 
-    initialize();
+  useEffect(() => {
+    if (!db) return;
 
-    const unsubscribe = onUsersSnapshot((users) => {
+    const unsubscribe = onUsersSnapshot(db, (users) => {
       setAllUsers(users as UserProfile[]);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [db]);
   
   const setUser = (profile: Omit<UserProfile, 'id'>) => {
-    const userProfile: UserProfile = { id: uuidv4(), ...profile };
+    if (!db) return;
+    
+    const userProfile: UserProfile = { id: user?.id || uuidv4(), ...profile };
     
     setUserState(userProfile);
     
@@ -70,7 +75,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       console.error("Failed to save user to localStorage", error);
     }
     
-    saveUser(userProfile);
+    saveUser(db, userProfile);
   };
 
   const setAdminStatus = (status: boolean) => {

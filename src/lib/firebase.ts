@@ -14,29 +14,25 @@ const firebaseConfig = {
   measurementId: 'G-3FGERJ3X8E'
 };
 
-let app: FirebaseApp;
-let db: Firestore;
-
-function initializeFirebase() {
-  if (!getApps().length) {
-    app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
+function initializeFirebase(): { app: FirebaseApp; db: Firestore; } {
+  if (getApps().length === 0) {
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    return { app, db };
   } else {
-    app = getApps()[0];
-    db = getFirestore(app);
+    const app = getApps()[0];
+    const db = getFirestore(app);
+    return { app, db };
   }
-  return { app, db };
 }
 
-const saveUser = async (user: any) => {
-  const { db } = initializeFirebase();
+const saveUser = async (db: Firestore, user: any) => {
   if (!user || !user.id) return;
   const userRef = doc(db, 'users', user.id);
   await setDoc(userRef, user, { merge: true });
 };
 
-const onUsersSnapshot = (callback: (users: any[]) => void) => {
-  const { db } = initializeFirebase();
+const onUsersSnapshot = (db: Firestore, callback: (users: any[]) => void) => {
   const usersCollection = collection(db, 'users');
   return onSnapshot(usersCollection, (snapshot) => {
     const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -44,4 +40,4 @@ const onUsersSnapshot = (callback: (users: any[]) => void) => {
   });
 };
 
-export { initializeFirebase, saveUser, onUsersSnapshot, db };
+export { initializeFirebase, saveUser, onUsersSnapshot };
