@@ -41,12 +41,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         const storedUser = localStorage.getItem('userProfile');
         if (storedUser) {
           const parsedUser = JSON.parse(storedUser);
-          // Ensure user has an ID
-          if (!parsedUser.id) {
-            parsedUser.id = uuidv4();
-            localStorage.setItem('userProfile', JSON.stringify(parsedUser));
-            saveUser(parsedUser);
-          }
           setUserState(parsedUser);
         }
       } catch (error) {
@@ -66,9 +60,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
   
   const setUser = (profile: Omit<UserProfile, 'id'>) => {
-    // Check for existing ID from state, or generate a new one.
-    const userId = user?.id || uuidv4();
-    const userProfile: UserProfile = { id: userId, ...profile };
+    const userProfile: UserProfile = { id: uuidv4(), ...profile };
     
     setUserState(userProfile);
     
