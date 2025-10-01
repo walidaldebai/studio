@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { db, saveUser } from '@/lib/firebase';
+import { saveUser } from '@/lib/firebase';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface UserProfile {
@@ -17,7 +17,7 @@ interface UserContextType {
   user: UserProfile | null;
   isAdmin: boolean;
   isLoaded: boolean;
-  setUser: (user: Omit<UserProfile, 'id'>) => void;
+  setUser: (user: Omit<UserProfile, 'id'> | UserProfile) => void;
   setAdminStatus: (status: boolean) => void;
   logout: () => void;
 }
@@ -44,10 +44,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
   
-  const setUser = (profile: Omit<UserProfile, 'id'>) => {
-    // Check if user exists to decide whether to generate a new ID
-    const newId = user?.id || uuidv4();
-    const userProfile: UserProfile = { id: newId, ...profile };
+  const setUser = (profile: Omit<UserProfile, 'id'> | UserProfile) => {
+    const userProfile: UserProfile = 'id' in profile ? profile : { id: user?.id || uuidv4(), ...profile };
     
     setUserState(userProfile);
     
