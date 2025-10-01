@@ -8,7 +8,7 @@ export default function OnboardingPage() {
   const { setUser } = useUser();
   const router = useRouter();
 
-  const handleOnboardingComplete = (data: UserProfile) => {
+  const handleOnboardingComplete = (data: Omit<UserProfile, 'id'>) => {
     setUser(data);
     router.push('/dashboard');
   };

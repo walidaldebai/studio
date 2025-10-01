@@ -3,8 +3,11 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
+import { saveUser, onUsersSnapshot } from '@/lib/firebase';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface UserProfile {
+  id: string;
   name: string;
   gender: string;
   specialization: string;
@@ -13,9 +16,10 @@ export interface UserProfile {
 
 interface UserContextType {
   user: UserProfile | null;
+  allUsers: UserProfile[];
   isAdmin: boolean;
   isLoaded: boolean;
-  setUser: (user: UserProfile | null) => void;
+  setUser: (user: Omit<UserProfile, 'id'>) => void;
   setAdminStatus: (status: boolean) => void;
   logout: () => void;
 }
@@ -24,6 +28,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUserState] = useState<UserProfile | null>(null);
+  const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const router = useRouter();
@@ -43,15 +48,20 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     };
 
     initialize();
+
+    const unsubscribe = onUsersSnapshot((users) => {
+      setAllUsers(users as UserProfile[]);
+    });
+
+    return () => unsubscribe();
   }, []);
   
-  const setUser = (user: UserProfile | null) => {
-    setUserState(user);
-    if (user) {
-      localStorage.setItem('userProfile', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('userProfile');
-    }
+  const setUser = (profile: Omit<UserProfile, 'id'>) => {
+    const userId = user?.id || uuidv4();
+    const userProfile: UserProfile = { id: userId, ...profile };
+    setUserState(userProfile);
+    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    saveUser(userProfile);
   };
 
   const setAdminStatus = (status: boolean) => {
@@ -59,14 +69,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
   
   const logout = () => {
-    setUser(null);
-    setIsAdmin(false); // Also clear admin status on logout
+    setUserState(null);
+    setIsAdmin(false);
     localStorage.removeItem('userProfile');
     router.push('/onboarding');
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, isAdmin, setAdminStatus, isLoaded, logout }}>
+    <UserContext.Provider value={{ user, allUsers, setUser, isAdmin, setAdminStatus, isLoaded, logout }}>
       {children}
     </UserContext.Provider>
   );

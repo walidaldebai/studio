@@ -29,7 +29,7 @@ const formSchema = z.object({
 });
 
 type OnboardingFormProps = {
-  onOnboardingComplete: (data: UserProfile) => void;
+  onOnboardingComplete: (data: Omit<UserProfile, 'id'>) => void;
 };
 
 export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
@@ -91,7 +91,7 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
                     <Input placeholder="E.g., Software Developer, Student" {...field} />
                   </FormControl>
                   <FormMessage />
-                </FormItem>
+                </Item>
               )}
             />
             <FormField

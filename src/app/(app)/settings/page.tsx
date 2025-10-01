@@ -16,14 +16,16 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { useUser } from '@/context/user-provider';
+import { useUser, type UserProfile } from '@/context/user-provider';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useState } from 'react';
-import { ShieldCheck, User, Lightbulb } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ShieldCheck, User, Lightbulb, Users } from 'lucide-react';
 import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-suggestions';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+
 
 const profileFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -45,10 +47,11 @@ const suggestionFormSchema = z.object({
 
 
 export default function SettingsPage() {
-  const { user, setUser, isAdmin, setAdminStatus } = useUser();
+  const { user, setUser, isAdmin, setAdminStatus, allUsers } = useUser();
   const { toast } = useToast();
   const [suggestions, setSuggestions] = useState('');
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
+  const [activeTab, setActiveTab] = useState("profile");
 
   const profileForm = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
@@ -64,6 +67,12 @@ export default function SettingsPage() {
     resolver: zodResolver(suggestionFormSchema),
     defaultValues: { userFeedback: '', usageData: '' },
   });
+
+  useEffect(() => {
+    if (user) {
+      profileForm.reset(user);
+    }
+  }, [user, profileForm]);
 
   function onProfileSubmit(values: z.infer<typeof profileFormSchema>) {
     setUser(values);
@@ -104,10 +113,11 @@ export default function SettingsPage() {
     <div className="container mx-auto p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-headline font-bold mb-6">Settings</h1>
-        <Tabs defaultValue="profile">
-          <TabsList className="grid w-full grid-cols-2">
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className={cn("grid w-full", isAdmin ? "grid-cols-3" : "grid-cols-2")}>
             <TabsTrigger value="profile"><User className="mr-2 h-4 w-4"/>Profile</TabsTrigger>
-            <TabsTrigger value="admin"><ShieldCheck className="mr-2 h-4 w-4"/>Admin</TabsTrigger>
+            <TabsTrigger value="admin" onClick={() => !isAdmin && adminCodeForm.setFocus('adminCode')}><ShieldCheck className="mr-2 h-4 w-4"/>Admin Panel</TabsTrigger>
+            {isAdmin && <TabsTrigger value="users"><Users className="mr-2 h-4 w-4"/>Users</TabsTrigger>}
           </TabsList>
           
           <TabsContent value="profile">
@@ -208,7 +218,7 @@ export default function SettingsPage() {
                 </div>
               )}
               
-              <div className={cn("space-y-8", { 'pointer-events-none': !isAdmin })}>
+              <div className={cn("space-y-8", { 'pointer-events-none opacity-50': !isAdmin })}>
                  <div>
                   <h2 className="text-2xl font-headline font-bold">Admin Dashboard</h2>
                   <p className="text-muted-foreground">Oversee app feedback and generate AI-powered improvements.</p>
@@ -290,6 +300,42 @@ export default function SettingsPage() {
               </div>
             </div>
           </TabsContent>
+
+          <TabsContent value="users">
+             <Card>
+              <CardHeader>
+                <CardTitle>Registered Users</CardTitle>
+                <CardDescription>A list of all users who have signed up for Zen Zone.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Gender</TableHead>
+                      <TableHead>Specialization</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {allUsers.length > 0 ? (
+                      allUsers.map((u) => (
+                        <TableRow key={u.id}>
+                          <TableCell className="font-medium">{u.name}</TableCell>
+                          <TableCell>{u.gender}</TableCell>
+                          <TableCell>{u.specialization}</TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={3} className="text-center">No users have signed up yet.</TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
         </Tabs>
       </div>
     </div>
