@@ -10,8 +10,8 @@ export default function BreathingPage() {
   const { t } = useAppTranslation();
 
   const breathingCycle = [
-    { text: t('breathingPage.breatheIn'), duration: 4000, scale: 1.5 },
-    { text: t('breathingPage.hold'), duration: 4000, scale: 1.5 },
+    { text: t('breathingPage.breatheIn'), duration: 4000, scale: 1.2 },
+    { text: t('breathingPage.hold'), duration: 4000, scale: 1.2 },
     { text: t('breathingPage.breatheOut'), duration: 6000, scale: 1 },
     { text: t('breathingPage.hold'), duration: 2000, scale: 1 },
   ];
@@ -27,7 +27,7 @@ export default function BreathingPage() {
     }, cycle.duration);
 
     return () => clearTimeout(timer);
-  }, [cycleIndex, t]);
+  }, [cycleIndex, t, breathingCycle]);
 
   if (!isClient) {
     return null; // Don't render on the server
