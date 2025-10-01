@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
@@ -20,6 +20,7 @@ const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/rant-chat', label: 'Rant Chat', icon: MessageSquare },
   { href: '/guidance', label: 'Guidance', icon: BrainCircuit },
+  { href: '/mood-journal', label: 'Mood Journal', icon: BookOpen },
 ];
 
 export function AppHeader() {

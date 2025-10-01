@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, Send } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function DashboardPage() {
@@ -75,16 +75,18 @@ export default function DashboardPage() {
         <Card className="flex flex-col md:col-span-2 lg:col-span-1 hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
-              <Send className="h-6 w-6" /> Submit Feedback
+              <BookOpen className="h-6 w-6" /> Mood Journal
             </CardTitle>
             <CardDescription>
-              Have a suggestion or found a bug? Let us know how we can improve.
+              Track your daily mood and visualize your emotional patterns over time.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex-grow flex items-center justify-center">
-             <p className="text-center text-muted-foreground">
-                Send any feedback to <a href="mailto:walidaldebai@gmail.com" className="text-primary underline">walidaldebai@gmail.com</a>
-             </p>
+          <CardContent className="flex-grow flex items-end">
+            <Link href="/mood-journal" className="w-full">
+              <Button className="w-full">
+                Open Journal <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>
