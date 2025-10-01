@@ -8,6 +8,7 @@ import { Trans } from 'react-i18next';
 
 export default function BreathingPage() {
   const { t } = useAppTranslation();
+  const [isClient, setIsClient] = useState(false);
 
   const breathingCycle = [
     { text: t('breathingPage.breatheIn'), duration: 4000, scale: 1.2 },
@@ -17,17 +18,21 @@ export default function BreathingPage() {
   ];
 
   const [cycleIndex, setCycleIndex] = useState(0);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const cycle = breathingCycle[cycleIndex];
     const timer = setTimeout(() => {
       setCycleIndex((prevIndex) => (prevIndex + 1) % breathingCycle.length);
     }, cycle.duration);
 
     return () => clearTimeout(timer);
-  }, [cycleIndex, t, breathingCycle]);
+  }, [cycleIndex, isClient, t, breathingCycle]);
 
   if (!isClient) {
     return null; // Don't render on the server

@@ -1,7 +1,7 @@
 
 'use client';
 
-import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
+import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
 import { getFirestore, doc, setDoc, type Firestore } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -14,23 +14,19 @@ const firebaseConfig = {
   measurementId: 'G-3FGERJ3X8E'
 };
 
-function initializeFirebase(): { app: FirebaseApp; db: Firestore; } {
-  if (getApps().length === 0) {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    return { app, db };
-  } else {
-    const app = getApps()[0];
-    const db = getFirestore(app);
-    return { app, db };
-  }
+let app: FirebaseApp;
+if (getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApp();
 }
 
-const saveUser = async (db: Firestore, user: any) => {
+const db = getFirestore(app);
+
+const saveUser = async (user: any) => {
   if (!user || !user.id) return;
   const userRef = doc(db, 'users', user.id);
   await setDoc(userRef, user, { merge: true });
 };
 
-
-export { initializeFirebase, saveUser };
+export { db, saveUser };

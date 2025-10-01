@@ -2,9 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { saveUser, onUsersSnapshot, initializeFirebase } from '@/lib/firebase';
+import { db, saveUser } from '@/lib/firebase';
 import { v4 as uuidv4 } from 'uuid';
-import type { Firestore } from 'firebase/firestore';
 
 export interface UserProfile {
   id: string;
@@ -29,13 +28,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUserState] = useState<UserProfile | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [db, setDb] = useState<Firestore | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    const { db: firestoreDb } = initializeFirebase();
-    setDb(firestoreDb);
-
     try {
       const storedUser = localStorage.getItem('userProfile');
       if (storedUser) {
@@ -50,8 +45,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
   
   const setUser = (profile: Omit<UserProfile, 'id'>) => {
-    if (!db) return;
-    
     // Check if user exists to decide whether to generate a new ID
     const newId = user?.id || uuidv4();
     const userProfile: UserProfile = { id: newId, ...profile };
@@ -64,7 +57,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       console.error("Failed to save user to localStorage", error);
     }
     
-    saveUser(db, userProfile);
+    saveUser(userProfile);
   };
 
   const setAdminStatus = (status: boolean) => {
