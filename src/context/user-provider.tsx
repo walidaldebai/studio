@@ -38,7 +38,14 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       try {
         const storedUser = localStorage.getItem('userProfile');
         if (storedUser) {
-          setUserState(JSON.parse(storedUser));
+          const parsedUser = JSON.parse(storedUser);
+          // Ensure user has an ID
+          if (!parsedUser.id) {
+            parsedUser.id = uuidv4();
+            localStorage.setItem('userProfile', JSON.stringify(parsedUser));
+            saveUser(parsedUser);
+          }
+          setUserState(parsedUser);
         }
       } catch (error) {
         console.error("Failed to access localStorage", error);
@@ -57,10 +64,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
   
   const setUser = (profile: Omit<UserProfile, 'id'>) => {
+    // Check for existing ID from state, or generate a new one.
     const userId = user?.id || uuidv4();
     const userProfile: UserProfile = { id: userId, ...profile };
+    
     setUserState(userProfile);
-    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    
+    try {
+      localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    } catch (error) {
+      console.error("Failed to save user to localStorage", error);
+    }
+    
     saveUser(userProfile);
   };
 
@@ -71,7 +86,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUserState(null);
     setIsAdmin(false);
-    localStorage.removeItem('userProfile');
+    try {
+      localStorage.removeItem('userProfile');
+    } catch (error) {
+      console.error("Failed to remove user from localStorage", error);
+    }
     router.push('/onboarding');
   }
 
