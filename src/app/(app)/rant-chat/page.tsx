@@ -9,12 +9,21 @@ import { Send, User, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { rantChatEmpathy } from '@/ai/flows/rant-chat-empathy';
 import { useUser } from '@/context/user-provider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface Message {
   id: number;
   text: string;
   sender: 'user' | 'ai';
 }
+
+type Personality = 'Empathetic Listener' | 'Talkative Friend' | 'Problem Solver';
+
+const personalities: { value: Personality, description: string }[] = [
+    { value: 'Empathetic Listener', description: 'Just listens and understands.' },
+    { value: 'Talkative Friend', description: 'Listens and shares relatable stories.' },
+    { value: 'Problem Solver', description: 'Listens and offers solutions.' },
+];
 
 export default function RantChatPage() {
   const [messages, setMessages] = useState<Message[]>([
@@ -26,6 +35,7 @@ export default function RantChatPage() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [personality, setPersonality] = useState<Personality>('Empathetic Listener');
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { user } = useUser();
 
@@ -44,7 +54,7 @@ export default function RantChatPage() {
 
     try {
       const context = messages.map(m => `${m.sender}: ${m.text}`).join('\n');
-      const response = await rantChatEmpathy({ rant: inputValue, context });
+      const response = await rantChatEmpathy({ rant: inputValue, context, personality });
       
       const aiMessage: Message = {
         id: Date.now() + 1,
@@ -77,9 +87,28 @@ export default function RantChatPage() {
     <div className="flex flex-col h-[calc(100vh-3.5rem)]">
       <div className="flex-1 p-6 flex flex-col items-center">
         <div className="w-full max-w-3xl flex flex-col h-full border rounded-xl shadow-sm">
-            <header className="p-4 border-b">
-                <h1 className="text-xl font-headline font-semibold">Rant Chat</h1>
-                <p className="text-sm text-muted-foreground">A safe space to let it all out.</p>
+            <header className="p-4 border-b space-y-2">
+                <div className="flex justify-between items-center">
+                    <div>
+                        <h1 className="text-xl font-headline font-semibold">Rant Chat</h1>
+                        <p className="text-sm text-muted-foreground">A safe space to let it all out.</p>
+                    </div>
+                    <div className="w-48">
+                        <Select value={personality} onValueChange={(value: Personality) => setPersonality(value)} disabled={isLoading}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select a personality" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {personalities.map(p => (
+                                    <SelectItem key={p.value} value={p.value}>
+                                        <p className="font-semibold">{p.value}</p>
+                                        <p className="text-xs text-muted-foreground">{p.description}</p>
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
             </header>
           <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
             <div className="space-y-6">
