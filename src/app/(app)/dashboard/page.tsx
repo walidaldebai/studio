@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -6,7 +5,7 @@ import Image from 'next/image';
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function DashboardPage() {
@@ -72,7 +71,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col md:col-span-2 lg:col-span-1 hover:border-primary transition-colors">
+        <Card className="flex flex-col hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <BookOpen className="h-6 w-6" /> Mood Journal
@@ -89,6 +88,18 @@ export default function DashboardPage() {
             </Link>
           </CardContent>
         </Card>
+        
+        <Card className="md:col-span-2 lg:col-span-3 hover:border-primary transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <Mail className="h-6 w-6" /> Share Your Feedback
+            </CardTitle>
+            <CardDescription>
+              Have ideas or suggestions? We'd love to hear from you. Send any feedback to <a href="mailto:walidaldebai@gmail.com" className="text-primary underline">walidaldebai@gmail.com</a>.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+
       </div>
     </div>
   );
