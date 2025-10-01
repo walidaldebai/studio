@@ -49,17 +49,13 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setIsLoaded(true);
     }
-  }, []);
 
-  useEffect(() => {
-    if (!db) return;
-
-    const unsubscribe = onUsersSnapshot(db, (users) => {
+    const unsubscribe = onUsersSnapshot(firestoreDb, (users) => {
       setAllUsers(users as UserProfile[]);
     });
 
     return () => unsubscribe();
-  }, [db]);
+  }, []);
   
   const setUser = (profile: Omit<UserProfile, 'id'>) => {
     if (!db) return;
