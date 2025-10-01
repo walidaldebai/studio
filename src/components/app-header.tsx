@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -34,6 +35,7 @@ export function AppHeader() {
           <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
             <HeartHandIcon className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline text-lg">Zen Zone</span>
+            <Badge variant="outline">alpha 1.0</Badge>
           </Link>
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
             {navLinks.map(({ href, label, icon: Icon }) => (
