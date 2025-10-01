@@ -37,24 +37,25 @@ export default function BreathingPage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-[calc(100vh-3.5rem)] overflow-hidden">
-      <div className="text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-4">
-        <Wind className="h-8 w-8 text-primary-foreground/80"/>
-        <p className="text-2xl md:text-4xl font-headline font-semibold text-primary-foreground tracking-wider">
-          {currentCycle.text}
-        </p>
-      </div>
-
       <div
         className={cn(
-          'relative rounded-full bg-primary flex items-center justify-center transition-transform ease-in-out',
+          'relative rounded-full flex items-center justify-center transition-transform ease-in-out shadow-2xl',
         )}
         style={{
           width: 'clamp(200px, 40vw, 400px)',
           height: 'clamp(200px, 40vw, 400px)',
           transform: `scale(${currentCycle.scale})`,
           transitionDuration: `${currentCycle.duration}ms`,
+          background: 'radial-gradient(circle, #8A2BE2 0%, #4B0082 100%)',
+          boxShadow: '0 0 40px 10px rgba(138, 43, 226, 0.4)',
         }}
       >
+        <div className="text-center flex flex-col items-center gap-4">
+          <Wind className="h-8 w-8 text-white/80"/>
+          <p className="text-2xl md:text-4xl font-headline font-semibold text-white tracking-wider">
+            {currentCycle.text}
+          </p>
+        </div>
       </div>
        <p className="text-muted-foreground absolute bottom-8 text-center text-sm">
         <Trans i18nKey="breathingPage.instructions">
