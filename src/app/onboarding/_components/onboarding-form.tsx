@@ -91,7 +91,7 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
                     <Input placeholder="E.g., Software Developer, Student" {...field} />
                   </FormControl>
                   <FormMessage />
-                </Item>
+                </FormItem>
               )}
             />
             <FormField
