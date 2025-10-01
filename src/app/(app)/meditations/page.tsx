@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -27,7 +27,7 @@ export default function MeditationsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [session, setSession] = useState<{ title: string; script: string; audio: string | null } | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = React.useRef<HTMLAudioElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleGenerateSession = async () => {
     if (!selectedTheme) return;
