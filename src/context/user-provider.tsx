@@ -4,7 +4,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, getDocs } from 'firebase/firestore';
 
 export interface UserProfile {
   name: string;
@@ -41,39 +41,73 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem('userProfile');
-      if (storedUser) {
-        setUserState(JSON.parse(storedUser));
+    let unsubscribe: () => void;
+
+    const initialize = async () => {
+      try {
+        const storedUser = localStorage.getItem('userProfile');
+        if (storedUser) {
+          setUserState(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error("Failed to access localStorage", error);
       }
-    } catch (error) {
-      console.error("Failed to access localStorage", error);
-    } finally {
-      setIsLoaded(true);
-    }
 
-    // Set up Firestore listener for feedback
-    const feedbackCollection = collection(db, 'feedback');
-    const q = query(feedbackCollection, orderBy('createdAt', 'desc'));
+      // Set up Firestore listener for feedback
+      const feedbackCollection = collection(db, 'feedback');
+      const q = query(feedbackCollection, orderBy('createdAt', 'desc'));
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const feedbackData: Feedback[] = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        feedbackData.push({
-          id: doc.id,
-          name: data.name,
-          feedback: data.feedback,
-          createdAt: data.createdAt.toDate(),
+      try {
+        // Initial fetch to ensure we have data before setting isLoaded
+        const initialSnapshot = await getDocs(q);
+        const initialFeedback: Feedback[] = [];
+        initialSnapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.createdAt) { // Ensure createdAt exists
+            initialFeedback.push({
+              id: doc.id,
+              name: data.name,
+              feedback: data.feedback,
+              createdAt: data.createdAt.toDate(),
+            });
+          }
         });
-      });
-      setFeedback(feedbackData);
-    }, (error) => {
-      console.error("Error fetching feedback: ", error);
-    });
+        setFeedback(initialFeedback);
+
+        // Now set up the real-time listener
+        unsubscribe = onSnapshot(q, (querySnapshot) => {
+          const feedbackData: Feedback[] = [];
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            if (data.createdAt) {
+              feedbackData.push({
+                id: doc.id,
+                name: data.name,
+                feedback: data.feedback,
+                createdAt: data.createdAt.toDate(),
+              });
+            }
+          });
+          setFeedback(feedbackData);
+        }, (error) => {
+          console.error("Error fetching feedback: ", error);
+        });
+
+      } catch (error) {
+        console.error("Error with feedback subscription:", error);
+      } finally {
+        setIsLoaded(true);
+      }
+    };
+
+    initialize();
 
     // Cleanup subscription on unmount
-    return () => unsubscribe();
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
   }, []);
 
   const setUser = (user: UserProfile | null) => {
