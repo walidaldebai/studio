@@ -6,20 +6,18 @@
  * This flow takes a text script and generates a base64-encoded WAV audio file.
  *
  * @exports {
- *   convertTextToSpeech: (input: string) => Promise<TextToSpeechOutput>;
+ *   convertTextToSpeech: (input: string) => Promise<{ audio: string }>;
  * }
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import wav from 'wav';
-import { googleAI } from '@genkit-ai/googleai';
+import { googleAI } from '@genkit-ai/google-genai';
 
 const TextToSpeechOutputSchema = z.object({
   audio: z.string().describe("The base64-encoded WAV audio data URI."),
 });
-
-type TextToSpeechOutput = z.infer<typeof TextToSpeechOutputSchema>;
 
 async function toWav(
   pcmData: Buffer,
