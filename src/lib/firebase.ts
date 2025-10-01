@@ -15,7 +15,6 @@ if (getApps().length === 0) {
 const db = getFirestore(app);
 
 const saveUser = async (user: any) => {
-  if (!user || !user.id) return;
   const userRef = doc(db, 'users', user.id);
   await setDoc(userRef, user, { merge: true });
 };

@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
@@ -31,11 +32,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    let storedUser: UserProfile | null = null;
     try {
-      const storedUser = localStorage.getItem('userProfile');
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        setUserState(parsedUser);
+      const userJson = localStorage.getItem('userProfile');
+      if (userJson) {
+        storedUser = JSON.parse(userJson);
+        setUserState(storedUser);
       }
     } catch (error) {
       console.error("Failed to access localStorage", error);
@@ -45,7 +47,15 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   }, []);
   
   const setUser = (profile: Omit<UserProfile, 'id'> | UserProfile) => {
-    const userProfile: UserProfile = 'id' in profile ? profile : { id: user?.id || uuidv4(), ...profile };
+    let userProfile: UserProfile;
+
+    if ('id' in profile) {
+      userProfile = profile;
+    } else {
+      // This handles new user creation from onboarding
+      const newId = user?.id || uuidv4();
+      userProfile = { id: newId, ...profile };
+    }
     
     setUserState(userProfile);
     
