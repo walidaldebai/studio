@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
 import { Trans } from 'react-i18next';
@@ -98,8 +98,26 @@ export default function DashboardPage() {
             </Link>
           </CardContent>
         </Card>
+
+        <Card className="flex flex-col hover:border-primary transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <Headset className="h-6 w-6" /> {t('dashboardCards.meditationsTitle')}
+            </CardTitle>
+            <CardDescription>
+              {t('dashboardCards.meditationsDescription')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex-grow flex items-end">
+            <Link href="/meditations" className="w-full">
+              <Button className="w-full">
+                {t('dashboardCards.meditationsButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
         
-        <Card className="md:col-span-2 lg:col-span-1 hover:border-primary transition-colors">
+        <Card className="md:col-span-2 lg:col-span-3 hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Mail className="h-6 w-6" /> {t('dashboardCards.feedbackTitle')}

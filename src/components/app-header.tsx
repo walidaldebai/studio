@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Mail, Wind, Languages } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Mail, Wind, Languages, Headset } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
@@ -49,6 +49,7 @@ export function AppHeader() {
     { href: '/guidance', label: t('guidance'), icon: BrainCircuit },
     { href: '/mood-journal', label: t('moodJournal'), icon: BookOpen },
     { href: '/breathing', label: t('breathing'), icon: Wind },
+    { href: '/meditations', label: t('meditations'), icon: Headset },
   ];
 
   return (
@@ -122,7 +123,7 @@ function HeartHandIcon(props: React.SVGProps<SVGSVGElement>) {
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
-        viewBox="0 0 24 24"
+        viewBox="0 0 24"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"

@@ -9,6 +9,7 @@
     "guidance": "التوجيه",
     "moodJournal": "يوميات المزاج",
     "breathing": "التنفس",
+    "meditations": "التأملات",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
     "onboarding": {
@@ -40,6 +41,9 @@
         "breathingTitle": "تمرين التنفس",
         "breathingDescription": "اتبع دليلًا مرئيًا بسيطًا لتهدئة عقلك وجسمك بتمرين التنفس.",
         "breathingButton": "ابدأ التمرين",
+        "meditationsTitle": "تأملات موجهة",
+        "meditationsDescription": "استمع إلى جلسات تأمل فريدة تم إنشاؤها بواسطة الذكاء الاصطناعي لمساعدتك على الاسترخاء والتركيز.",
+        "meditationsButton": "ابدأ التأمل",
         "feedbackTitle": "شاركنا رأيك",
         "feedbackDescription": "هل لديك أفكار أو اقتراحات؟ نود أن نسمع منك. أرسل أي ملاحظات إلى <1>walidaldebai@gmail.com</1>."
     },
@@ -88,6 +92,21 @@
             "solverDesc": "يستمع ويقدم حلولاً."
         },
         "connectionError": "أواجه مشكلة في الاتصال الآن. يرجى المحاولة مرة أخرى لاحقًا."
+    },
+    "meditationsPage": {
+        "title": "التأملات الموجهة بالذكاء الاصطناعي",
+        "description": "اختر موضوعًا لإنشاء جلسة تأمل فريدة لك.",
+        "selectTheme": "اختر موضوعًا",
+        "generateButton": "إنشاء جلسة",
+        "generating": "جاري الإنشاء...",
+        "generatingAudio": "جاري تحضير الصوت...",
+        "playerHint": "اضغط على تشغيل للبدء. أغمض عينيك واسترخ.",
+        "themes": {
+            "stress": "تخفيف التوتر",
+            "focus": "تركيز",
+            "gratitude": "امتنان",
+            "sleep": "نوم"
+        }
     },
     "settingsPage": {
         "title": "الإعدادات",

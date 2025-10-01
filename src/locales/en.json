@@ -9,6 +9,7 @@
     "guidance": "Guidance",
     "moodJournal": "Mood Journal",
     "breathing": "Breathing",
+    "meditations": "Meditations",
     "settings": "Settings",
     "logout": "Log out",
     "onboarding": {
@@ -40,6 +41,9 @@
         "breathingTitle": "Breathing Exercise",
         "breathingDescription": "Follow a simple visual guide to calm your mind and body with a breathing exercise.",
         "breathingButton": "Begin Exercise",
+        "meditationsTitle": "Guided Meditations",
+        "meditationsDescription": "Listen to unique, AI-generated meditation sessions to help you relax and focus.",
+        "meditationsButton": "Start Meditating",
         "feedbackTitle": "Share Your Feedback",
         "feedbackDescription": "Have ideas or suggestions? We'd love to hear from you. Send any feedback to <1>walidaldebai@gmail.com</1>."
     },
@@ -88,6 +92,21 @@
             "solverDesc": "Listens and offers solutions."
         },
         "connectionError": "I'm having trouble connecting right now. Please try again later."
+    },
+    "meditationsPage": {
+        "title": "AI Guided Meditations",
+        "description": "Select a theme to generate a unique meditation session just for you.",
+        "selectTheme": "Select a theme",
+        "generateButton": "Generate Session",
+        "generating": "Generating...",
+        "generatingAudio": "Brewing audio...",
+        "playerHint": "Press play to begin. Close your eyes and relax.",
+        "themes": {
+            "stress": "Stress Relief",
+            "focus": "Focus",
+            "gratitude": "Gratitude",
+            "sleep": "Sleep"
+        }
     },
     "settingsPage": {
         "title": "Settings",
