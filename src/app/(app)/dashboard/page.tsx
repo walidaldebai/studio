@@ -33,7 +33,7 @@ export default function DashboardPage() {
     try {
       await addFeedback({ name: user.name, feedback });
       toast({
-          title: 'Feedback submitted',
+          title: 'Feedback sent!',
           description: 'Thank you for helping us improve Zen Zone!',
       });
       setFeedback('');

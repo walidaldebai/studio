@@ -19,7 +19,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useUser } from '@/context/user-provider';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ShieldCheck, User, Lightbulb, MessageCircle } from 'lucide-react';
 import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-suggestions';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -74,7 +74,7 @@ export default function SettingsPage() {
     });
   }
 
-  function onAdminCodeSubmit(values: z.infer<typeof adminCodeFormSchema>) {
+  function onAdminCodeSubmit() {
     setAdminStatus(true);
     toast({
       title: 'Admin Mode Enabled',
@@ -231,7 +231,7 @@ export default function SettingsPage() {
                             <div className="flex justify-between items-start">
                                 <p className="text-sm font-semibold">{item.name}</p>
                                 <p className="text-xs text-muted-foreground">
-                                {formatDistanceToNow(item.createdAt, { addSuffix: true })}
+                                {formatDistanceToNow(new Date(item.createdAt), { addSuffix: true })}
                                 </p>
                             </div>
                             <p className="text-sm text-muted-foreground mt-1">{item.feedback}</p>

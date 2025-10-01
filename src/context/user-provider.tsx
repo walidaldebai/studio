@@ -3,8 +3,6 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, getDocs } from 'firebase/firestore';
 
 export interface UserProfile {
   name: string;
@@ -14,10 +12,10 @@ export interface UserProfile {
 }
 
 export interface Feedback {
-  id: string; // Firestore uses string IDs
+  id: string;
   name: string;
   feedback: string;
-  createdAt: Date;
+  createdAt: string; // Using ISO string for date
 }
 
 interface UserContextType {
@@ -41,75 +39,26 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    let unsubscribe: () => void;
-
-    const initialize = async () => {
+    const initialize = () => {
       try {
         const storedUser = localStorage.getItem('userProfile');
         if (storedUser) {
           setUserState(JSON.parse(storedUser));
         }
+        const storedFeedback = localStorage.getItem('feedback');
+        if (storedFeedback) {
+          setFeedback(JSON.parse(storedFeedback));
+        }
       } catch (error) {
         console.error("Failed to access localStorage", error);
-      }
-
-      // Set up Firestore listener for feedback
-      const feedbackCollection = collection(db, 'feedback');
-      const q = query(feedbackCollection, orderBy('createdAt', 'desc'));
-
-      try {
-        // Initial fetch to ensure we have data before setting isLoaded
-        const initialSnapshot = await getDocs(q);
-        const initialFeedback: Feedback[] = [];
-        initialSnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.createdAt) { // Ensure createdAt exists
-            initialFeedback.push({
-              id: doc.id,
-              name: data.name,
-              feedback: data.feedback,
-              createdAt: data.createdAt.toDate(),
-            });
-          }
-        });
-        setFeedback(initialFeedback);
-
-        // Now set up the real-time listener
-        unsubscribe = onSnapshot(q, (querySnapshot) => {
-          const feedbackData: Feedback[] = [];
-          querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            if (data.createdAt) {
-              feedbackData.push({
-                id: doc.id,
-                name: data.name,
-                feedback: data.feedback,
-                createdAt: data.createdAt.toDate(),
-              });
-            }
-          });
-          setFeedback(feedbackData);
-        }, (error) => {
-          console.error("Error fetching feedback: ", error);
-        });
-
-      } catch (error) {
-        console.error("Error with feedback subscription:", error);
       } finally {
         setIsLoaded(true);
       }
     };
 
     initialize();
-
-    // Cleanup subscription on unmount
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
   }, []);
-
+  
   const setUser = (user: UserProfile | null) => {
     setUserState(user);
     if (user) {
@@ -124,16 +73,38 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addFeedback = async (newFeedback: { name: string; feedback: string }) => {
-    await addDoc(collection(db, "feedback"), {
-      ...newFeedback,
-      createdAt: serverTimestamp(),
+    const response = await fetch('/api/send-feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newFeedback),
     });
+
+    if (!response.ok) {
+      throw new Error('Failed to send feedback');
+    }
+
+    const feedbackToAdd: Feedback = {
+        ...newFeedback,
+        id: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+    };
+
+    const updatedFeedback = [...feedback, feedbackToAdd];
+    setFeedback(updatedFeedback);
+    try {
+        localStorage.setItem('feedback', JSON.stringify(updatedFeedback));
+    } catch (error) {
+        console.error("Could not save feedback to localStorage", error);
+    }
   };
   
   const logout = () => {
     setUser(null);
-    setIsAdmin(false);
+    setIsAdmin(false); // Also clear admin status on logout
     localStorage.removeItem('userProfile');
+    // We don't clear feedback so the admin can see it even after logging out/in.
     router.push('/onboarding');
   }
 
