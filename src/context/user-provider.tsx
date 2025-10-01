@@ -3,7 +3,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { saveUser, onUsersSnapshot } from '@/lib/firebase';
+import { saveUser, onUsersSnapshot, initializeFirebase } from '@/lib/firebase';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface UserProfile {
@@ -34,6 +34,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
+    initializeFirebase();
+
     const initialize = () => {
       try {
         const storedUser = localStorage.getItem('userProfile');

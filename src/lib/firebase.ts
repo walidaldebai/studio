@@ -1,5 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, setDoc, onSnapshot } from 'firebase/firestore';
+
+'use client';
+
+import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
+import { getFirestore, collection, doc, setDoc, onSnapshot, type Firestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   projectId: 'studio-8438523234-c4061',
@@ -11,22 +14,34 @@ const firebaseConfig = {
   measurementId: 'G-3FGERJ3X8E'
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+let app: FirebaseApp;
+let db: Firestore;
 
-const usersCollection = collection(db, 'users');
+function initializeFirebase() {
+  if (!getApps().length) {
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+  } else {
+    app = getApps()[0];
+    db = getFirestore(app);
+  }
+  return { app, db };
+}
 
-export const saveUser = async (user: any) => {
+const saveUser = async (user: any) => {
+  const { db } = initializeFirebase();
   if (!user || !user.id) return;
   const userRef = doc(db, 'users', user.id);
   await setDoc(userRef, user, { merge: true });
 };
 
-export const onUsersSnapshot = (callback: (users: any[]) => void) => {
+const onUsersSnapshot = (callback: (users: any[]) => void) => {
+  const { db } = initializeFirebase();
+  const usersCollection = collection(db, 'users');
   return onSnapshot(usersCollection, (snapshot) => {
     const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     callback(users);
   });
 };
 
-export { db };
+export { initializeFirebase, saveUser, onUsersSnapshot, db };
