@@ -27,7 +27,7 @@ interface UserContextType {
   feedback: Feedback[];
   setUser: (user: UserProfile | null) => void;
   setAdminStatus: (status: boolean) => void;
-  addFeedback: (feedback: { name: string; feedback: string }) => Promise<void>;
+  addFeedback: (feedback: { name: string; feedback: string }) => void;
   logout: () => void;
 }
 
@@ -89,8 +89,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setIsAdmin(status);
   };
 
-  const addFeedback = async (newFeedback: { name: string; feedback: string }) => {
-    await addDoc(collection(db, "feedback"), {
+  const addFeedback = (newFeedback: { name: string; feedback: string }) => {
+    addDoc(collection(db, "feedback"), {
       ...newFeedback,
       createdAt: new Date(),
     });

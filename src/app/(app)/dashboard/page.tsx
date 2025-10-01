@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const [feedback, setFeedback] = useState('');
   const heroImage = PlaceHolderImages.find(img => img.id === 'zen-dashboard-hero');
 
-  const handleFeedbackSubmit = async (e: React.FormEvent) => {
+  const handleFeedbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
     if (feedback.trim().length < 10) {
@@ -29,20 +29,12 @@ export default function DashboardPage() {
       return;
     }
     
-    try {
-        await addFeedback({ name: user.name, feedback });
-        toast({
-          title: 'Feedback submitted',
-          description: 'Thank you for helping us improve Zen Zone!',
-        });
-        setFeedback('');
-    } catch (error) {
-        toast({
-            variant: 'destructive',
-            title: 'Submission failed',
-            description: 'Could not submit your feedback at this time.',
-        });
-    }
+    addFeedback({ name: user.name, feedback });
+    toast({
+        title: 'Feedback submitted',
+        description: 'Thank you for helping us improve Zen Zone!',
+    });
+    setFeedback('');
   };
 
   return (
