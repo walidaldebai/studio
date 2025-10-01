@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Mail, Wind } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Mail, Wind, Languages } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
@@ -17,7 +17,26 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useAppTranslation } from '@/context/language-provider';
+import { useAppTranslation, useLanguage } from '@/context/language-provider';
+
+function LanguageToggle() {
+    const { language, setLanguage } = useLanguage();
+  
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                    <Languages className="h-[1.2rem] w-[1.2rem]" />
+                    <span className="sr-only">Toggle language</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setLanguage('en')} disabled={language === 'en'}>English</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('ar')} disabled={language === 'ar'}>العربية</DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+  }
 
 export function AppHeader() {
   const pathname = usePathname();
@@ -59,6 +78,7 @@ export function AppHeader() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
+          <LanguageToggle />
           <ThemeToggle />
           {user && (
             <DropdownMenu>

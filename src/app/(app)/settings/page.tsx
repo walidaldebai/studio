@@ -20,12 +20,11 @@ import { useUser } from '@/context/user-provider';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useEffect, useState } from 'react';
-import { ShieldCheck, User, Lightbulb, Languages } from 'lucide-react';
+import { ShieldCheck, User, Lightbulb } from 'lucide-react';
 import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-suggestions';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
-import { useLanguage, useAppTranslation } from '@/context/language-provider';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAppTranslation } from '@/context/language-provider';
 
 
 const profileFormSchema = z.object({
@@ -53,7 +52,6 @@ export default function SettingsPage() {
   const [suggestions, setSuggestions] = useState('');
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
   const [activeTab, setActiveTab] = useState("profile");
-  const { language, setLanguage } = useLanguage();
   const { t } = useAppTranslation();
 
   const profileForm = useForm<z.infer<typeof profileFormSchema>>({
@@ -117,9 +115,8 @@ export default function SettingsPage() {
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-headline font-bold mb-6">{t('settingsPage.title')}</h1>
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="profile"><User className="mr-2 h-4 w-4"/>{t('settingsPage.profileTab')}</TabsTrigger>
-            <TabsTrigger value="language"><Languages className="mr-2 h-4 w-4"/>{t('settingsPage.languageTab')}</TabsTrigger>
             <TabsTrigger value="admin" onClick={() => !isAdmin && adminCodeForm.setFocus('adminCode')}><ShieldCheck className="mr-2 h-4 w-4"/>{t('settingsPage.adminTab')}</TabsTrigger>
           </TabsList>
           
@@ -185,28 +182,6 @@ export default function SettingsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="language">
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('settingsPage.language')}</CardTitle>
-                <CardDescription>{t('settingsPage.languageDescription')}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="w-full max-w-xs">
-                  <Select value={language} onValueChange={(value: 'en' | 'ar') => setLanguage(value)}>
-                      <SelectTrigger>
-                          <SelectValue placeholder={t('settingsPage.selectLanguage')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                          <SelectItem value="en">English</SelectItem>
-                          <SelectItem value="ar">العربية</SelectItem>
-                      </SelectContent>
-                  </Select>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
           <TabsContent value="admin">
             <div className="relative">
               {!isAdmin && (
