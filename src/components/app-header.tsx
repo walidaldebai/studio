@@ -17,18 +17,20 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-
-const navLinks = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/rant-chat', label: 'Rant Chat', icon: MessageSquare },
-  { href: '/guidance', label: 'Guidance', icon: BrainCircuit },
-  { href: '/mood-journal', label: 'Mood Journal', icon: BookOpen },
-  { href: '/breathing', label: 'Breathing', icon: Wind },
-];
+import { useAppTranslation } from '@/context/language-provider';
 
 export function AppHeader() {
   const pathname = usePathname();
   const { user, logout } = useUser();
+  const { t } = useAppTranslation();
+
+  const navLinks = [
+    { href: '/dashboard', label: t('dashboard'), icon: LayoutDashboard },
+    { href: '/rant-chat', label: t('rantChat'), icon: MessageSquare },
+    { href: '/guidance', label: t('guidance'), icon: BrainCircuit },
+    { href: '/mood-journal', label: t('moodJournal'), icon: BookOpen },
+    { href: '/breathing', label: t('breathing'), icon: Wind },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -36,8 +38,8 @@ export function AppHeader() {
         <div className="mr-4 flex items-center">
           <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
             <HeartHandIcon className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline text-lg">Zen Zone</span>
-            <Badge variant="outline">Alpha 1.00</Badge>
+            <span className="font-bold font-headline text-lg">{t('appName')}</span>
+            <Badge variant="outline">{t('appVersion')}</Badge>
           </Link>
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
             {navLinks.map(({ href, label, icon: Icon }) => (
@@ -76,13 +78,13 @@ export function AppHeader() {
                 <DropdownMenuItem asChild>
                    <Link href="/settings">
                     <Settings className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
+                    <span>{t('settings')}</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={logout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <span>{t('logout')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -16,14 +16,16 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { useUser, type UserProfile } from '@/context/user-provider';
+import { useUser } from '@/context/user-provider';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useEffect, useState } from 'react';
-import { ShieldCheck, User, Lightbulb } from 'lucide-react';
+import { ShieldCheck, User, Lightbulb, Languages } from 'lucide-react';
 import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-suggestions';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { useLanguage, useAppTranslation } from '@/context/language-provider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 
 const profileFormSchema = z.object({
@@ -51,6 +53,8 @@ export default function SettingsPage() {
   const [suggestions, setSuggestions] = useState('');
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
   const [activeTab, setActiveTab] = useState("profile");
+  const { language, setLanguage } = useLanguage();
+  const { t } = useAppTranslation();
 
   const profileForm = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
@@ -76,16 +80,16 @@ export default function SettingsPage() {
   function onProfileSubmit(values: z.infer<typeof profileFormSchema>) {
     setUser(values);
     toast({
-      title: 'Profile Updated',
-      description: 'Your profile information has been saved.',
+      title: t('settingsPage.profileUpdated'),
+      description: t('settingsPage.profileUpdatedDesc'),
     });
   }
 
   function onAdminCodeSubmit() {
     setAdminStatus(true);
     toast({
-      title: 'Admin Mode Enabled',
-      description: 'You now have access to administrative features.',
+      title: t('settingsPage.adminEnabled'),
+      description: t('settingsPage.adminEnabledDesc'),
     });
     adminCodeForm.reset();
   }
@@ -111,18 +115,19 @@ export default function SettingsPage() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-headline font-bold mb-6">Settings</h1>
+        <h1 className="text-3xl font-headline font-bold mb-6">{t('settingsPage.title')}</h1>
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="profile"><User className="mr-2 h-4 w-4"/>Profile</TabsTrigger>
-            <TabsTrigger value="admin" onClick={() => !isAdmin && adminCodeForm.setFocus('adminCode')}><ShieldCheck className="mr-2 h-4 w-4"/>Admin Panel</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="profile"><User className="mr-2 h-4 w-4"/>{t('settingsPage.profileTab')}</TabsTrigger>
+            <TabsTrigger value="language"><Languages className="mr-2 h-4 w-4"/>{t('settingsPage.languageTab')}</TabsTrigger>
+            <TabsTrigger value="admin" onClick={() => !isAdmin && adminCodeForm.setFocus('adminCode')}><ShieldCheck className="mr-2 h-4 w-4"/>{t('settingsPage.adminTab')}</TabsTrigger>
           </TabsList>
           
           <TabsContent value="profile">
             <Card>
               <CardHeader>
-                <CardTitle>User Profile</CardTitle>
-                <CardDescription>Update your personal information here.</CardDescription>
+                <CardTitle>{t('settingsPage.profileTitle')}</CardTitle>
+                <CardDescription>{t('settingsPage.profileDescription')}</CardDescription>
               </CardHeader>
               <Form {...profileForm}>
                 <form onSubmit={profileForm.handleSubmit(onProfileSubmit)}>
@@ -132,7 +137,7 @@ export default function SettingsPage() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Name</FormLabel>
+                          <FormLabel>{t('settingsPage.name')}</FormLabel>
                           <FormControl><Input {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
@@ -143,7 +148,7 @@ export default function SettingsPage() {
                       name="gender"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Gender</FormLabel>
+                          <FormLabel>{t('settingsPage.gender')}</FormLabel>
                           <FormControl><Input {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
@@ -154,7 +159,7 @@ export default function SettingsPage() {
                       name="specialization"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Specialization / Profession</FormLabel>
+                          <FormLabel>{t('settingsPage.specialization')}</FormLabel>
                           <FormControl><Input {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
@@ -165,7 +170,7 @@ export default function SettingsPage() {
                       name="healthIssues"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Health Issues or Concerns (Optional)</FormLabel>
+                          <FormLabel>{t('settingsPage.healthIssues')}</FormLabel>
                           <FormControl><Textarea {...field} /></FormControl>
                           <FormMessage />
                         </FormItem>
@@ -173,10 +178,32 @@ export default function SettingsPage() {
                     />
                   </CardContent>
                   <CardFooter>
-                    <Button type="submit">Save Changes</Button>
+                    <Button type="submit">{t('settingsPage.saveChanges')}</Button>
                   </CardFooter>
                 </form>
               </Form>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="language">
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('settingsPage.language')}</CardTitle>
+                <CardDescription>{t('settingsPage.languageDescription')}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="w-full max-w-xs">
+                  <Select value={language} onValueChange={(value: 'en' | 'ar') => setLanguage(value)}>
+                      <SelectTrigger>
+                          <SelectValue placeholder={t('settingsPage.selectLanguage')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                          <SelectItem value="en">English</SelectItem>
+                          <SelectItem value="ar">العربية</SelectItem>
+                      </SelectContent>
+                  </Select>
+                </div>
+              </CardContent>
             </Card>
           </TabsContent>
           
@@ -186,8 +213,8 @@ export default function SettingsPage() {
                 <div className="absolute inset-0 bg-background/50 backdrop-blur-sm z-10 flex items-center justify-center">
                   <Card className="w-full max-w-sm">
                     <CardHeader>
-                      <CardTitle>Admin Mode</CardTitle>
-                      <CardDescription>Unlock administrative features for the app.</CardDescription>
+                      <CardTitle>{t('settingsPage.adminMode')}</CardTitle>
+                      <CardDescription>{t('settingsPage.adminDescription')}</CardDescription>
                     </CardHeader>
                     <Form {...adminCodeForm}>
                       <form onSubmit={adminCodeForm.handleSubmit(onAdminCodeSubmit)}>
@@ -197,18 +224,18 @@ export default function SettingsPage() {
                             name="adminCode"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Admin Code</FormLabel>
+                                <FormLabel>{t('settingsPage.adminCode')}</FormLabel>
                                 <FormControl>
-                                  <Input type="password" placeholder="Enter secret code" {...field} />
+                                  <Input type="password" placeholder={t('settingsPage.adminCodePlaceholder')} {...field} />
                                 </FormControl>
-                                <FormDescription>Enter the code to enable admin mode.</FormDescription>
+                                <FormDescription>{t('settingsPage.adminCodeDesc')}</FormDescription>
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
                         </CardContent>
                         <CardFooter>
-                          <Button type="submit">Enable Admin Mode</Button>
+                          <Button type="submit">{t('settingsPage.enableAdmin')}</Button>
                         </CardFooter>
                       </form>
                     </Form>
@@ -218,14 +245,14 @@ export default function SettingsPage() {
               
               <div className={cn("space-y-8", { 'pointer-events-none opacity-50': !isAdmin })}>
                  <div>
-                  <h2 className="text-2xl font-headline font-bold">Admin Dashboard</h2>
-                  <p className="text-muted-foreground">Oversee app feedback and generate AI-powered improvements.</p>
+                  <h2 className="text-2xl font-headline font-bold">{t('settingsPage.adminDashboard')}</h2>
+                  <p className="text-muted-foreground">{t('settingsPage.adminDashboardDesc')}</p>
                 </div>
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>AI Suggestion Generator</CardTitle>
-                    <CardDescription>Provide summarized user feedback and usage data to get improvement ideas.</CardDescription>
+                    <CardTitle>{t('settingsPage.aiSuggestionGenerator')}</CardTitle>
+                    <CardDescription>{t('settingsPage.aiSuggestionGeneratorDesc')}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Form {...suggestionForm}>
@@ -235,7 +262,7 @@ export default function SettingsPage() {
                           name="userFeedback"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>User Feedback Summary</FormLabel>
+                              <FormLabel>{t('settingsPage.userFeedback')}</FormLabel>
                               <FormControl>
                                 <Textarea
                                   placeholder="E.g., 'Users are enjoying the Rant Chat but find the UI confusing. Many have requested a feature to save conversations...'"
@@ -252,7 +279,7 @@ export default function SettingsPage() {
                           name="usageData"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>App Usage Data Summary</FormLabel>
+                              <FormLabel>{t('settingsPage.usageData')}</FormLabel>
                               <FormControl>
                                 <Textarea
                                   placeholder="E.g., 'Rant Chat DAU is up 20%. Guidance feature has a 50% drop-off rate after the first use. 75% of users are on the dark theme...'"
@@ -265,7 +292,7 @@ export default function SettingsPage() {
                           )}
                         />
                         <Button type="submit" disabled={isLoadingSuggestions}>
-                          {isLoadingSuggestions ? 'Generating...' : 'Generate Suggestions'}
+                          {isLoadingSuggestions ? t('settingsPage.generating') : t('settingsPage.generateSuggestions')}
                         </Button>
                       </form>
                     </Form>
@@ -277,7 +304,7 @@ export default function SettingsPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Lightbulb className="h-6 w-6 text-primary" />
-                        Actionable Suggestions
+                        {t('settingsPage.actionableSuggestions')}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>

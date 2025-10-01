@@ -3,15 +3,19 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Wind } from 'lucide-react';
-
-const breathingCycle = [
-  { text: 'Breathe In', duration: 4000, scale: 1.5 },
-  { text: 'Hold', duration: 4000, scale: 1.5 },
-  { text: 'Breathe Out', duration: 6000, scale: 1 },
-  { text: 'Hold', duration: 2000, scale: 1 },
-];
+import { useAppTranslation } from '@/context/language-provider';
+import { Trans } from 'react-i18next';
 
 export default function BreathingPage() {
+  const { t } = useAppTranslation();
+
+  const breathingCycle = [
+    { text: t('breathingPage.breatheIn'), duration: 4000, scale: 1.5 },
+    { text: t('breathingPage.hold'), duration: 4000, scale: 1.5 },
+    { text: t('breathingPage.breatheOut'), duration: 6000, scale: 1 },
+    { text: t('breathingPage.hold'), duration: 2000, scale: 1 },
+  ];
+
   const [cycleIndex, setCycleIndex] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
@@ -23,7 +27,7 @@ export default function BreathingPage() {
     }, cycle.duration);
 
     return () => clearTimeout(timer);
-  }, [cycleIndex]);
+  }, [cycleIndex, t]);
 
   if (!isClient) {
     return null; // Don't render on the server
@@ -53,7 +57,9 @@ export default function BreathingPage() {
       >
       </div>
        <p className="text-muted-foreground absolute bottom-8 text-center text-sm">
-        Follow the guide to regulate your breathing. <br/> Feel free to close your eyes and focus on the sensation.
+        <Trans i18nKey="breathingPage.instructions">
+          Follow the guide to regulate your breathing. <br/> Feel free to close your eyes and focus on the sensation.
+        </Trans>
       </p>
     </div>
   );

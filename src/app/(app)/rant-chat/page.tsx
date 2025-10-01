@@ -5,11 +5,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, User, Bot } from 'lucide-react';
+import { Send, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { rantChatEmpathy } from '@/ai/flows/rant-chat-empathy';
 import { useUser } from '@/context/user-provider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAppTranslation } from '@/context/language-provider';
 
 interface Message {
   id: number;
@@ -19,17 +20,26 @@ interface Message {
 
 type Personality = 'Empathetic Listener' | 'Talkative Friend' | 'Problem Solver';
 
-const personalities: { value: Personality, description: string }[] = [
-    { value: 'Empathetic Listener', description: 'Just listens and understands.' },
-    { value: 'Talkative Friend', description: 'Listens and shares relatable stories.' },
-    { value: 'Problem Solver', description: 'Listens and offers solutions.' },
-];
-
 export default function RantChatPage() {
+  const { t } = useAppTranslation();
+  
+  const personalities: { value: Personality, description: string }[] = [
+      { value: 'Empathetic Listener', description: t('rantChatPage.personalities.listenerDesc') },
+      { value: 'Talkative Friend', description: t('rantChatPage.personalities.friendDesc') },
+      { value: 'Problem Solver', description: t('rantChatPage.personalities.solverDesc') },
+  ];
+
+  const getTranslatedPersonality = (p: Personality) => {
+    if (p === 'Empathetic Listener') return t('rantChatPage.personalities.listener');
+    if (p === 'Talkative Friend') return t('rantChatPage.personalities.friend');
+    if (p === 'Problem Solver') return t('rantChatPage.personalities.solver');
+    return p;
+  };
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "This is a safe space to vent your frustrations. What's on your mind?",
+      text: t('rantChatPage.initialMessage'),
       sender: 'ai',
     },
   ]);
@@ -65,7 +75,7 @@ export default function RantChatPage() {
     } catch (error) {
       const errorMessage: Message = {
         id: Date.now() + 1,
-        text: "I'm having trouble connecting right now. Please try again later.",
+        text: t('rantChatPage.connectionError'),
         sender: 'ai',
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -90,8 +100,8 @@ export default function RantChatPage() {
             <header className="p-4 border-b space-y-2">
                 <div className="flex justify-between items-center">
                     <div>
-                        <h1 className="text-xl font-headline font-semibold">Rant Chat</h1>
-                        <p className="text-sm text-muted-foreground">A safe space to let it all out.</p>
+                        <h1 className="text-xl font-headline font-semibold">{t('rantChatPage.title')}</h1>
+                        <p className="text-sm text-muted-foreground">{t('rantChatPage.description')}</p>
                     </div>
                     <div className="w-48">
                         <Select value={personality} onValueChange={(value: Personality) => setPersonality(value)} disabled={isLoading}>
@@ -101,7 +111,7 @@ export default function RantChatPage() {
                             <SelectContent>
                                 {personalities.map(p => (
                                     <SelectItem key={p.value} value={p.value}>
-                                        <p className="font-semibold">{p.value}</p>
+                                        <p className="font-semibold">{getTranslatedPersonality(p.value)}</p>
                                         <p className="text-xs text-muted-foreground">{p.description}</p>
                                     </SelectItem>
                                 ))}
@@ -161,7 +171,7 @@ export default function RantChatPage() {
           <div className="p-4 border-t">
             <div className="relative">
               <Input
-                placeholder="Type your message..."
+                placeholder={t('rantChatPage.inputPlaceholder')}
                 value={inputValue}
                 onChange={e => setInputValue(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSendMessage()}

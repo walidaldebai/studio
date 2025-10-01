@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from '@/context/theme-provider';
 import { UserProvider } from '@/context/user-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { LanguageProvider } from '@/context/language-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -26,10 +27,12 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <UserProvider>
-            {children}
-            <Toaster />
-          </UserProvider>
+          <LanguageProvider>
+            <UserProvider>
+              {children}
+              <Toaster />
+            </UserProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { BrainCircuit } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useAppTranslation } from '@/context/language-provider';
 
 const formSchema = z.object({
   needs: z.string().min(10, {
@@ -23,6 +24,7 @@ export default function GuidancePage() {
   const { user } = useUser();
   const [advice, setAdvice] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { t } = useAppTranslation();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,9 +55,9 @@ export default function GuidancePage() {
       <div className="max-w-3xl mx-auto">
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline text-3xl">Personalized Guidance</CardTitle>
+            <CardTitle className="font-headline text-3xl">{t('guidancePage.title')}</CardTitle>
             <CardDescription>
-              Based on your profile, what specific wellness questions do you have today?
+              {t('guidancePage.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -66,10 +68,10 @@ export default function GuidancePage() {
                   name="needs"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>My wellness needs</FormLabel>
+                      <FormLabel>{t('guidancePage.needsLabel')}</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="E.g., 'How can I improve my sleep quality?' or 'Suggest some quick relaxation exercises for a busy day.'"
+                          placeholder={t('guidancePage.needsPlaceholder')}
                           className="min-h-[100px]"
                           {...field}
                         />
@@ -79,7 +81,7 @@ export default function GuidancePage() {
                   )}
                 />
                 <Button type="submit" disabled={isLoading}>
-                  {isLoading ? 'Generating...' : 'Get My Advice'}
+                  {isLoading ? t('guidancePage.generating') : t('guidancePage.button')}
                 </Button>
               </form>
             </Form>
@@ -90,7 +92,7 @@ export default function GuidancePage() {
           <Card className="mt-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 font-headline">
-                <BrainCircuit className="h-6 w-6" /> Your AI-Powered Advice
+                <BrainCircuit className="h-6 w-6" /> {t('guidancePage.adviceTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent>

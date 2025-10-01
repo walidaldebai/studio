@@ -8,6 +8,7 @@ import { useUser } from '@/context/user-provider';
 import { Smile, Meh, Frown, BookOpen, BarChart2 } from 'lucide-react';
 import { ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Bar } from 'recharts';
 import { format, subDays, startOfDay } from 'date-fns';
+import { useAppTranslation } from '@/context/language-provider';
 
 type Mood = 'Happy' | 'Neutral' | 'Sad';
 
@@ -17,28 +18,30 @@ interface MoodEntry {
   note?: string;
 }
 
-const moodOptions: { mood: Mood; icon: React.ReactNode }[] = [
-  { mood: 'Happy', icon: <Smile className="h-10 w-10 text-green-500" /> },
-  { mood: 'Neutral', icon: <Meh className="h-10 w-10 text-yellow-500" /> },
-  { mood: 'Sad', icon: <Frown className="h-10 w-10 text-red-500" /> },
-];
-
-const moodToValue = (mood: Mood): number => {
-  if (mood === 'Happy') return 3;
-  if (mood === 'Neutral') return 2;
-  if (mood === 'Sad') return 1;
-  return 0;
-};
-
-const valueToMood = (value: number): Mood | null => {
-    if (value === 3) return 'Happy';
-    if (value === 2) return 'Neutral';
-    if (value === 1) return 'Sad';
-    return null;
-}
-
 export default function MoodJournalPage() {
   const { user } = useUser();
+  const { t } = useAppTranslation();
+
+  const moodOptions: { mood: Mood; icon: React.ReactNode }[] = [
+    { mood: 'Happy', icon: <Smile className="h-10 w-10 text-green-500" /> },
+    { mood: 'Neutral', icon: <Meh className="h-10 w-10 text-yellow-500" /> },
+    { mood: 'Sad', icon: <Frown className="h-10 w-10 text-red-500" /> },
+  ];
+
+  const moodToValue = (mood: Mood): number => {
+    if (mood === 'Happy') return 3;
+    if (mood === 'Neutral') return 2;
+    if (mood === 'Sad') return 1;
+    return 0;
+  };
+
+  const valueToMood = (value: number): Mood | null => {
+      if (value === 3) return 'Happy';
+      if (value === 2) return 'Neutral';
+      if (value === 1) return 'Sad';
+      return null;
+  }
+  
   const [moodEntries, setMoodEntries] = useState<MoodEntry[]>([]);
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
   const [note, setNote] = useState('');
@@ -95,6 +98,13 @@ export default function MoodJournalPage() {
       };
     });
   };
+  
+  const getTranslatedMood = (mood: Mood | null): string => {
+    if (mood === 'Happy') return t('moodJournalPage.moods.happy');
+    if (mood === 'Neutral') return t('moodJournalPage.moods.neutral');
+    if (mood === 'Sad') return t('moodJournalPage.moods.sad');
+    return t('moodJournalPage.moods.notLogged');
+  }
 
   return (
     <div className="container mx-auto p-4 md:p-8">
@@ -102,17 +112,17 @@ export default function MoodJournalPage() {
         <Card>
           <CardHeader>
             <CardTitle className="font-headline text-3xl flex items-center gap-2">
-              <BookOpen /> Mood Journal
+              <BookOpen /> {t('moodJournalPage.title')}
             </CardTitle>
             <CardDescription>
-              How are you feeling today? Log your mood to track your emotional well-being.
+              {t('moodJournalPage.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             {hasLoggedToday ? (
               <div className="text-center p-8 bg-muted rounded-lg">
-                <p className="font-semibold text-lg">You've already logged your mood for today.</p>
-                <p className="text-muted-foreground">Come back tomorrow to log again!</p>
+                <p className="font-semibold text-lg">{t('moodJournalPage.loggedToday')}</p>
+                <p className="text-muted-foreground">{t('moodJournalPage.comeBackTomorrow')}</p>
               </div>
             ) : (
               <div className="space-y-6">
@@ -122,7 +132,7 @@ export default function MoodJournalPage() {
                       key={mood}
                       onClick={() => setSelectedMood(mood)}
                       className={`p-4 rounded-full transition-all duration-200 ${selectedMood === mood ? 'bg-primary/20 scale-110' : 'hover:bg-primary/10'}`}
-                      aria-label={`Select mood: ${mood}`}
+                      aria-label={`Select mood: ${getTranslatedMood(mood)}`}
                     >
                       {icon}
                     </button>
@@ -131,13 +141,13 @@ export default function MoodJournalPage() {
                 {selectedMood && (
                   <div className="space-y-4">
                     <Textarea
-                      placeholder="Add a note about your mood (optional)"
+                      placeholder={t('moodJournalPage.notePlaceholder')}
                       value={note}
                       onChange={(e) => setNote(e.target.value)}
                       className="min-h-[100px]"
                     />
                     <Button onClick={handleSaveMood} className="w-full">
-                      Save Today's Mood
+                      {t('moodJournalPage.saveButton')}
                     </Button>
                   </div>
                 )}
@@ -149,9 +159,9 @@ export default function MoodJournalPage() {
         <Card>
           <CardHeader>
             <CardTitle className="font-headline flex items-center gap-2">
-                <BarChart2 /> Mood History (Last 7 Days)
+                <BarChart2 /> {t('moodJournalPage.chartTitle')}
             </CardTitle>
-            <CardDescription>Visualize your mood patterns over the past week.</CardDescription>
+            <CardDescription>{t('moodJournalPage.chartDescription')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-64 w-full">
@@ -163,7 +173,7 @@ export default function MoodJournalPage() {
                             fontSize={12} 
                             domain={[0, 3]} 
                             ticks={[1, 2, 3]}
-                            tickFormatter={(value) => valueToMood(value) || ''}
+                            tickFormatter={(value) => getTranslatedMood(valueToMood(value))}
                         />
                         <Tooltip
                             cursor={{ fill: 'hsl(var(--muted))' }}
@@ -174,7 +184,7 @@ export default function MoodJournalPage() {
                                 return (
                                 <div className="p-2 bg-background border rounded-lg shadow-sm">
                                     <p className="font-bold">{`${label} (${(payload[0].payload as any).fullDate})`}</p>
-                                    <p className="text-sm">Mood: {mood || 'Not Logged'}</p>
+                                    <p className="text-sm">Mood: {getTranslatedMood(mood)}</p>
                                 </div>
                                 );
                             }

@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import type { UserProfile } from '@/context/user-provider';
+import { useAppTranslation } from '@/context/language-provider';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -33,6 +34,7 @@ type OnboardingFormProps = {
 };
 
 export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
+  const { t } = useAppTranslation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,7 +52,7 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="font-headline">Your Profile</CardTitle>
+        <CardTitle className="font-headline">{t('onboarding.title')}</CardTitle>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -60,9 +62,9 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t('onboarding.name')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="E.g., Jane Doe" {...field} />
+                    <Input placeholder={t('onboarding.namePlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -73,9 +75,9 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Gender</FormLabel>
+                  <FormLabel>{t('onboarding.gender')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="E.g., Female" {...field} />
+                    <Input placeholder={t('onboarding.genderPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -86,9 +88,9 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
               name="specialization"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Specialization / Profession</FormLabel>
+                  <FormLabel>{t('onboarding.specialization')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="E.g., Software Developer, Student" {...field} />
+                    <Input placeholder={t('onboarding.specializationPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -99,9 +101,9 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
               name="healthIssues"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Health Issues or Concerns (Optional)</FormLabel>
+                  <FormLabel>{t('onboarding.healthIssues')}</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="E.g., Anxiety, trouble sleeping" {...field} />
+                    <Textarea placeholder={t('onboarding.healthIssuesPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -110,7 +112,7 @@ export function OnboardingForm({ onOnboardingComplete }: OnboardingFormProps) {
           </CardContent>
           <CardFooter>
             <Button type="submit" className="w-full">
-              Sign Up
+              {t('onboarding.signUp')}
             </Button>
           </CardFooter>
         </form>
