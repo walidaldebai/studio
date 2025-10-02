@@ -9,7 +9,6 @@ import { Send, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { rantChatEmpathy } from '@/ai/flows/rant-chat-empathy';
 import { useUser } from '@/context/user-provider';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAppTranslation } from '@/context/language-provider';
 
 interface Message {
@@ -18,24 +17,9 @@ interface Message {
   sender: 'user' | 'ai';
 }
 
-type Personality = 'Empathetic Listener' | 'Talkative Friend' | 'Problem Solver';
-
 export default function RantChatPage() {
   const { t } = useAppTranslation();
   
-  const personalities: { value: Personality, description: string }[] = [
-      { value: 'Empathetic Listener', description: t('rantChatPage.personalities.listenerDesc') },
-      { value: 'Talkative Friend', description: t('rantChatPage.personalities.friendDesc') },
-      { value: 'Problem Solver', description: t('rantChatPage.personalities.solverDesc') },
-  ];
-
-  const getTranslatedPersonality = (p: Personality) => {
-    if (p === 'Empathetic Listener') return t('rantChatPage.personalities.listener');
-    if (p === 'Talkative Friend') return t('rantChatPage.personalities.friend');
-    if (p === 'Problem Solver') return t('rantChatPage.personalities.solver');
-    return p;
-  };
-
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -45,7 +29,6 @@ export default function RantChatPage() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [personality, setPersonality] = useState<Personality>('Empathetic Listener');
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { user } = useUser();
 
@@ -64,7 +47,7 @@ export default function RantChatPage() {
 
     try {
       const context = messages.map(m => `${m.sender}: ${m.text}`).join('\n');
-      const response = await rantChatEmpathy({ rant: inputValue, context, personality });
+      const response = await rantChatEmpathy({ rant: inputValue, context });
       
       const aiMessage: Message = {
         id: Date.now() + 1,
@@ -98,26 +81,9 @@ export default function RantChatPage() {
       <div className="flex-1 p-6 flex flex-col items-center">
         <div className="w-full max-w-3xl flex flex-col h-full border rounded-xl shadow-sm">
             <header className="p-4 border-b space-y-2">
-                <div className="flex justify-between items-center">
-                    <div>
-                        <h1 className="text-xl font-headline font-semibold">{t('rantChatPage.title')}</h1>
-                        <p className="text-sm text-muted-foreground">{t('rantChatPage.description')}</p>
-                    </div>
-                    <div className="w-48">
-                        <Select value={personality} onValueChange={(value: Personality) => setPersonality(value)} disabled={isLoading}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Select a personality" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {personalities.map(p => (
-                                    <SelectItem key={p.value} value={p.value}>
-                                        <p className="font-semibold">{getTranslatedPersonality(p.value)}</p>
-                                        <p className="text-xs text-muted-foreground">{p.description}</p>
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
+                <div>
+                    <h1 className="text-xl font-headline font-semibold">{t('rantChatPage.title')}</h1>
+                    <p className="text-sm text-muted-foreground">{t('rantChatPage.description')}</p>
                 </div>
             </header>
           <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
