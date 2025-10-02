@@ -12,7 +12,6 @@
     "meditations": "Meditations",
     "settings": "Settings",
     "logout": "Log out",
-    "feedback": "Feedback",
     "onboarding": {
         "title": "Welcome to Zen Zone",
         "subtitle": "Let's set up your profile to personalize your experience.",
@@ -45,9 +44,8 @@
         "meditationsTitle": "Guided Meditations",
         "meditationsDescription": "Listen to unique, AI-generated meditation sessions to help you relax and focus.",
         "meditationsButton": "Start Meditating",
-        "feedbackTitle": "Share Your Feedback",
-        "feedbackDescription": "Have ideas or suggestions? We'd love to hear from you.",
-        "feedbackButton": "Submit Feedback"
+        "feedbackTitle": "Feedback & Suggestions",
+        "feedbackDescription": "If you have any bugs or suggestions, please send them to"
     },
     "breathingPage": {
         "breatheIn": "Breathe In",
@@ -137,17 +135,5 @@
         "language": "Language",
         "languageDescription": "Choose your preferred language.",
         "selectLanguage": "Select a language"
-    },
-    "feedbackPage": {
-        "title": "Submit Feedback",
-        "description": "We value your input. Share your thoughts or suggestions to help us improve Zen Zone.",
-        "formLabel": "Your Feedback",
-        "formPlaceholder": "Tell us what's on your mind...",
-        "sendButton": "Send Feedback",
-        "sending": "Sending...",
-        "successTitle": "Thank you!",
-        "successDescription": "Your feedback has been sent successfully.",
-        "errorTitle": "Something went wrong",
-        "errorDescription": "We couldn't send your feedback. Please try again later."
     }
 }

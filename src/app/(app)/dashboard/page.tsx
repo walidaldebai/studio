@@ -117,21 +117,16 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         
-        <Card className="md:col-span-2 lg:col-span-3 hover:border-primary transition-colors">
+        <Card className="md:col-span-2 lg:col-span-3">
            <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Mail className="h-6 w-6" /> {t('dashboardCards.feedbackTitle')}
             </CardTitle>
-            <CardDescription>
-                {t('dashboardCards.feedbackDescription')}
-            </CardDescription>
           </CardHeader>
-          <CardContent className="flex-grow flex items-end">
-            <Button asChild className="w-full">
-              <Link href="/feedback">
-                {t('dashboardCards.feedbackButton')} <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+          <CardContent>
+             <p className="text-muted-foreground">
+                {t('dashboardCards.feedbackDescription')} <a href="mailto:walidaldebai@gmail.com" className="text-primary underline">walidaldebai@gmail.com</a>.
+              </p>
           </CardContent>
         </Card>
 

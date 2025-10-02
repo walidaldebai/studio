@@ -12,7 +12,6 @@
     "meditations": "التأملات",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
-    "feedback": "ملاحظات",
     "onboarding": {
         "title": "أهلاً بك في منطقة زن",
         "subtitle": "لنقم بإعداد ملفك الشخصي لتخصيص تجربتك.",
@@ -45,9 +44,8 @@
         "meditationsTitle": "تأملات موجهة",
         "meditationsDescription": "استمع إلى جلسات تأمل فريدة تم إنشاؤها بواسطة الذكاء الاصطناعي لمساعدتك على الاسترخاء والتركيز.",
         "meditationsButton": "ابدأ التأمل",
-        "feedbackTitle": "شاركنا رأيك",
-        "feedbackDescription": "هل لديك أفكار أو اقتراحات؟ نود أن نسمع منك.",
-        "feedbackButton": "إرسال ملاحظات"
+        "feedbackTitle": "الملاحظات والاقتراحات",
+        "feedbackDescription": "إذا كان لديك أي أخطاء أو اقتراحات، يرجى إرسالها إلى"
     },
     "breathingPage": {
         "breatheIn": "شهيق",
@@ -137,17 +135,5 @@
         "language": "اللغة",
         "languageDescription": "اختر لغتك المفضلة.",
         "selectLanguage": "اختر لغة"
-    },
-    "feedbackPage": {
-        "title": "أرسل ملاحظاتك",
-        "description": "نحن نقدر رأيك. شارك أفكارك أو اقتراحاتك لمساعدتنا على تحسين Zen Zone.",
-        "formLabel": "ملاحظاتك",
-        "formPlaceholder": "أخبرنا بما يدور في ذهنك...",
-        "sendButton": "إرسال الملاحظات",
-        "sending": "جاري الإرسال...",
-        "successTitle": "شكرًا لك!",
-        "successDescription": "تم إرسال ملاحظاتك بنجاح.",
-        "errorTitle": "حدث خطأ ما",
-        "errorDescription": "لم نتمكن من إرسال ملاحظاتك. يرجى المحاولة مرة أخرى لاحقًا."
     }
 }
