@@ -5,7 +5,6 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 import { saveUser } from '@/lib/firebase';
 import { v4 as uuidv4 } from 'uuid';
-import { useTransitionRouter } from './transition-provider';
 
 export interface UserProfile {
   id: string;
@@ -30,7 +29,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUserState] = useState<UserProfile | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const { transitionTo } = useTransitionRouter();
+  const router = useRouter();
 
   useEffect(() => {
     try {

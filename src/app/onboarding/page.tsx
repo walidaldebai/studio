@@ -3,16 +3,16 @@
 import { useUser, type UserProfile } from '@/context/user-provider';
 import { OnboardingForm } from './_components/onboarding-form';
 import { useAppTranslation } from '@/context/language-provider';
-import { useTransitionRouter } from '@/context/transition-provider';
+import { useRouter } from 'next/navigation';
 
 export default function OnboardingPage() {
   const { setUser } = useUser();
-  const { transitionTo } = useTransitionRouter();
+  const router = useRouter();
   const { t } = useAppTranslation();
 
   const handleOnboardingComplete = (data: Omit<UserProfile, 'id'>) => {
     setUser(data);
-    transitionTo('/dashboard');
+    router.push('/dashboard');
   };
 
   return (

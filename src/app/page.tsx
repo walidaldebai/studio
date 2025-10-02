@@ -1,26 +1,26 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTransitionRouter } from '@/context/transition-provider';
+import { useRouter } from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function HomePage() {
-  const { transitionTo } = useTransitionRouter();
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
       const userProfile = localStorage.getItem('userProfile');
       if (userProfile) {
-        transitionTo('/dashboard');
+        router.push('/dashboard');
       } else {
-        transitionTo('/onboarding');
+        router.push('/onboarding');
       }
     } catch (error) {
       // If localStorage is not available, default to onboarding
-      transitionTo('/onboarding');
+      router.push('/onboarding');
     }
-  }, [transitionTo]);
+  }, [router]);
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-background">

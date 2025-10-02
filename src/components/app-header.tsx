@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Mail, Wind, Languages, Headset } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -18,7 +18,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
-import { useTransitionRouter } from '@/context/transition-provider';
 import React from 'react';
 
 function LanguageToggle() {
@@ -40,32 +39,11 @@ function LanguageToggle() {
     );
   }
 
-const TransitionLink = React.forwardRef<HTMLAnchorElement, { href: string, children: React.ReactNode, className?: string }>(
-  ({ href, children, className }, ref) => {
-    const { transitionTo } = useTransitionRouter();
-    return (
-      <a
-        ref={ref}
-        href={href}
-        className={className}
-        onClick={(e) => {
-          e.preventDefault();
-          transitionTo(href);
-        }}
-      >
-        {children}
-      </a>
-    );
-  }
-);
-TransitionLink.displayName = 'TransitionLink';
-
-
 export function AppHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const { user, logout } = useUser();
   const { t } = useAppTranslation();
-  const { transitionTo } = useTransitionRouter();
 
   const navLinks = [
     { href: '/dashboard', label: t('dashboard'), icon: LayoutDashboard },
@@ -81,14 +59,14 @@ export function AppHeader() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
         <div className="mr-4 flex items-center">
-          <TransitionLink href="/dashboard" className="mr-6 flex items-center space-x-2">
+          <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
             <HeartHandIcon className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline text-lg">{t('appName')}</span>
             <Badge variant="outline">{t('appVersion')}</Badge>
-          </TransitionLink>
+          </Link>
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
             {navLinks.map(({ href, label, icon: Icon }) => (
-              <TransitionLink
+              <Link
                 key={label}
                 href={href}
                 className={cn(
@@ -98,7 +76,7 @@ export function AppHeader() {
               >
                 <Icon className="h-4 w-4" />
                 {label}
-              </TransitionLink>
+              </Link>
             ))}
           </nav>
         </div>
@@ -122,15 +100,15 @@ export function AppHeader() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                   <TransitionLink href="/settings" className="w-full flex">
+                   <Link href="/settings" className="w-full flex">
                     <Settings className="mr-2 h-4 w-4" />
                     <span>{t('settings')}</span>
-                  </TransitionLink>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => {
-                  transitionTo('/onboarding');
-                  setTimeout(logout, 500);
+                  logout();
+                  router.push('/onboarding');
                 }}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>{t('logout')}</span>

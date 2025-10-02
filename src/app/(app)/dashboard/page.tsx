@@ -6,18 +6,8 @@ import { Button } from '@/components/ui/button';
 import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
-import { useTransitionRouter } from '@/context/transition-provider';
+import Link from 'next/link';
 import React from 'react';
-
-const TransitionButton = ({ href, children, className }: { href: string, children: React.ReactNode, className?: string }) => {
-  const { transitionTo } = useTransitionRouter();
-  return (
-    <Button onClick={() => transitionTo(href)} className={className}>
-      {children}
-    </Button>
-  );
-};
-
 
 export default function DashboardPage() {
   const { user } = useUser();
@@ -47,9 +37,11 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
-            <TransitionButton href="/rant-chat" className="w-full">
-              {t('dashboardCards.rantChatButton')} <ArrowRight className="ml-2 h-4 w-4" />
-            </TransitionButton>
+            <Button asChild className="w-full">
+              <Link href="/rant-chat">
+                {t('dashboardCards.rantChatButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </CardContent>
         </Card>
 
@@ -63,9 +55,11 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
-             <TransitionButton href="/guidance" className="w-full">
+             <Button asChild className="w-full">
+               <Link href="/guidance">
                 {t('dashboardCards.guidanceButton')} <ArrowRight className="ml-2 h-4 w-4" />
-              </TransitionButton>
+               </Link>
+              </Button>
           </CardContent>
         </Card>
 
@@ -79,9 +73,11 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
-             <TransitionButton href="/mood-journal" className="w-full">
-                {t('dashboardCards.moodJournalButton')} <ArrowRight className="ml-2 h-4 w-4" />
-              </TransitionButton>
+             <Button asChild className="w-full">
+                <Link href="/mood-journal">
+                  {t('dashboardCards.moodJournalButton')} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
           </CardContent>
         </Card>
         
@@ -95,9 +91,11 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
-            <TransitionButton href="/breathing" className="w-full">
-              {t('dashboardCards.breathingButton')} <ArrowRight className="ml-2 h-4 w-4" />
-            </TransitionButton>
+            <Button asChild className="w-full">
+              <Link href="/breathing">
+                {t('dashboardCards.breathingButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </CardContent>
         </Card>
 
@@ -111,9 +109,11 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
-            <TransitionButton href="/meditations" className="w-full">
-              {t('dashboardCards.meditationsButton')} <ArrowRight className="ml-2 h-4 w-4" />
-            </TransitionButton>
+            <Button asChild className="w-full">
+              <Link href="/meditations">
+                {t('dashboardCards.meditationsButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </CardContent>
         </Card>
         
@@ -127,9 +127,11 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
-            <TransitionButton href="/feedback" className="w-full">
+            <Button asChild className="w-full">
+              <Link href="/feedback">
                 {t('dashboardCards.feedbackButton')} <ArrowRight className="ml-2 h-4 w-4" />
-            </TransitionButton>
+              </Link>
+            </Button>
           </CardContent>
         </Card>
 

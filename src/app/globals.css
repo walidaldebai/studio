@@ -67,20 +67,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-@layer utilities {
-  .fade-in {
-    animation: fadeIn 0.5s ease-in-out forwards;
-  }
-  .fade-out {
-    animation: fadeOut 0.5s ease-in-out forwards;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-}
