@@ -41,7 +41,9 @@ const prompt = ai.definePrompt({
   Name: {{{name}}}
   Gender: {{{gender}}}
   Specialization: {{{specialization}}}
-  {{#if healthIssues}}Health Issues: {{{healthIssues}}}{{/if}}
+  {{#if healthIssues}}
+  Health Issues: {{{healthIssues}}}
+  {{/if}}
 
   User Needs: {{{needs}}}
 
