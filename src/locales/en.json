@@ -12,6 +12,7 @@
     "meditations": "Meditations",
     "settings": "Settings",
     "logout": "Log out",
+    "feedback": "Feedback",
     "onboarding": {
         "title": "Welcome to Zen Zone",
         "subtitle": "Let's set up your profile to personalize your experience.",
@@ -20,7 +21,7 @@
         "gender": "Gender",
         "genderPlaceholder": "E.g., Female",
         "specialization": "Specialization / Profession",
-        "specializationPlaceholder": "E.g., Software Developer, Student",
+        "specializationPlaceholder": "E.g., Teacher, Software Developer",
         "healthIssues": "Health Issues or Concerns (Optional)",
         "healthIssuesPlaceholder": "E.g., Anxiety, trouble sleeping",
         "signUp": "Sign Up"
@@ -45,7 +46,8 @@
         "meditationsDescription": "Listen to unique, AI-generated meditation sessions to help you relax and focus.",
         "meditationsButton": "Start Meditating",
         "feedbackTitle": "Share Your Feedback",
-        "feedbackDescription": "Have ideas or suggestions? We'd love to hear from you. Send any feedback to <1>walidaldebai@gmail.com</1>."
+        "feedbackDescription": "Have ideas or suggestions? We'd love to hear from you.",
+        "feedbackButton": "Submit Feedback"
     },
     "breathingPage": {
         "breatheIn": "Breathe In",
@@ -57,7 +59,7 @@
         "title": "Personalized Guidance",
         "description": "Based on your profile, what specific wellness questions do you have today?",
         "needsLabel": "My wellness needs",
-        "needsPlaceholder": "E.g., 'How can I improve my sleep quality?' or 'Suggest some quick relaxation exercises for a busy day.'",
+        "needsPlaceholder": "E.g., 'How can I handle a difficult classroom?' or 'Suggest quick relaxation exercises for a busy day.'",
         "button": "Get My Advice",
         "generating": "Generating...",
         "adviceTitle": "Your AI-Powered Advice"
@@ -83,14 +85,6 @@
         "description": "A safe space to let it all out.",
         "initialMessage": "This is a safe space to vent your frustrations. What's on your mind?",
         "inputPlaceholder": "Type your message...",
-        "personalities": {
-            "listener": "Empathetic Listener",
-            "listenerDesc": "Just listens and understands.",
-            "friend": "Talkative Friend",
-            "friendDesc": "Listens and shares relatable stories.",
-            "solver": "Problem Solver",
-            "solverDesc": "Listens and offers solutions."
-        },
         "connectionError": "I'm having trouble connecting right now. Please try again later."
     },
     "meditationsPage": {
@@ -103,6 +97,7 @@
         "playerHint": "Press play to begin. Close your eyes and relax.",
         "themes": {
             "stress": "Stress Relief",
+            "deStress": "De-Stress",
             "focus": "Focus",
             "gratitude": "Gratitude",
             "sleep": "Sleep"
@@ -142,5 +137,17 @@
         "language": "Language",
         "languageDescription": "Choose your preferred language.",
         "selectLanguage": "Select a language"
+    },
+    "feedbackPage": {
+        "title": "Submit Feedback",
+        "description": "We value your input. Share your thoughts or suggestions to help us improve Zen Zone.",
+        "formLabel": "Your Feedback",
+        "formPlaceholder": "Tell us what's on your mind...",
+        "sendButton": "Send Feedback",
+        "sending": "Sending...",
+        "successTitle": "Thank you!",
+        "successDescription": "Your feedback has been sent successfully.",
+        "errorTitle": "Something went wrong",
+        "errorDescription": "We couldn't send your feedback. Please try again later."
     }
 }

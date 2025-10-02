@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
-import { Trans } from 'react-i18next';
 import { useTransitionRouter } from '@/context/transition-provider';
 import React from 'react';
 
@@ -100,7 +99,7 @@ export default function DashboardPage() {
               {t('dashboardCards.breathingButton')} <ArrowRight className="ml-2 h-4 w-4" />
             </TransitionButton>
           </CardContent>
-        </card>
+        </Card>
 
         <Card className="flex flex-col hover:border-primary transition-colors">
           <CardHeader>
@@ -119,16 +118,19 @@ export default function DashboardPage() {
         </Card>
         
         <Card className="md:col-span-2 lg:col-span-3 hover:border-primary transition-colors">
-          <CardHeader>
+           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Mail className="h-6 w-6" /> {t('dashboardCards.feedbackTitle')}
             </CardTitle>
             <CardDescription>
-              <Trans i18nKey="dashboardCards.feedbackDescription">
-                Have ideas or suggestions? We&apos;d love to hear from you. Send any feedback to <a href="mailto:walidaldebai@gmail.com" className="text-primary underline">walidaldebai@gmail.com</a>.
-              </Trans>
+                {t('dashboardCards.feedbackDescription')}
             </CardDescription>
           </CardHeader>
+          <CardContent className="flex-grow flex items-end">
+            <TransitionButton href="/feedback" className="w-full">
+                {t('dashboardCards.feedbackButton')} <ArrowRight className="ml-2 h-4 w-4" />
+            </TransitionButton>
+          </CardContent>
         </Card>
 
       </div>

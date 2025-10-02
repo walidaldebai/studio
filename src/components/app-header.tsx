@@ -74,6 +74,7 @@ export function AppHeader() {
     { href: '/mood-journal', label: t('moodJournal'), icon: BookOpen },
     { href: '/breathing', label: t('breathing'), icon: Wind },
     { href: '/meditations', label: t('meditations'), icon: Headset },
+    { href: '/feedback', label: t('feedback'), icon: Mail },
   ];
 
   return (

@@ -45,6 +45,10 @@ const prompt = ai.definePrompt({
   Health Issues: {{{healthIssues}}}
   {{/if}}
 
+  {{#if (eq specialization 'teacher')}}
+  The user is a teacher. Provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame the advice in a way that is practical for a teacher to implement during their workday or after school.
+  {{/if}}
+
   User Needs: {{{needs}}}
 
   Provide wellness advice:

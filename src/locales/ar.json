@@ -12,6 +12,7 @@
     "meditations": "التأملات",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
+    "feedback": "ملاحظات",
     "onboarding": {
         "title": "أهلاً بك في منطقة زن",
         "subtitle": "لنقم بإعداد ملفك الشخصي لتخصيص تجربتك.",
@@ -20,7 +21,7 @@
         "gender": "الجنس",
         "genderPlaceholder": "مثال: أنثى",
         "specialization": "التخصص / المهنة",
-        "specializationPlaceholder": "مثال: مطور برامج، طالب",
+        "specializationPlaceholder": "مثال: معلم، مطور برامج",
         "healthIssues": "مشاكل صحية أو مخاوف (اختياري)",
         "healthIssuesPlaceholder": "مثال: قلق، صعوبة في النوم",
         "signUp": "تسجيل"
@@ -45,7 +46,8 @@
         "meditationsDescription": "استمع إلى جلسات تأمل فريدة تم إنشاؤها بواسطة الذكاء الاصطناعي لمساعدتك على الاسترخاء والتركيز.",
         "meditationsButton": "ابدأ التأمل",
         "feedbackTitle": "شاركنا رأيك",
-        "feedbackDescription": "هل لديك أفكار أو اقتراحات؟ نود أن نسمع منك. أرسل أي ملاحظات إلى <1>walidaldebai@gmail.com</1>."
+        "feedbackDescription": "هل لديك أفكار أو اقتراحات؟ نود أن نسمع منك.",
+        "feedbackButton": "إرسال ملاحظات"
     },
     "breathingPage": {
         "breatheIn": "شهيق",
@@ -57,7 +59,7 @@
         "title": "توجيه شخصي",
         "description": "بناءً على ملفك الشخصي، ما هي أسئلتك الصحية المحددة اليوم؟",
         "needsLabel": "احتياجاتي الصحية",
-        "needsPlaceholder": "مثال: 'كيف يمكنني تحسين جودة نومي؟' أو 'اقترح بعض تمارين الاسترخاء السريعة ليوم حافل.'",
+        "needsPlaceholder": "مثال: 'كيف يمكنني التعامل مع فصل دراسي صعب؟' أو 'اقترح بعض تمارين الاسترخاء السريعة ليوم حافل.'",
         "button": "احصل على نصيحتي",
         "generating": "جاري الإنشاء...",
         "adviceTitle": "نصيحتك المدعومة بالذكاء الاصطناعي"
@@ -83,14 +85,6 @@
         "description": "مساحة آمنة للتعبير عن كل شيء.",
         "initialMessage": "هذه مساحة آمنة للتعبير عن إحباطاتك. بماذا تفكر؟",
         "inputPlaceholder": "اكتب رسالتك...",
-        "personalities": {
-            "listener": "مستمع متعاطف",
-            "listenerDesc": "يستمع ويتفهم فقط.",
-            "friend": "صديق متحدث",
-            "friendDesc": "يستمع ويشارك قصصًا ذات صلة.",
-            "solver": "حلال المشاكل",
-            "solverDesc": "يستمع ويقدم حلولاً."
-        },
         "connectionError": "أواجه مشكلة في الاتصال الآن. يرجى المحاولة مرة أخرى لاحقًا."
     },
     "meditationsPage": {
@@ -103,6 +97,7 @@
         "playerHint": "اضغط على تشغيل للبدء. أغمض عينيك واسترخ.",
         "themes": {
             "stress": "تخفيف التوتر",
+            "deStress": "تهدئة الأعصاب",
             "focus": "تركيز",
             "gratitude": "امتنان",
             "sleep": "نوم"
@@ -142,5 +137,17 @@
         "language": "اللغة",
         "languageDescription": "اختر لغتك المفضلة.",
         "selectLanguage": "اختر لغة"
+    },
+    "feedbackPage": {
+        "title": "أرسل ملاحظاتك",
+        "description": "نحن نقدر رأيك. شارك أفكارك أو اقتراحاتك لمساعدتنا على تحسين Zen Zone.",
+        "formLabel": "ملاحظاتك",
+        "formPlaceholder": "أخبرنا بما يدور في ذهنك...",
+        "sendButton": "إرسال الملاحظات",
+        "sending": "جاري الإرسال...",
+        "successTitle": "شكرًا لك!",
+        "successDescription": "تم إرسال ملاحظاتك بنجاح.",
+        "errorTitle": "حدث خطأ ما",
+        "errorDescription": "لم نتمكن من إرسال ملاحظاتك. يرجى المحاولة مرة أخرى لاحقًا."
     }
 }

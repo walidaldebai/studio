@@ -10,7 +10,7 @@ import { generateMeditationScript, type GenerateMeditationInput } from '@/ai/flo
 import { convertTextToSpeech } from '@/ai/flows/text-to-speech';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
 
-type MeditationTheme = 'Stress Relief' | 'Focus' | 'Gratitude' | 'Sleep';
+type MeditationTheme = 'Stress Relief' | 'Focus' | 'Gratitude' | 'Sleep' | 'De-Stress';
 
 export default function MeditationsPage() {
   const { t } = useAppTranslation();
@@ -18,6 +18,7 @@ export default function MeditationsPage() {
 
   const themes: { value: MeditationTheme, label: string }[] = [
     { value: 'Stress Relief', label: t('meditationsPage.themes.stress') },
+    { value: 'De-Stress', label: t('meditationsPage.themes.deStress') },
     { value: 'Focus', label: t('meditationsPage.themes.focus') },
     { value: 'Gratitude', label: t('meditationsPage.themes.gratitude') },
     { value: 'Sleep', label: t('meditationsPage.themes.sleep') },
