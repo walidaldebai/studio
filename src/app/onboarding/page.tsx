@@ -1,18 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useUser, type UserProfile } from '@/context/user-provider';
 import { OnboardingForm } from './_components/onboarding-form';
 import { useAppTranslation } from '@/context/language-provider';
+import { useTransitionRouter } from '@/context/transition-provider';
 
 export default function OnboardingPage() {
   const { setUser } = useUser();
-  const router = useRouter();
+  const { transitionTo } = useTransitionRouter();
   const { t } = useAppTranslation();
 
   const handleOnboardingComplete = (data: Omit<UserProfile, 'id'>) => {
     setUser(data);
-    router.push('/dashboard');
+    transitionTo('/dashboard');
   };
 
   return (

@@ -2,19 +2,19 @@
 
 import { AppHeader } from '@/components/app-header';
 import { useUser } from '@/context/user-provider';
-import { useRouter } from 'next/navigation';
+import { useTransitionRouter } from '@/context/transition-provider';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { user, isLoaded } = useUser();
-  const router = useRouter();
+  const { transitionTo } = useTransitionRouter();
 
   useEffect(() => {
     if (isLoaded && !user) {
-      router.replace('/onboarding');
+      transitionTo('/onboarding');
     }
-  }, [user, isLoaded, router]);
+  }, [user, isLoaded, transitionTo]);
 
   if (!isLoaded || !user) {
     return (
