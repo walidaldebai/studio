@@ -32,12 +32,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    let storedUser: UserProfile | null = null;
     try {
       const userJson = localStorage.getItem('userProfile');
       if (userJson) {
-        storedUser = JSON.parse(userJson);
-        setUserState(storedUser);
+        setUserState(JSON.parse(userJson));
       }
     } catch (error) {
       console.error("Failed to access localStorage", error);
@@ -52,7 +50,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if ('id' in profile) {
       userProfile = profile;
     } else {
-      // This handles new user creation from onboarding
       const newId = user?.id || uuidv4();
       userProfile = { id: newId, ...profile };
     }
