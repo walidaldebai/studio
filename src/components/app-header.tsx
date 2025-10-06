@@ -56,6 +56,9 @@ export function AppHeader() {
     { href: '/sand-garden', label: t('sandGarden'), icon: Palmtree },
   ];
 
+  const duplicatedNavLinks = [...navLinks, ...navLinks];
+
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
@@ -65,21 +68,23 @@ export function AppHeader() {
             <span className="font-bold font-headline text-lg">{t('appName')}</span>
             <Badge variant="outline">{t('appVersion')}</Badge>
           </Link>
-          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-            {navLinks.map(({ href, label, icon: Icon }) => (
-              <Link
-                key={label}
-                href={href}
-                className={cn(
-                  'flex items-center gap-2 transition-colors hover:text-primary',
-                  pathname === href ? 'text-primary' : 'text-muted-foreground'
-                )}
-              >
-                <Icon className="h-4 w-4" />
-                {label}
-              </Link>
-            ))}
-          </nav>
+          <div className="hidden md:flex items-center overflow-hidden w-full max-w-2xl">
+            <div className="animate-marquee whitespace-nowrap flex">
+                {duplicatedNavLinks.map(({ href, label, icon: Icon }, index) => (
+                <Link
+                    key={`${label}-${index}`}
+                    href={href}
+                    className={cn(
+                    'flex items-center gap-2 transition-colors hover:text-primary mx-4',
+                    pathname === href ? 'text-primary' : 'text-muted-foreground'
+                    )}
+                >
+                    <Icon className="h-4 w-4" />
+                    {label}
+                </Link>
+                ))}
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">

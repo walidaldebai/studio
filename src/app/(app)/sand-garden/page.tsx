@@ -15,7 +15,7 @@ export default function SandGardenPage() {
   const cols = useRef(0);
   const rows = useRef(0);
   const grid = useRef<number[][]>();
-  const resolution = 10;
+  const resolution = 2;
   const sandColor = '#f0e5d8';
   const backgroundColor = '#2d2d2d';
 
@@ -79,18 +79,28 @@ export default function SandGardenPage() {
           const state = grid.current[i][j];
           if (state === 1) {
             const below = j + 1;
+            
+            if (below >= rows.current) {
+                nextGrid[i][j] = 1;
+                continue;
+            }
 
-            if (below < rows.current && grid.current[i][below] === 0) {
+            if (grid.current[i][below] === 0) {
               nextGrid[i][below] = 1; // Move down
             } else {
                 const dir = Math.random() < 0.5 ? -1 : 1;
-                const belowA = i + dir;
-                const belowB = i - dir;
+                const belowA_col = i + dir;
+                const belowB_col = i - dir;
 
-                if (belowA >= 0 && belowA < cols.current && grid.current[belowA][below] === 0) {
-                    nextGrid[belowA][below] = 1;
-                } else if (belowB >= 0 && belowB < cols.current && grid.current[belowB][below] === 0) {
-                    nextGrid[belowB][below] = 1;
+                const belowA = belowA_col >= 0 && belowA_col < cols.current ? grid.current[belowA_col][below] : -1;
+                const belowB = belowB_col >= 0 && belowB_col < cols.current ? grid.current[belowB_col][below] : -1;
+                
+                if (belowA === 0 && belowB === 0) {
+                    nextGrid[i + (Math.random() < 0.5 ? -1 : 1)][below] = 1;
+                } else if (belowA === 0) {
+                    nextGrid[belowA_col][below] = 1;
+                } else if (belowB === 0) {
+                    nextGrid[belowB_col][below] = 1;
                 } else {
                    nextGrid[i][j] = 1;
                 }
@@ -106,7 +116,14 @@ export default function SandGardenPage() {
     setup();
     update();
 
-    const handleMouseDown = () => { isMouseDown = true; };
+    const handleMouseDown = (e: MouseEvent | TouchEvent) => { 
+        isMouseDown = true; 
+        if (e instanceof TouchEvent) {
+             addSand(e.touches[0]);
+        } else {
+            addSand(e);
+        }
+    };
     const handleMouseUp = () => { isMouseDown = false; };
     
     const addSand = (e: MouseEvent | Touch) => {
@@ -116,7 +133,7 @@ export default function SandGardenPage() {
         const y = Math.floor((e.clientY - rect.top) / resolution);
 
         if(x >= 0 && x < cols.current && y >= 0 && y < rows.current) {
-            const matrix = 5;
+            const matrix = 10;
             const extent = Math.floor(matrix / 2);
             for(let i = -extent; i <= extent; i++) {
                 for(let j = -extent; j <= extent; j++) {
@@ -137,7 +154,7 @@ export default function SandGardenPage() {
     };
     const handleTouchMove = (e: TouchEvent) => {
         e.preventDefault();
-        addSand(e.touches[0]);
+        if(isMouseDown) addSand(e.touches[0]);
     }
     
     canvas.addEventListener('mousedown', handleMouseDown);
@@ -146,6 +163,12 @@ export default function SandGardenPage() {
     canvas.addEventListener('touchstart', handleMouseDown);
     canvas.addEventListener('touchend', handleMouseUp);
     canvas.addEventListener('touchmove', handleTouchMove);
+
+    const handleResize = () => {
+        setup();
+    }
+    window.addEventListener('resize', handleResize);
+
 
     return () => {
       if (animationFrameId.current) {
@@ -157,6 +180,7 @@ export default function SandGardenPage() {
       canvas.removeEventListener('touchstart', handleMouseDown);
       canvas.removeEventListener('touchend', handleMouseUp);
       canvas.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('resize', handleResize);
     };
   }, [createGrid, draw]);
 
