@@ -37,10 +37,11 @@ export default function AudioAffirmationsPage() {
 
     try {
       const affirmationInput: GenerateAudioAffirmationInput = { theme: selectedTheme, language };
+      // Generate script and audio together
       const { title, script } = await generateAudioAffirmation(affirmationInput);
-      setSession({ title, script, audio: null });
-
       const { audio } = await convertTextToSpeech(script);
+      
+      // Set the session only when both are ready
       setSession({ title, script, audio });
 
     } catch (error) {
@@ -93,7 +94,7 @@ export default function AudioAffirmationsPage() {
           </CardContent>
         </Card>
 
-        {isLoading && !session && (
+        {isLoading && (
           <Card>
             <CardHeader>
                 <Skeleton className="h-8 w-3/4" />
@@ -133,6 +134,7 @@ export default function AudioAffirmationsPage() {
                   <p className="text-muted-foreground text-sm">{t('audioAffirmationsPage.playerHint')}</p>
                 </div>
               ) : (
+                 // This part should rarely be seen now, but kept as a fallback.
                 <div className="flex flex-col items-center gap-4 py-8">
                   <RefreshCw className="h-8 w-8 animate-spin text-primary" />
                   <p className="text-muted-foreground">{t('audioAffirmationsPage.generatingAudio')}</p>
