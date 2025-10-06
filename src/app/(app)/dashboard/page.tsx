@@ -3,7 +3,7 @@
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Waves, Palmtree } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Link as LinkIcon, Palmtree } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
 import Link from 'next/link';
@@ -120,16 +120,16 @@ export default function DashboardPage() {
         <Card className="flex flex-col hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
-              <Waves className="h-6 w-6" /> {t('dashboardCards.soundscapesTitle')}
+              <LinkIcon className="h-6 w-6" /> {t('dashboardCards.connectTitle')}
             </CardTitle>
             <CardDescription>
-              {t('dashboardCards.soundscapesDescription')}
+              {t('dashboardCards.connectDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
             <Button asChild className="w-full">
-              <Link href="/soundscapes">
-                {t('dashboardCards.soundscapesButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href="/connect">
+                {t('dashboardCards.connectButton')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </CardContent>

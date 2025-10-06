@@ -10,7 +10,7 @@
     "moodJournal": "يوميات المزاج",
     "breathing": "التنفس",
     "meditations": "التأملات",
-    "soundscapes": "المناظر الصوتية",
+    "connect": "تواصل",
     "sandGarden": "حديقة الرمل",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
@@ -46,9 +46,9 @@
         "meditationsTitle": "تأملات موجهة",
         "meditationsDescription": "استمع إلى جلسات تأمل فريدة تم إنشاؤها بواسطة الذكاء الاصطناعي لمساعدتك على الاسترخاء والتركيز.",
         "meditationsButton": "ابدأ التأمل",
-        "soundscapesTitle": "المناظر الصوتية",
-        "soundscapesDescription": "استرخِ مع أصوات محيطة هادئة من الطبيعة وغيرها.",
-        "soundscapesButton": "افتح المناظر الصوتية",
+        "connectTitle": "تواصل",
+        "connectDescription": "شارك رسالة إيجابية مجهولة مع مستخدم آخر.",
+        "connectButton": "أرسل رسالة",
         "sandGardenTitle": "حديقة زن الرملية",
         "sandGardenDescription": "اصنع أنماطًا هادئة في حديقة رملية افتراضية للاسترخاء.",
         "sandGardenButton": "افتح الحديقة",
@@ -109,15 +109,16 @@
             "sleep": "نوم"
         }
     },
-    "soundscapesPage": {
-        "title": "المناظر الصوتية المهدئة",
-        "description": "اختر صوتًا لتشغيله في الخلفية للاسترخاء أو التركيز.",
-        "sounds": {
-            "rain": "هطول المطر",
-            "forest": "غابة",
-            "ocean": "أمواج المحيط",
-            "cafe": "مقهى دافئ"
-        }
+    "connectPage": {
+        "title": "أرسل رسالة لطيفة",
+        "description": "اجعل يوم شخص ما أفضل بإرسال رسالة دعم مكتوبة مسبقًا ومجهولة. ستتلقى واحدة في المقابل قريبًا.",
+        "selectMessage": "اختر رسالة لإرسالها",
+        "sendButton": "إرسال كمجهول",
+        "sending": "جار الإرسال...",
+        "messageSent": "تم إرسال الرسالة!",
+        "messageSentDescription": "كلماتك اللطيفة في طريقها إلى مستخدم آخر.",
+        "noMessages": "لا توجد رسائل جديدة الآن. تحقق مرة أخرى لاحقًا!",
+        "yourLastReceived": "آخر رسالة تلقيتها:"
     },
     "sandGardenPage": {
         "title": "حديقة زن الرملية",

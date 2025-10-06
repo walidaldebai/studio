@@ -10,7 +10,7 @@
     "moodJournal": "Mood Journal",
     "breathing": "Breathing",
     "meditations": "Meditations",
-    "soundscapes": "Soundscapes",
+    "connect": "Connect",
     "sandGarden": "Sand Garden",
     "settings": "Settings",
     "logout": "Log out",
@@ -46,9 +46,9 @@
         "meditationsTitle": "Guided Meditations",
         "meditationsDescription": "Listen to unique, AI-generated meditation sessions to help you relax and focus.",
         "meditationsButton": "Start Meditating",
-        "soundscapesTitle": "Soundscapes",
-        "soundscapesDescription": "Relax with calming ambient sounds from nature and beyond.",
-        "soundscapesButton": "Open Soundscapes",
+        "connectTitle": "Connect",
+        "connectDescription": "Share a positive, anonymous message with another user.",
+        "connectButton": "Send a Message",
         "sandGardenTitle": "Zen Sand Garden",
         "sandGardenDescription": "Create calming patterns in a virtual sand garden to unwind.",
         "sandGardenButton": "Open Garden",
@@ -109,15 +109,16 @@
             "sleep": "Sleep"
         }
     },
-    "soundscapesPage": {
-        "title": "Calming Soundscapes",
-        "description": "Choose a sound to play in the background to relax or focus.",
-        "sounds": {
-            "rain": "Rainfall",
-            "forest": "Forest",
-            "ocean": "Ocean Waves",
-            "cafe": "Cozy Cafe"
-        }
+    "connectPage": {
+        "title": "Send a Kind Message",
+        "description": "Brighten someone's day by sending a pre-written, anonymous message of support. You'll receive one in return soon.",
+        "selectMessage": "Choose a message to send",
+        "sendButton": "Send Anonymously",
+        "sending": "Sending...",
+        "messageSent": "Message sent!",
+        "messageSentDescription": "Your kind words are on their way to another user.",
+        "noMessages": "No new messages right now. Check back later!",
+        "yourLastReceived": "Last message you received:"
     },
     "sandGardenPage": {
         "title": "Zen Sand Garden",

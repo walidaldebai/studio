@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Wind, Languages, Headset, Waves, Palmtree } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Wind, Languages, Headset, Link as LinkIcon, Palmtree } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
@@ -52,7 +52,7 @@ export function AppHeader() {
     { href: '/mood-journal', label: t('moodJournal'), icon: BookOpen },
     { href: '/breathing', label: t('breathing'), icon: Wind },
     { href: '/meditations', label: t('meditations'), icon: Headset },
-    { href: '/soundscapes', label: t('soundscapes'), icon: Waves },
+    { href: '/connect', label: t('connect'), icon: LinkIcon },
     { href: '/sand-garden', label: t('sandGarden'), icon: Palmtree },
   ];
 
