@@ -79,6 +79,10 @@
         "saveButton": "حفظ مزاج اليوم",
         "chartTitle": "سجل المزاج (آخر 7 أيام)",
         "chartDescription": "تصور أنماط مزاجك خلال الأسبوع الماضي.",
+        "analysisTitle": "رؤى الذكاء الاصطناعي",
+        "analysisDescription": "احصل على ملخص أنماط مزاجك خلال الثلاثين يومًا الماضية.",
+        "analyzeButton": "الحصول على رؤى الذكاء الاصطناعي",
+        "analyzingButton": "جاري التحليل...",
         "moods": {
             "happy": "سعيد",
             "neutral": "محايد",

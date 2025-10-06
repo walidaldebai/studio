@@ -79,6 +79,10 @@
         "saveButton": "Save Today's Mood",
         "chartTitle": "Mood History (Last 7 Days)",
         "chartDescription": "Visualize your mood patterns over the past week.",
+        "analysisTitle": "AI Insights",
+        "analysisDescription": "Get a summary of your mood patterns over the last 30 days.",
+        "analyzeButton": "Get AI Insights",
+        "analyzingButton": "Analyzing...",
         "moods": {
             "happy": "Happy",
             "neutral": "Neutral",

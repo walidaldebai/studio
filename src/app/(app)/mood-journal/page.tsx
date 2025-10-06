@@ -5,10 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { useUser } from '@/context/user-provider';
-import { Smile, Meh, Frown, BookOpen, BarChart2 } from 'lucide-react';
+import { Smile, Meh, Frown, BookOpen, BarChart2, Lightbulb, RefreshCw } from 'lucide-react';
 import { ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Bar } from 'recharts';
 import { format, subDays, startOfDay } from 'date-fns';
-import { useAppTranslation } from '@/context/language-provider';
+import { useAppTranslation, useLanguage } from '@/context/language-provider';
+import { analyzeMoodJournal, MoodJournalAnalysisInput } from '@/ai/flows/analyze-mood-journal';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type Mood = 'Happy' | 'Neutral' | 'Sad';
 
@@ -20,7 +22,8 @@ interface MoodEntry {
 
 export default function MoodJournalPage() {
   const { user } = useUser();
-  const { t } = useAppTranslation();
+  const { t, i18n } = useAppTranslation();
+  const { language } = useLanguage();
 
   const moodOptions: { mood: Mood; icon: React.ReactNode }[] = [
     { mood: 'Happy', icon: <Smile className="h-10 w-10 text-green-500" /> },
@@ -46,6 +49,8 @@ export default function MoodJournalPage() {
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
   const [note, setNote] = useState('');
   const [hasLoggedToday, setHasLoggedToday] = useState(false);
+  const [analysis, setAnalysis] = useState('');
+  const [isLoadingAnalysis, setIsLoadingAnalysis] = useState(false);
 
   useEffect(() => {
     try {
@@ -85,6 +90,31 @@ export default function MoodJournalPage() {
     setHasLoggedToday(true);
     setSelectedMood(null);
     setNote('');
+  };
+
+  const handleAnalyzeMoods = async () => {
+    setIsLoadingAnalysis(true);
+    setAnalysis('');
+
+    const thirtyDaysAgo = startOfDay(subDays(new Date(), 30));
+    const recentEntries = moodEntries.filter(entry => new Date(entry.date) >= thirtyDaysAgo);
+
+    try {
+      const input: MoodJournalAnalysisInput = {
+        entries: recentEntries,
+        language: language,
+      };
+      const result = await analyzeMoodJournal(input);
+      setAnalysis(result.analysis);
+    } catch (error) {
+      console.error('Failed to analyze mood journal:', error);
+      const errorMessage = i18n.language === 'ar'
+        ? 'عذرًا، لم نتمكن من تحليل يومياتك في هذا الوقت. يرجى المحاولة مرة أخرى لاحقًا.'
+        : 'Sorry, we were unable to analyze your journal at this time. Please try again later.';
+      setAnalysis(errorMessage);
+    } finally {
+      setIsLoadingAnalysis(false);
+    }
   };
 
   const getChartData = () => {
@@ -196,6 +226,32 @@ export default function MoodJournalPage() {
                 </ResponsiveContainer>
             </div>
           </CardContent>
+        </Card>
+
+        <Card>
+           <CardHeader>
+             <CardTitle className="font-headline flex items-center gap-2">
+                <Lightbulb /> {t('moodJournalPage.analysisTitle')}
+             </CardTitle>
+             <CardDescription>{t('moodJournalPage.analysisDescription')}</CardDescription>
+           </CardHeader>
+           <CardContent>
+              {isLoadingAnalysis ? (
+                <div className="space-y-4">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-5/6" />
+                </div>
+              ) : analysis ? (
+                <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap">
+                    {analysis}
+                </div>
+              ) : null}
+             <Button onClick={handleAnalyzeMoods} disabled={isLoadingAnalysis || moodEntries.length === 0} className="mt-4">
+               <RefreshCw className={`mr-2 h-4 w-4 ${isLoadingAnalysis ? 'animate-spin' : ''}`} />
+               {isLoadingAnalysis ? t('moodJournalPage.analyzingButton') : t('moodJournalPage.analyzeButton')}
+             </Button>
+           </CardContent>
         </Card>
       </div>
     </div>
