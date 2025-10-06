@@ -26,8 +26,8 @@ const PersonalizedWellnessAdviceOutputSchema = z.object({
 export type PersonalizedWellnessAdviceOutput = z.infer<typeof PersonalizedWellnessAdviceOutputSchema>;
 
 export async function getPersonalizedWellnessAdvice(input: PersonalizedWellnessAdviceInput): Promise<PersonalizedWellnessAdviceOutput> {
-  const {output} = await personalizedWellnessAdviceFlow(input);
-  return output!;
+  const output = await personalizedWellnessAdviceFlow(input);
+  return output;
 }
 
 const prompt = ai.definePrompt({
@@ -35,8 +35,6 @@ const prompt = ai.definePrompt({
   input: {schema: PersonalizedWellnessAdviceInputSchema},
   output: {schema: PersonalizedWellnessAdviceOutputSchema},
   prompt: `You are an AI wellness assistant. Your goal is to provide relevant and helpful advice based on the user's profile.
-
-  IMPORTANT: If the user's request in the "User Needs" section is very short or vague (e.g., less than 15 characters), kindly ask them to provide more details about their situation so you can offer more specific and helpful advice. Do not try to guess or give advice on a vague request. Otherwise, provide thoughtful wellness advice.
 
   {{#if specialization}}
   The user is a {{specialization}}. If their specialization is 'teacher', provide advice that is specifically tailored to the challenges and stressors of the teaching profession.
@@ -61,6 +59,11 @@ const personalizedWellnessAdviceFlow = ai.defineFlow(
     outputSchema: PersonalizedWellnessAdviceOutputSchema,
   },
   async input => {
+    if (input.needs.length < 15) {
+        return {
+            advice: 'Your request is a bit brief. Could you please provide more details about your situation? The more information you give, the better I can tailor my advice to your specific needs.'
+        };
+    }
     const {output} = await prompt(input);
     return output!;
   }
