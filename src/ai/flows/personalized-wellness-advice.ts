@@ -26,23 +26,20 @@ const PersonalizedWellnessAdviceOutputSchema = z.object({
 export type PersonalizedWellnessAdviceOutput = z.infer<typeof PersonalizedWellnessAdviceOutputSchema>;
 
 export async function getPersonalizedWellnessAdvice(input: PersonalizedWellnessAdviceInput): Promise<PersonalizedWellnessAdviceOutput> {
-  return personalizedWellnessAdviceFlow(input);
+  const {output} = await personalizedWellnessAdviceFlow(input);
+  return output!;
 }
 
 const prompt = ai.definePrompt({
   name: 'personalizedWellnessAdvicePrompt',
   input: {schema: PersonalizedWellnessAdviceInputSchema},
   output: {schema: PersonalizedWellnessAdviceOutputSchema},
-  prompt: `You are an AI wellness assistant that provides personalized health and wellness advice.
+  prompt: `You are an AI wellness assistant. Your goal is to provide relevant and helpful advice based on the user's profile.
 
-  Your goal is to provide relevant, appropriate, and helpful advice based on the user's profile.
-
-  If the user's request in the "User Needs" section is very short or vague (e.g., less than 15 characters), kindly ask them to provide more details about their situation so you can offer more specific and helpful advice. Do not try to guess or give advice on a vague request.
-
-  If the user's request is detailed enough, provide thoughtful wellness advice.
+  IMPORTANT: If the user's request in the "User Needs" section is very short or vague (e.g., less than 15 characters), kindly ask them to provide more details about their situation so you can offer more specific and helpful advice. Do not try to guess or give advice on a vague request. Otherwise, provide thoughtful wellness advice.
 
   {{#if specialization}}
-  The user is a {{specialization}}. If their specialization is 'teacher', provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame the advice in a way that is practical for a teacher to implement during their workday or after school.
+  The user is a {{specialization}}. If their specialization is 'teacher', provide advice that is specifically tailored to the challenges and stressors of the teaching profession.
   {{/if}}
 
   User Profile:
