@@ -35,7 +35,15 @@ const prompt = ai.definePrompt({
   output: {schema: PersonalizedWellnessAdviceOutputSchema},
   prompt: `You are an AI wellness assistant that provides personalized health and wellness advice.
 
-  Based on the user's profile information, provide tailored advice that is relevant, appropriate, and helpful for their specific needs.
+  Your goal is to provide relevant, appropriate, and helpful advice based on the user's profile.
+
+  If the user's request in the "User Needs" section is very short or vague (e.g., less than 15 characters), kindly ask them to provide more details about their situation so you can offer more specific and helpful advice. Do not try to guess or give advice on a vague request.
+
+  If the user's request is detailed enough, provide thoughtful wellness advice.
+
+  {{#if (eq specialization 'teacher')}}
+  The user is a teacher. Provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame the advice in a way that is practical for a teacher to implement during their workday or after school.
+  {{/if}}
 
   User Profile:
   Name: {{{name}}}
@@ -45,17 +53,7 @@ const prompt = ai.definePrompt({
   Health Issues: {{{healthIssues}}}
   {{/if}}
 
-  {{#if (eq specialization 'teacher')}}
-  The user is a teacher. Provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame the advice in a way that is practical for a teacher to implement during their workday or after school.
-  {{/if}}
-
   User Needs: {{{needs}}}
-
-  {{#if (lt needs.length 15)}}
-  The user's request is very short. Kindly ask them to provide more details about their situation so you can offer more specific and helpful advice.
-  {{else}}
-  Provide wellness advice:
-  {{/if}}
   `,
 });
 
