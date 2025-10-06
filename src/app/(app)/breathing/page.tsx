@@ -44,7 +44,7 @@ export default function BreathingPage() {
     <div className="flex flex-col items-center justify-center h-[calc(100vh-3.5rem)] overflow-hidden">
       <div
         className={cn(
-          'relative rounded-full flex items-center justify-center transition-transform ease-in-out shadow-2xl bg-primary/20',
+          'relative rounded-full flex items-center justify-center transition-transform ease-in-out shadow-2xl bg-gradient-to-br from-primary to-[hsl(var(--gradient-to))]',
         )}
         style={{
           width: 'clamp(200px, 40vw, 400px)',
@@ -63,7 +63,7 @@ export default function BreathingPage() {
       </div>
        <p className="text-muted-foreground absolute bottom-8 text-center text-sm">
         <Trans i18nKey="breathingPage.instructions">
-          Follow the guide to regulate your breathing. <br/> Feel free to close your eyes and focus on the sensation.
+          Follow the guide to regulate your breathing. <1/> Feel free to close your eyes and focus on the sensation.
         </Trans>
       </p>
     </div>

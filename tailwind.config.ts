@@ -18,6 +18,7 @@ export default {
     extend: {
       backgroundImage: {
         'gradient-main': 'radial-gradient(ellipse at top, hsl(262 84% 70% / 0.15), transparent), radial-gradient(ellipse at bottom, hsl(262 84% 59% / 0.2), transparent)',
+        'gradient-primary': 'linear-gradient(to right, hsl(var(--gradient-from)), hsl(var(--gradient-to)))',
       },
       fontFamily: {
         body: ["'PT Sans'", 'sans-serif'],
@@ -57,7 +58,7 @@ export default {
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        ring: 'hsl(var(--gradient-from))',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',
