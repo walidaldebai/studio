@@ -18,7 +18,7 @@ export default {
     extend: {
       backgroundImage: {
         'gradient-main': 'radial-gradient(ellipse at top, hsl(262 84% 70% / 0.15), transparent), radial-gradient(ellipse at bottom, hsl(262 84% 59% / 0.2), transparent)',
-        'gradient-primary': 'linear-gradient(to right, hsl(var(--gradient-from)), hsl(var(--gradient-to)))',
+        'gradient-primary': 'linear-gradient(to right, hsl(var(--gradient-from)) 0%, hsl(var(--gradient-to)) 50%, hsl(var(--gradient-from)) 100%)',
       },
       fontFamily: {
         body: ["'PT Sans'", 'sans-serif'],
@@ -108,7 +108,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in': 'fade-in 0.5s ease-in-out',
         'marquee': 'marquee 60s linear infinite',
-        'text-gradient': 'text-gradient 2s linear infinite',
+        'text-gradient': 'text-gradient 3s linear infinite',
       },
     },
   },
