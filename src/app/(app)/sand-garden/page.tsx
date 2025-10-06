@@ -15,7 +15,7 @@ export default function SandGardenPage() {
   const cols = useRef(0);
   const rows = useRef(0);
   const grid = useRef<number[][]>();
-  const resolution = 2;
+  const resolution = 2; // Reverted to 2 for better performance
   const sandColor = '#f0e5d8';
   const backgroundColor = '#2d2d2d';
 
@@ -27,13 +27,16 @@ export default function SandGardenPage() {
     ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+    ctx.fillStyle = sandColor;
     for (let i = 0; i < cols.current; i++) {
       for (let j = 0; j < rows.current; j++) {
         if (currentGrid[i][j] === 1) {
           const x = i * resolution;
           const y = j * resolution;
-          ctx.fillStyle = sandColor;
-          ctx.fillRect(x, y, resolution, resolution);
+          // Draw circles instead of squares
+          ctx.beginPath();
+          ctx.arc(x + resolution / 2, y + resolution / 2, resolution / 2, 0, 2 * Math.PI);
+          ctx.fill();
         }
       }
     }
