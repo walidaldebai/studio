@@ -3,7 +3,7 @@
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, HeartHandshake } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, HeartHandshake, Mic } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
 import Link from 'next/link';
@@ -120,16 +120,16 @@ export default function DashboardPage() {
         <Card className="flex flex-col hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
-              <HeartHandshake className="h-6 w-6" /> {t('dashboardCards.pocketCoachTitle')}
+              <Mic className="h-6 w-6" /> {t('dashboardCards.audioAffirmationsTitle')}
             </CardTitle>
             <CardDescription>
-              {t('dashboardCards.pocketCoachDescription')}
+              {t('dashboardCards.audioAffirmationsDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
             <Button asChild className="w-full">
-              <Link href="/pocket-coach">
-                {t('dashboardCards.pocketCoachButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href="/audio-affirmations">
+                {t('dashboardCards.audioAffirmationsButton')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </CardContent>

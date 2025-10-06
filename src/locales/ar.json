@@ -10,7 +10,7 @@
     "moodJournal": "يوميات المزاج",
     "breathing": "التنفس",
     "meditations": "التأملات",
-    "pocketCoach": "مدرب الجيب",
+    "audioAffirmations": "تأكيدات صوتية",
     "sandGarden": "حديقة الرمل",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
@@ -46,9 +46,9 @@
         "meditationsTitle": "تأملات موجهة",
         "meditationsDescription": "استمع إلى جلسات تأمل فريدة تم إنشاؤها بواسطة الذكاء الاصطناعي لمساعدتك على الاسترخاء والتركيز.",
         "meditationsButton": "ابدأ التأمل",
-        "pocketCoachTitle": "مدرب الجيب",
-        "pocketCoachDescription": "احصل على رسالة صوتية سريعة وداعمة لتذكيرك بأنه من الجيد ارتكاب الأخطاء.",
-        "pocketCoachButton": "احصل على تشجيع",
+        "audioAffirmationsTitle": "تأكيدات صوتية",
+        "audioAffirmationsDescription": "أنشئ واستمع إلى جلسات صوتية أطول وذات طابع خاص للتعزيز الإيجابي.",
+        "audioAffirmationsButton": "ابدأ الاستماع",
         "sandGardenTitle": "حديقة زن الرملية",
         "sandGardenDescription": "اصنع أنماطًا هادئة في حديقة رملية افتراضية للاسترخاء.",
         "sandGardenButton": "افتح الحديقة",
@@ -109,14 +109,20 @@
             "sleep": "نوم"
         }
     },
-    "pocketCoachPage": {
-        "title": "مدرب الجيب السريع",
-        "description": "هل تحتاج إلى دفعة؟ أنشئ رسالة إيجابية ومطمئنة لنفسك.",
-        "generateButton": "أنشئ رسالة تشجيعية",
+     "audioAffirmationsPage": {
+        "title": "تأكيدات صوتية بالذكاء الاصطناعي",
+        "description": "اختر موضوعًا لإنشاء جلسة تأكيد صوتي فريدة لك.",
+        "selectTheme": "اختر موضوعًا",
+        "generateButton": "إنشاء جلسة",
         "generating": "جاري الإنشاء...",
         "generatingAudio": "جاري تحضير الصوت...",
-        "cardTitle": "رسالة لك",
-        "playerHint": "اضغط على تشغيل للاستماع."
+        "playerHint": "اضغط على تشغيل للبدء. استوعب الإيجابية.",
+        "themes": {
+            "selfCompassion": "التعاطف مع الذات",
+            "findingJoy": "إيجاد الفرح",
+            "buildingConfidence": "بناء الثقة",
+            "overcomingFear": "التغلب على الخوف"
+        }
     },
     "sandGardenPage": {
         "title": "حديقة زن الرملية",

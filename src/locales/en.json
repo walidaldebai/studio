@@ -10,7 +10,7 @@
     "moodJournal": "Mood Journal",
     "breathing": "Breathing",
     "meditations": "Meditations",
-    "pocketCoach": "Pocket Coach",
+    "audioAffirmations": "Audio Affirmations",
     "sandGarden": "Sand Garden",
     "settings": "Settings",
     "logout": "Log out",
@@ -46,9 +46,9 @@
         "meditationsTitle": "Guided Meditations",
         "meditationsDescription": "Listen to unique, AI-generated meditation sessions to help you relax and focus.",
         "meditationsButton": "Start Meditating",
-        "pocketCoachTitle": "Pocket Coach",
-        "pocketCoachDescription": "Get a quick, supportive audio message to remind you it's okay to make mistakes.",
-        "pocketCoachButton": "Get a Boost",
+        "audioAffirmationsTitle": "Audio Affirmations",
+        "audioAffirmationsDescription": "Generate and listen to longer, themed audio sessions for positive reinforcement.",
+        "audioAffirmationsButton": "Start Listening",
         "sandGardenTitle": "Zen Sand Garden",
         "sandGardenDescription": "Create calming patterns in a virtual sand garden to unwind.",
         "sandGardenButton": "Open Garden",
@@ -109,14 +109,20 @@
             "sleep": "Sleep"
         }
     },
-    "pocketCoachPage": {
-        "title": "Quick Pocket Coach",
-        "description": "Need a boost? Generate a positive and reassuring message for yourself.",
-        "generateButton": "Generate Message",
+    "audioAffirmationsPage": {
+        "title": "AI Audio Affirmations",
+        "description": "Select a theme to generate a unique audio affirmation session just for you.",
+        "selectTheme": "Select a theme",
+        "generateButton": "Generate Session",
         "generating": "Generating...",
         "generatingAudio": "Brewing audio...",
-        "cardTitle": "A Message for You",
-        "playerHint": "Press play to listen."
+        "playerHint": "Press play to begin. Absorb the positivity.",
+        "themes": {
+            "selfCompassion": "Self-Compassion",
+            "findingJoy": "Finding Joy",
+            "buildingConfidence": "Building Confidence",
+            "overcomingFear": "Overcoming Fear"
+        }
     },
     "sandGardenPage": {
         "title": "Zen Sand Garden",
