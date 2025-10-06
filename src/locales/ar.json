@@ -10,7 +10,7 @@
     "moodJournal": "يوميات المزاج",
     "breathing": "التنفس",
     "meditations": "التأملات",
-    "pepTalk": "حديث تشجيعي",
+    "pocketCoach": "مدرب الجيب",
     "sandGarden": "حديقة الرمل",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
@@ -46,9 +46,9 @@
         "meditationsTitle": "تأملات موجهة",
         "meditationsDescription": "استمع إلى جلسات تأمل فريدة تم إنشاؤها بواسطة الذكاء الاصطناعي لمساعدتك على الاسترخاء والتركيز.",
         "meditationsButton": "ابدأ التأمل",
-        "pepTalkTitle": "حديث تشجيعي",
-        "pepTalkDescription": "احصل على رسالة صوتية سريعة وداعمة لتذكيرك بأنه من الجيد ارتكاب الأخطاء.",
-        "pepTalkButton": "احصل على تشجيع",
+        "pocketCoachTitle": "مدرب الجيب",
+        "pocketCoachDescription": "احصل على رسالة صوتية سريعة وداعمة لتذكيرك بأنه من الجيد ارتكاب الأخطاء.",
+        "pocketCoachButton": "احصل على تشجيع",
         "sandGardenTitle": "حديقة زن الرملية",
         "sandGardenDescription": "اصنع أنماطًا هادئة في حديقة رملية افتراضية للاسترخاء.",
         "sandGardenButton": "افتح الحديقة",
@@ -109,10 +109,10 @@
             "sleep": "نوم"
         }
     },
-    "pepTalkPage": {
-        "title": "حديث تشجيعي سريع",
+    "pocketCoachPage": {
+        "title": "مدرب الجيب السريع",
         "description": "هل تحتاج إلى دفعة؟ أنشئ رسالة إيجابية ومطمئنة لنفسك.",
-        "generateButton": "أنشئ حديثًا تشجيعيًا",
+        "generateButton": "أنشئ رسالة تشجيعية",
         "generating": "جاري الإنشاء...",
         "generatingAudio": "جاري تحضير الصوت...",
         "cardTitle": "رسالة لك",

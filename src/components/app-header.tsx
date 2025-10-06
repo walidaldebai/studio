@@ -52,7 +52,7 @@ export function AppHeader() {
     { href: '/mood-journal', label: t('moodJournal'), icon: BookOpen },
     { href: '/breathing', label: t('breathing'), icon: Wind },
     { href: '/meditations', label: t('meditations'), icon: Headset },
-    { href: '/pep-talk', label: t('pepTalk'), icon: HeartHandshake },
+    { href: '/pocket-coach', label: t('pocketCoach'), icon: HeartHandshake },
     { href: '/sand-garden', label: t('sandGarden'), icon: Palmtree },
   ];
 

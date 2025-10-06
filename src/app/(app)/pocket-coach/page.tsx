@@ -5,16 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Sparkles, Play, Pause, RefreshCw, Volume2, Bot } from 'lucide-react';
-import { generatePepTalk, type GeneratePepTalkInput } from '@/ai/flows/generate-pep-talk';
+import { generatePocketCoachMessage, type GeneratePocketCoachMessageInput } from '@/ai/flows/generate-pocket-coach-message';
 import { convertTextToSpeech } from '@/ai/flows/text-to-speech';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
 
-export default function PepTalkPage() {
+export default function PocketCoachPage() {
   const { t } = useAppTranslation();
   const { language } = useLanguage();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [session, setSession] = useState<{ pepTalk: string; audio: string | null } | null>(null);
+  const [session, setSession] = useState<{ message: string; audio: string | null } | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -24,15 +24,15 @@ export default function PepTalkPage() {
     setIsPlaying(false);
 
     try {
-      const pepTalkInput: GeneratePepTalkInput = { language };
-      const { pepTalk } = await generatePepTalk(pepTalkInput);
-      setSession({ pepTalk, audio: null });
+      const pocketCoachInput: GeneratePocketCoachMessageInput = { language };
+      const { message } = await generatePocketCoachMessage(pocketCoachInput);
+      setSession({ message, audio: null });
 
-      const { audio } = await convertTextToSpeech(pepTalk);
-      setSession({ pepTalk, audio });
+      const { audio } = await convertTextToSpeech(message);
+      setSession({ message, audio });
 
     } catch (error) {
-      console.error('Failed to generate pep talk session:', error);
+      console.error('Failed to generate session:', error);
     } finally {
       setIsLoading(false);
     }
@@ -54,14 +54,14 @@ export default function PepTalkPage() {
         <Card>
           <CardHeader>
             <CardTitle className="font-headline text-3xl flex items-center gap-2">
-              <Volume2 /> {t('pepTalkPage.title')}
+              <Volume2 /> {t('pocketCoachPage.title')}
             </CardTitle>
-            <CardDescription>{t('pepTalkPage.description')}</CardDescription>
+            <CardDescription>{t('pocketCoachPage.description')}</CardDescription>
           </CardHeader>
           <CardContent>
               <Button onClick={handleGenerateSession} disabled={isLoading} className="w-full">
                 <Sparkles className={`mr-2 h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
-                {isLoading ? t('pepTalkPage.generating') : t('pepTalkPage.generateButton')}
+                {isLoading ? t('pocketCoachPage.generating') : t('pocketCoachPage.generateButton')}
               </Button>
           </CardContent>
         </Card>
@@ -74,7 +74,7 @@ export default function PepTalkPage() {
             <CardContent className="space-y-6">
                  <div className="flex flex-col items-center gap-4 py-8">
                   <RefreshCw className="h-8 w-8 animate-spin text-primary" />
-                  <p className="text-muted-foreground">{t('pepTalkPage.generating')}</p>
+                  <p className="text-muted-foreground">{t('pocketCoachPage.generating')}</p>
                 </div>
             </CardContent>
           </Card>
@@ -84,12 +84,12 @@ export default function PepTalkPage() {
           <Card>
             <CardHeader>
               <CardTitle className="font-headline flex items-center gap-2">
-                <Bot /> {t('pepTalkPage.cardTitle')}
+                <Bot /> {t('pocketCoachPage.cardTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="prose prose-lg dark:prose-invert max-w-none text-center italic">
-                <p>&ldquo;{session.pepTalk}&rdquo;</p>
+                <p>&ldquo;{session.message}&rdquo;</p>
               </div>
 
               {session.audio ? (
@@ -104,12 +104,12 @@ export default function PepTalkPage() {
                   <Button onClick={togglePlayPause} size="icon" className="h-16 w-16 rounded-full">
                     {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
                   </Button>
-                  <p className="text-muted-foreground text-sm">{t('pepTalkPage.playerHint')}</p>
+                  <p className="text-muted-foreground text-sm">{t('pocketCoachPage.playerHint')}</p>
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-4 py-4">
                   <RefreshCw className="h-6 w-6 animate-spin text-primary" />
-                  <p className="text-muted-foreground text-sm">{t('pepTalkPage.generatingAudio')}</p>
+                  <p className="text-muted-foreground text-sm">{t('pocketCoachPage.generatingAudio')}</p>
                 </div>
               )}
             </CardContent>

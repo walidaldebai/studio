@@ -120,16 +120,16 @@ export default function DashboardPage() {
         <Card className="flex flex-col hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
-              <HeartHandshake className="h-6 w-6" /> {t('dashboardCards.pepTalkTitle')}
+              <HeartHandshake className="h-6 w-6" /> {t('dashboardCards.pocketCoachTitle')}
             </CardTitle>
             <CardDescription>
-              {t('dashboardCards.pepTalkDescription')}
+              {t('dashboardCards.pocketCoachDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
             <Button asChild className="w-full">
-              <Link href="/pep-talk">
-                {t('dashboardCards.pepTalkButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href="/pocket-coach">
+                {t('dashboardCards.pocketCoachButton')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </CardContent>
