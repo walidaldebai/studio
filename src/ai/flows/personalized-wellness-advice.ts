@@ -51,7 +51,11 @@ const prompt = ai.definePrompt({
 
   User Needs: {{{needs}}}
 
+  {{#if (lt needs.length 15)}}
+  The user's request is very short. Kindly ask them to provide more details about their situation so you can offer more specific and helpful advice.
+  {{else}}
   Provide wellness advice:
+  {{/if}}
   `,
 });
 
