@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Palmtree, RefreshCw } from 'lucide-react';
@@ -10,126 +10,155 @@ import { useAppTranslation } from '@/context/language-provider';
 export default function SandGardenPage() {
   const { t } = useAppTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
-  
-  const draw = useCallback((ctx: CanvasRenderingContext2D, x: number, y: number) => {
-    // Create a more subtle and textured line to mimic a rake in sand
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.015)'; // Very faint fill
-    ctx.fill();
+  const animationFrameId = useRef<number>();
 
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgba(0, 0, 0, 0.02)'; // Very faint stroke for texture
-    
-    // Create a few lines around the center for a 'rake' effect
-    for(let i = -2; i <= 2; i += 2) {
-      ctx.beginPath();
-      ctx.moveTo(x - 5, y + i);
-      ctx.lineTo(x + 5, y + i);
-      ctx.stroke();
+  const cols = useRef(0);
+  const rows = useRef(0);
+  const grid = useRef<number[][]>();
+  const resolution = 10;
+  const sandColor = '#f0e5d8';
+  const backgroundColor = '#2d2d2d';
+
+  const createGrid = useCallback((c: number, r: number) => {
+    return Array(c).fill(null).map(() => Array(r).fill(0));
+  }, []);
+
+  const draw = useCallback((ctx: CanvasRenderingContext2D, currentGrid: number[][]) => {
+    ctx.fillStyle = backgroundColor;
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    for (let i = 0; i < cols.current; i++) {
+      for (let j = 0; j < rows.current; j++) {
+        if (currentGrid[i][j] === 1) {
+          const x = i * resolution;
+          const y = j * resolution;
+          ctx.fillStyle = sandColor;
+          ctx.fillRect(x, y, resolution, resolution);
+        }
+      }
     }
   }, []);
 
   const clearCanvas = useCallback(() => {
+    if (cols.current > 0 && rows.current > 0) {
+      grid.current = createGrid(cols.current, rows.current);
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      draw(ctx, grid.current);
+    }
+  }, [createGrid, draw]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
-    ctx.fillStyle = '#f0e5d8'; // Sand color
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }, []);
-  
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
     
-    const container = canvas.parentElement;
-    if (container) {
-      canvas.width = container.clientWidth;
-      canvas.height = container.clientHeight;
-    }
+    let isMouseDown = false;
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    clearCanvas();
-
-    const handleMouseDown = (e: MouseEvent) => {
-      setIsDrawing(true);
-      const rect = canvas.getBoundingClientRect();
-      draw(ctx, e.clientX - rect.left, e.clientY - rect.top);
-    };
-
-    const handleMouseUp = () => {
-      setIsDrawing(false);
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDrawing) return;
-      const rect = canvas.getBoundingClientRect();
-      draw(ctx, e.clientX - rect.left, e.clientY - rect.top);
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-        setIsDrawing(true);
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        if (touch) {
-          draw(ctx, touch.clientX - rect.left, touch.clientY - rect.top);
-        }
-    }
-
-    const handleTouchMove = (e: TouchEvent) => {
-        if (!isDrawing) return;
-        e.preventDefault(); // Prevent scrolling
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        if (touch) {
-          draw(ctx, touch.clientX - rect.left, touch.clientY - rect.top);
-        }
-    }
-    
-    const handleTouchEnd = () => {
-        setIsDrawing(false);
-    }
-
-    canvas.addEventListener('mousedown', handleMouseDown);
-    canvas.addEventListener('mouseup', handleMouseUp);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseleave', handleMouseUp);
-    
-    canvas.addEventListener('touchstart', handleTouchStart);
-    canvas.addEventListener('touchend', handleTouchEnd);
-    canvas.addEventListener('touchmove', handleTouchMove);
-
-    return () => {
-      canvas.removeEventListener('mousedown', handleMouseDown);
-      canvas.removeEventListener('mouseup', handleMouseUp);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseleave', handleMouseUp);
-
-      canvas.removeEventListener('touchstart', handleTouchStart);
-      canvas.removeEventListener('touchend', handleTouchEnd);
-      canvas.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, [isDrawing, draw, clearCanvas]);
-
-  useEffect(() => {
-    const handleResize = () => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+    const setup = () => {
         const container = canvas.parentElement;
         if (container) {
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
-            clearCanvas();
+            cols.current = Math.floor(canvas.width / resolution);
+            rows.current = Math.floor(canvas.height / resolution);
+            grid.current = createGrid(cols.current, rows.current);
         }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [clearCanvas]);
+    
+    const update = () => {
+      if (!grid.current) return;
+      
+      const nextGrid = createGrid(cols.current, rows.current);
+
+      for (let i = 0; i < cols.current; i++) {
+        for (let j = 0; j < rows.current; j++) {
+          const state = grid.current[i][j];
+          if (state === 1) {
+            const below = j + 1;
+
+            if (below < rows.current && grid.current[i][below] === 0) {
+              nextGrid[i][below] = 1; // Move down
+            } else {
+                const dir = Math.random() < 0.5 ? -1 : 1;
+                const belowA = i + dir;
+                const belowB = i - dir;
+
+                if (belowA >= 0 && belowA < cols.current && grid.current[belowA][below] === 0) {
+                    nextGrid[belowA][below] = 1;
+                } else if (belowB >= 0 && belowB < cols.current && grid.current[belowB][below] === 0) {
+                    nextGrid[belowB][below] = 1;
+                } else {
+                   nextGrid[i][j] = 1;
+                }
+            }
+          }
+        }
+      }
+      grid.current = nextGrid;
+      draw(ctx, grid.current);
+      animationFrameId.current = requestAnimationFrame(update);
+    };
+    
+    setup();
+    update();
+
+    const handleMouseDown = () => { isMouseDown = true; };
+    const handleMouseUp = () => { isMouseDown = false; };
+    
+    const addSand = (e: MouseEvent | Touch) => {
+        if (!grid.current) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.floor((e.clientX - rect.left) / resolution);
+        const y = Math.floor((e.clientY - rect.top) / resolution);
+
+        if(x >= 0 && x < cols.current && y >= 0 && y < rows.current) {
+            const matrix = 5;
+            const extent = Math.floor(matrix / 2);
+            for(let i = -extent; i <= extent; i++) {
+                for(let j = -extent; j <= extent; j++) {
+                    if (Math.random() < 0.75) {
+                        const col = x + i;
+                        const row = y + j;
+                         if(col >= 0 && col < cols.current && row >= 0 && row < rows.current) {
+                            grid.current[col][row] = 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isMouseDown) addSand(e);
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+        e.preventDefault();
+        addSand(e.touches[0]);
+    }
+    
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mouseup', handleMouseUp);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('touchstart', handleMouseDown);
+    canvas.addEventListener('touchend', handleMouseUp);
+    canvas.addEventListener('touchmove', handleTouchMove);
+
+    return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      canvas.removeEventListener('mousedown', handleMouseDown);
+      canvas.removeEventListener('mouseup', handleMouseUp);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('touchstart', handleMouseDown);
+      canvas.removeEventListener('touchend', handleMouseUp);
+      canvas.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [createGrid, draw]);
 
   return (
     <div className="container mx-auto p-4 md:p-8 flex flex-col h-[calc(100vh-3.5rem)]">
