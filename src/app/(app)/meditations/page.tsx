@@ -37,13 +37,12 @@ export default function MeditationsPage() {
     setIsPlaying(false);
 
     try {
-      // Step 1: Generate Script
       const meditationInput: GenerateMeditationInput = { theme: selectedTheme, language };
+      // Generate script and audio together
       const { title, script } = await generateMeditationScript(meditationInput);
-      setSession({ title, script, audio: null });
-
-      // Step 2: Generate Audio
       const { audio } = await convertTextToSpeech(script);
+      
+      // Set the session only when both are ready
       setSession({ title, script, audio });
 
     } catch (error) {
@@ -97,7 +96,7 @@ export default function MeditationsPage() {
           </CardContent>
         </Card>
 
-        {isLoading && !session && (
+        {isLoading && (
           <Card>
             <CardHeader>
                 <Skeleton className="h-8 w-3/4" />
