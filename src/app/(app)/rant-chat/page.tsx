@@ -29,7 +29,7 @@ export default function RantChatPage() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
   const { user } = useUser();
 
   const handleSendMessage = async () => {
@@ -68,11 +68,8 @@ export default function RantChatPage() {
   };
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-        const viewport = scrollAreaRef.current.querySelector('div[data-radix-scroll-area-viewport]');
-        if (viewport) {
-            viewport.scrollTop = viewport.scrollHeight;
-        }
+    if (scrollViewportRef.current) {
+        scrollViewportRef.current.scrollTop = scrollViewportRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -86,7 +83,7 @@ export default function RantChatPage() {
                     <p className="text-sm text-muted-foreground">{t('rantChatPage.description')}</p>
                 </div>
             </header>
-          <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+          <ScrollArea className="flex-1 p-4" viewportRef={scrollViewportRef}>
             <div className="space-y-6">
               {messages.map(message => (
                 <div
