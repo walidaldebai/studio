@@ -16,8 +16,8 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="mb-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary flex items-center justify-center gap-3">
-           <HeartHandshake className="h-10 w-10" /> {t('welcome')}, {user?.name}
+        <h1 className="text-4xl md:text-5xl font-headline font-bold bg-gradient-to-r from-primary to-purple-400 text-transparent bg-clip-text animate-text-gradient">
+           <HeartHandshake className="h-10 w-10 inline-block text-primary" /> {t('welcome')}, {user?.name}
         </h1>
         <p className="mt-2 text-lg text-muted-foreground">
           {t('appSlogan')}
