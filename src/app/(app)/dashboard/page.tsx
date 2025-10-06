@@ -27,7 +27,7 @@ export default function DashboardPage() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <DailyAffirmationCard />
 
-        <Card className="flex flex-col hover:border-primary transition-colors">
+        <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <MessageSquare className="h-6 w-6" /> {t('dashboardCards.rantChatTitle')}
@@ -45,7 +45,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col hover:border-primary transition-colors">
+        <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <BrainCircuit className="h-6 w-6" /> {t('dashboardCards.guidanceTitle')}
@@ -63,7 +63,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col hover:border-primary transition-colors">
+        <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <BookOpen className="h-6 w-6" /> {t('dashboardCards.moodJournalTitle')}
@@ -81,7 +81,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         
-        <Card className="flex flex-col hover:border-primary transition-colors">
+        <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Wind className="h-6 w-6" /> {t('dashboardCards.breathingTitle')}
@@ -99,7 +99,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col hover:border-primary transition-colors">
+        <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Headset className="h-6 w-6" /> {t('dashboardCards.meditationsTitle')}
@@ -117,7 +117,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col hover:border-primary transition-colors">
+        <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Mic className="h-6 w-6" /> {t('dashboardCards.audioAffirmationsTitle')}
@@ -135,7 +135,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-         <Card className="flex flex-col hover:border-primary transition-colors">
+         <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Bot className="h-6 w-6" /> {t('dashboardCards.pocketCoachTitle')}
@@ -153,7 +153,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col hover:border-primary transition-colors">
+        <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Palmtree className="h-6 w-6" /> {t('dashboardCards.sandGardenTitle')}
@@ -171,7 +171,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         
-        <Card className="lg:col-span-2 xl:col-span-4">
+        <Card className="lg:col-span-2 xl:col-span-4 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1">
            <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Mail className="h-6 w-6" /> {t('dashboardCards.feedbackTitle')}

@@ -32,7 +32,7 @@ export function DailyAffirmationCard() {
   }, [language]);
 
   return (
-    <Card className="flex flex-col lg:col-span-2 hover:border-primary transition-colors">
+    <Card className="flex flex-col lg:col-span-2 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 font-headline">
           <Sparkles className="h-6 w-6 text-primary" /> {t('dashboardCards.dailyAffirmation')}
