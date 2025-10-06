@@ -10,6 +10,7 @@
     "moodJournal": "Mood Journal",
     "breathing": "Breathing",
     "meditations": "Meditations",
+    "pepTalk": "Pep Talk",
     "sandGarden": "Sand Garden",
     "settings": "Settings",
     "logout": "Log out",
@@ -45,6 +46,9 @@
         "meditationsTitle": "Guided Meditations",
         "meditationsDescription": "Listen to unique, AI-generated meditation sessions to help you relax and focus.",
         "meditationsButton": "Start Meditating",
+        "pepTalkTitle": "Pep Talk",
+        "pepTalkDescription": "Get a quick, supportive audio message to remind you it's okay to make mistakes.",
+        "pepTalkButton": "Get a Pep Talk",
         "sandGardenTitle": "Zen Sand Garden",
         "sandGardenDescription": "Create calming patterns in a virtual sand garden to unwind.",
         "sandGardenButton": "Open Garden",
@@ -104,6 +108,15 @@
             "gratitude": "Gratitude",
             "sleep": "Sleep"
         }
+    },
+    "pepTalkPage": {
+        "title": "Quick Pep Talk",
+        "description": "Need a boost? Generate a positive and reassuring message for yourself.",
+        "generateButton": "Generate Pep Talk",
+        "generating": "Generating...",
+        "generatingAudio": "Brewing audio...",
+        "cardTitle": "A Message for You",
+        "playerHint": "Press play to listen."
     },
     "sandGardenPage": {
         "title": "Zen Sand Garden",
