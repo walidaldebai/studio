@@ -4,7 +4,7 @@
 import { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Waves, Play, Pause, CloudRain, Forest, Coffee } from 'lucide-react';
+import { Waves, Play, Pause, CloudRain, TreePine, Coffee } from 'lucide-react';
 import { useAppTranslation } from '@/context/language-provider';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -57,7 +57,7 @@ export default function SoundscapesPage() {
     {
       id: 'forest',
       titleKey: 'forest',
-      Icon: Forest,
+      Icon: TreePine,
       audioSrc: 'https://cdn.pixabay.com/audio/2022/08/03/audio_502931a257.mp3',
       imageSrc: 'https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070',
     },

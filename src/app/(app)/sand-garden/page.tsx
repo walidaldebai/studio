@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Palmtree, RefreshCw } from 'lucide-react';
@@ -15,7 +15,8 @@ export default function SandGardenPage() {
   const cols = useRef(0);
   const rows = useRef(0);
   const grid = useRef<number[][]>();
-  const resolution = 2; // Reverted to 2 for better performance
+  const [isInitialized, setIsInitialized] = useState(false);
+  const resolution = 2;
   const sandColor = '#f0e5d8';
   const backgroundColor = '#2d2d2d';
 
@@ -33,7 +34,6 @@ export default function SandGardenPage() {
         if (currentGrid[i][j] === 1) {
           const x = i * resolution;
           const y = j * resolution;
-          // Draw circles instead of squares
           ctx.beginPath();
           ctx.arc(x + resolution / 2, y + resolution / 2, resolution / 2, 0, 2 * Math.PI);
           ctx.fill();
@@ -66,14 +66,36 @@ export default function SandGardenPage() {
         if (container) {
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
-            cols.current = Math.floor(canvas.width / resolution);
-            rows.current = Math.floor(canvas.height / resolution);
-            grid.current = createGrid(cols.current, rows.current);
+            const newCols = Math.floor(canvas.width / resolution);
+            const newRows = Math.floor(canvas.height / resolution);
+
+            if (!isInitialized) {
+              cols.current = newCols;
+              rows.current = newRows;
+              grid.current = createGrid(newCols, newRows);
+              setIsInitialized(true);
+            } else if (grid.current) {
+                // Handle resize: copy old grid into a new one
+                const newGrid = createGrid(newCols, newRows);
+                const oldCols = cols.current;
+                const oldRows = rows.current;
+                for (let i = 0; i < Math.min(oldCols, newCols); i++) {
+                    for (let j = 0; j < Math.min(oldRows, newRows); j++) {
+                        newGrid[i][j] = grid.current[i][j];
+                    }
+                }
+                grid.current = newGrid;
+                cols.current = newCols;
+                rows.current = newRows;
+            }
         }
     };
     
     const update = () => {
-      if (!grid.current) return;
+      if (!grid.current) {
+        animationFrameId.current = requestAnimationFrame(update);
+        return;
+      };
       
       const nextGrid = createGrid(cols.current, rows.current);
 
@@ -163,9 +185,9 @@ export default function SandGardenPage() {
     canvas.addEventListener('mousedown', handleMouseDown);
     canvas.addEventListener('mouseup', handleMouseUp);
     canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('touchstart', handleMouseDown);
+    canvas.addEventListener('touchstart', handleMouseDown, { passive: false });
     canvas.addEventListener('touchend', handleMouseUp);
-    canvas.addEventListener('touchmove', handleTouchMove);
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     const handleResize = () => {
         setup();
@@ -185,7 +207,7 @@ export default function SandGardenPage() {
       canvas.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', handleResize);
     };
-  }, [createGrid, draw]);
+  }, [createGrid, draw, isInitialized]);
 
   return (
     <div className="container mx-auto p-4 md:p-8 flex flex-col h-[calc(100vh-3.5rem)]">
