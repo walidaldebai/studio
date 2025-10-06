@@ -1,7 +1,7 @@
 
 {
     "appName": "منطقة زن",
-    "appVersion": "ألفا 1.1",
+    "appVersion": "ألفا 1.2",
     "appSlogan": "مساحتك للهدوء والوضوح.",
     "welcome": "أهلاً بك",
     "dashboard": "لوحة التحكم",
@@ -11,6 +11,7 @@
     "breathing": "التنفس",
     "meditations": "التأملات",
     "audioAffirmations": "تأكيدات صوتية",
+    "pocketCoach": "مدرب الجيب",
     "sandGarden": "حديقة الرمل",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
@@ -49,6 +50,9 @@
         "audioAffirmationsTitle": "تأكيدات صوتية",
         "audioAffirmationsDescription": "أنشئ واستمع إلى جلسات صوتية أطول وذات طابع خاص للتعزيز الإيجابي.",
         "audioAffirmationsButton": "ابدأ الاستماع",
+        "pocketCoachTitle": "مدرب الجيب",
+        "pocketCoachDescription": "احصل على حديث حماسي صوتي سريع ومشجع.",
+        "pocketCoachButton": "احصل على تشجيع",
         "sandGardenTitle": "حديقة زن الرملية",
         "sandGardenDescription": "اصنع أنماطًا هادئة في حديقة رملية افتراضية للاسترخاء.",
         "sandGardenButton": "افتح الحديقة",
@@ -127,6 +131,15 @@
             "buildingConfidence": "بناء الثقة",
             "overcomingFear": "التغلب على الخوف"
         }
+    },
+    "pocketCoachPage": {
+        "title": "مدرب الجيب",
+        "description": "احصل على جرعة سريعة من التشجيع الصوتي لرفع معنوياتك.",
+        "generateButton": "احصل على حديث حماسي",
+        "generating": "جاري الإنشاء...",
+        "generatingAudio": "جاري تحضير الصوت...",
+        "cardTitle": "رسالة لك",
+        "playerHint": "اضغط على تشغيل للاستماع."
     },
     "sandGardenPage": {
         "title": "حديقة زن الرملية",

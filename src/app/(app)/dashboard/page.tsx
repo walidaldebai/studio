@@ -3,7 +3,7 @@
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, HeartHandshake, Mic } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, HeartHandshake, Mic, Bot } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
 import Link from 'next/link';
@@ -16,15 +16,15 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="mb-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary">
-          {t('welcome')}, {user?.name}
+        <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary flex items-center justify-center gap-3">
+           <HeartHandshake className="h-10 w-10" /> {t('welcome')}, {user?.name}
         </h1>
         <p className="mt-2 text-lg text-muted-foreground">
           {t('appSlogan')}
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <DailyAffirmationCard />
 
         <Card className="flex flex-col hover:border-primary transition-colors">
@@ -135,6 +135,24 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
 
+         <Card className="flex flex-col hover:border-primary transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <Bot className="h-6 w-6" /> {t('dashboardCards.pocketCoachTitle')}
+            </CardTitle>
+            <CardDescription>
+              {t('dashboardCards.pocketCoachDescription')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex-grow flex items-end">
+            <Button asChild className="w-full">
+              <Link href="/pocket-coach">
+                {t('dashboardCards.pocketCoachButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+
         <Card className="flex flex-col hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
@@ -153,7 +171,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         
-        <Card className="lg:col-span-3">
+        <Card className="lg:col-span-2 xl:col-span-4">
            <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Mail className="h-6 w-6" /> {t('dashboardCards.feedbackTitle')}

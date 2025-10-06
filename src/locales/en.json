@@ -1,7 +1,7 @@
 
 {
     "appName": "Zen Zone",
-    "appVersion": "Alpha 1.1",
+    "appVersion": "Alpha 1.2",
     "appSlogan": "Your space for calm and clarity.",
     "welcome": "Welcome",
     "dashboard": "Dashboard",
@@ -11,6 +11,7 @@
     "breathing": "Breathing",
     "meditations": "Meditations",
     "audioAffirmations": "Audio Affirmations",
+    "pocketCoach": "Pocket Coach",
     "sandGarden": "Sand Garden",
     "settings": "Settings",
     "logout": "Log out",
@@ -49,6 +50,9 @@
         "audioAffirmationsTitle": "Audio Affirmations",
         "audioAffirmationsDescription": "Generate and listen to longer, themed audio sessions for positive reinforcement.",
         "audioAffirmationsButton": "Start Listening",
+        "pocketCoachTitle": "Pocket Coach",
+        "pocketCoachDescription": "Get a quick, encouraging audio pep talk.",
+        "pocketCoachButton": "Get Pep Talk",
         "sandGardenTitle": "Zen Sand Garden",
         "sandGardenDescription": "Create calming patterns in a virtual sand garden to unwind.",
         "sandGardenButton": "Open Garden",
@@ -127,6 +131,15 @@
             "buildingConfidence": "Building Confidence",
             "overcomingFear": "Overcoming Fear"
         }
+    },
+    "pocketCoachPage": {
+        "title": "Pocket Coach",
+        "description": "Get a quick dose of audio encouragement to lift your spirits.",
+        "generateButton": "Get Pep Talk",
+        "generating": "Generating...",
+        "generatingAudio": "Brewing audio...",
+        "cardTitle": "A Message for You",
+        "playerHint": "Press play to listen."
     },
     "sandGardenPage": {
         "title": "Zen Sand Garden",

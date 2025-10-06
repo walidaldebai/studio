@@ -26,8 +26,6 @@ export default function PocketCoachPage() {
     try {
       const pocketCoachInput: GeneratePocketCoachMessageInput = { language };
       const { message } = await generatePocketCoachMessage(pocketCoachInput);
-      setSession({ message, audio: null });
-
       const { audio } = await convertTextToSpeech(message);
       setSession({ message, audio });
 
@@ -54,7 +52,7 @@ export default function PocketCoachPage() {
         <Card>
           <CardHeader>
             <CardTitle className="font-headline text-3xl flex items-center gap-2">
-              <Volume2 /> {t('pocketCoachPage.title')}
+              <Bot /> {t('pocketCoachPage.title')}
             </CardTitle>
             <CardDescription>{t('pocketCoachPage.description')}</CardDescription>
           </CardHeader>
@@ -69,14 +67,11 @@ export default function PocketCoachPage() {
         {isLoading && !session && (
           <Card>
             <CardHeader>
-                <Skeleton className="h-8 w-3/4" />
-            </CardHeader>
-            <CardContent className="space-y-6">
                  <div className="flex flex-col items-center gap-4 py-8">
                   <RefreshCw className="h-8 w-8 animate-spin text-primary" />
                   <p className="text-muted-foreground">{t('pocketCoachPage.generating')}</p>
                 </div>
-            </CardContent>
+            </CardHeader>
           </Card>
         )}
 
@@ -84,7 +79,7 @@ export default function PocketCoachPage() {
           <Card>
             <CardHeader>
               <CardTitle className="font-headline flex items-center gap-2">
-                <Bot /> {t('pocketCoachPage.cardTitle')}
+                <Volume2 /> {t('pocketCoachPage.cardTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
