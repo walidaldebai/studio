@@ -108,7 +108,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in': 'fade-in 0.5s ease-in-out',
         'marquee': 'marquee 60s linear infinite',
-        'text-gradient': 'text-gradient 3s linear infinite',
+        'text-gradient': 'text-gradient 8s linear infinite',
       },
     },
   },
