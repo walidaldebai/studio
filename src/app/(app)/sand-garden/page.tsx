@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Palmtree, RefreshCw } from 'lucide-react';
@@ -12,17 +12,26 @@ export default function SandGardenPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   
-  const draw = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
+  const draw = useCallback((ctx: CanvasRenderingContext2D, x: number, y: number) => {
+    // Create a more subtle and textured line to mimic a rake in sand
     ctx.beginPath();
-    ctx.arc(x, y, 10, 0, 2 * Math.PI);
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
+    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.015)'; // Very faint fill
     ctx.fill();
-    ctx.lineWidth = 20;
-    ctx.strokeStyle = 'rgba(0, 0, 0, 0.02)';
-    ctx.stroke();
-  };
 
-  const clearCanvas = () => {
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.02)'; // Very faint stroke for texture
+    
+    // Create a few lines around the center for a 'rake' effect
+    for(let i = -2; i <= 2; i += 2) {
+      ctx.beginPath();
+      ctx.moveTo(x - 5, y + i);
+      ctx.lineTo(x + 5, y + i);
+      ctx.stroke();
+    }
+  }, []);
+
+  const clearCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -30,13 +39,12 @@ export default function SandGardenPage() {
 
     ctx.fillStyle = '#f0e5d8'; // Sand color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-  };
+  }, []);
   
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     
-    // Set canvas dimensions based on container size
     const container = canvas.parentElement;
     if (container) {
       canvas.width = container.clientWidth;
@@ -68,7 +76,9 @@ export default function SandGardenPage() {
         setIsDrawing(true);
         const rect = canvas.getBoundingClientRect();
         const touch = e.touches[0];
-        draw(ctx, touch.clientX - rect.left, touch.clientY - rect.top);
+        if (touch) {
+          draw(ctx, touch.clientX - rect.left, touch.clientY - rect.top);
+        }
     }
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -76,13 +86,14 @@ export default function SandGardenPage() {
         e.preventDefault(); // Prevent scrolling
         const rect = canvas.getBoundingClientRect();
         const touch = e.touches[0];
-        draw(ctx, touch.clientX - rect.left, touch.clientY - rect.top);
+        if (touch) {
+          draw(ctx, touch.clientX - rect.left, touch.clientY - rect.top);
+        }
     }
     
     const handleTouchEnd = () => {
         setIsDrawing(false);
     }
-
 
     canvas.addEventListener('mousedown', handleMouseDown);
     canvas.addEventListener('mouseup', handleMouseUp);
@@ -103,7 +114,7 @@ export default function SandGardenPage() {
       canvas.removeEventListener('touchend', handleTouchEnd);
       canvas.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [isDrawing, draw]);
+  }, [isDrawing, draw, clearCanvas]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -118,7 +129,7 @@ export default function SandGardenPage() {
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [clearCanvas]);
 
   return (
     <div className="container mx-auto p-4 md:p-8 flex flex-col h-[calc(100vh-3.5rem)]">
