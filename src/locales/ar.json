@@ -10,6 +10,8 @@
     "moodJournal": "يوميات المزاج",
     "breathing": "التنفس",
     "meditations": "التأملات",
+    "soundscapes": "المناظر الصوتية",
+    "sandGarden": "حديقة الرمل",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
     "onboarding": {
@@ -44,6 +46,12 @@
         "meditationsTitle": "تأملات موجهة",
         "meditationsDescription": "استمع إلى جلسات تأمل فريدة تم إنشاؤها بواسطة الذكاء الاصطناعي لمساعدتك على الاسترخاء والتركيز.",
         "meditationsButton": "ابدأ التأمل",
+        "soundscapesTitle": "المناظر الصوتية",
+        "soundscapesDescription": "استرخِ مع أصوات محيطة هادئة من الطبيعة وغيرها.",
+        "soundscapesButton": "افتح المناظر الصوتية",
+        "sandGardenTitle": "حديقة زن الرملية",
+        "sandGardenDescription": "اصنع أنماطًا هادئة في حديقة رملية افتراضية للاسترخاء.",
+        "sandGardenButton": "افتح الحديقة",
         "feedbackTitle": "الملاحظات والاقتراحات",
         "feedbackDescription": "إذا كان لديك أي أخطاء أو اقتراحات، يرجى إرسالها إلى"
     },
@@ -100,6 +108,21 @@
             "gratitude": "امتنان",
             "sleep": "نوم"
         }
+    },
+    "soundscapesPage": {
+        "title": "المناظر الصوتية المهدئة",
+        "description": "اختر صوتًا لتشغيله في الخلفية للاسترخاء أو التركيز.",
+        "sounds": {
+            "rain": "هطول المطر",
+            "forest": "غابة",
+            "ocean": "أمواج المحيط",
+            "cafe": "مقهى دافئ"
+        }
+    },
+    "sandGardenPage": {
+        "title": "حديقة زن الرملية",
+        "description": "استخدم مؤشرك لرسم أنماط في الرمال. طريقة بسيطة لتهدئة عقلك.",
+        "resetButton": "إعادة تعيين الحديقة"
     },
     "settingsPage": {
         "title": "الإعدادات",

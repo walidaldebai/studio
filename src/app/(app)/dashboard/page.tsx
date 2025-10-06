@@ -3,7 +3,7 @@
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Waves, Palmtree } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
 import Link from 'next/link';
@@ -116,8 +116,44 @@ export default function DashboardPage() {
             </Button>
           </CardContent>
         </Card>
+
+        <Card className="flex flex-col hover:border-primary transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <Waves className="h-6 w-6" /> {t('dashboardCards.soundscapesTitle')}
+            </CardTitle>
+            <CardDescription>
+              {t('dashboardCards.soundscapesDescription')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex-grow flex items-end">
+            <Button asChild className="w-full">
+              <Link href="/soundscapes">
+                {t('dashboardCards.soundscapesButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="flex flex-col hover:border-primary transition-colors">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <Palmtree className="h-6 w-6" /> {t('dashboardCards.sandGardenTitle')}
+            </CardTitle>
+            <CardDescription>
+              {t('dashboardCards.sandGardenDescription')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex-grow flex items-end">
+            <Button asChild className="w-full">
+              <Link href="/sand-garden">
+                {t('dashboardCards.sandGardenButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
         
-        <Card className="md:col-span-2 lg:col-span-3">
+        <Card className="lg:col-span-3">
            <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
               <Mail className="h-6 w-6" /> {t('dashboardCards.feedbackTitle')}

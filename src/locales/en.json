@@ -10,6 +10,8 @@
     "moodJournal": "Mood Journal",
     "breathing": "Breathing",
     "meditations": "Meditations",
+    "soundscapes": "Soundscapes",
+    "sandGarden": "Sand Garden",
     "settings": "Settings",
     "logout": "Log out",
     "onboarding": {
@@ -44,6 +46,12 @@
         "meditationsTitle": "Guided Meditations",
         "meditationsDescription": "Listen to unique, AI-generated meditation sessions to help you relax and focus.",
         "meditationsButton": "Start Meditating",
+        "soundscapesTitle": "Soundscapes",
+        "soundscapesDescription": "Relax with calming ambient sounds from nature and beyond.",
+        "soundscapesButton": "Open Soundscapes",
+        "sandGardenTitle": "Zen Sand Garden",
+        "sandGardenDescription": "Create calming patterns in a virtual sand garden to unwind.",
+        "sandGardenButton": "Open Garden",
         "feedbackTitle": "Feedback & Suggestions",
         "feedbackDescription": "If you have any bugs or suggestions, please send them to"
     },
@@ -100,6 +108,21 @@
             "gratitude": "Gratitude",
             "sleep": "Sleep"
         }
+    },
+    "soundscapesPage": {
+        "title": "Calming Soundscapes",
+        "description": "Choose a sound to play in the background to relax or focus.",
+        "sounds": {
+            "rain": "Rainfall",
+            "forest": "Forest",
+            "ocean": "Ocean Waves",
+            "cafe": "Cozy Cafe"
+        }
+    },
+    "sandGardenPage": {
+        "title": "Zen Sand Garden",
+        "description": "Use your cursor to rake patterns in the sand. A simple way to calm your mind.",
+        "resetButton": "Reset Garden"
     },
     "settingsPage": {
         "title": "Settings",
