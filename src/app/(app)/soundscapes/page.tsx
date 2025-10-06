@@ -51,28 +51,28 @@ export default function SoundscapesPage() {
       id: 'rain',
       titleKey: 'rain',
       Icon: CloudRain,
-      audioSrc: 'https://www.gstatic.com/assistant/ambientsounds/sounds/rain.mp3',
+      audioSrc: 'https://soundbible.com/grab.php?id=1778&type=mp3',
       imageSrc: 'https://images.unsplash.com/photo-1515694346937-94d85e41e622?q=80&w=1980',
     },
     {
       id: 'forest',
       titleKey: 'forest',
       Icon: TreePine,
-      audioSrc: 'https://www.gstatic.com/assistant/ambientsounds/sounds/forest_sounds.mp3',
+      audioSrc: 'https://soundbible.com/grab.php?id=1771&type=mp3',
       imageSrc: 'https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2070',
     },
     {
       id: 'ocean',
       titleKey: 'ocean',
       Icon: Waves,
-      audioSrc: 'https://www.gstatic.com/assistant/ambientsounds/sounds/ocean_waves.mp3',
+      audioSrc: 'https://soundbible.com/grab.php?id=1933&type=mp3',
       imageSrc: 'https://images.unsplash.com/photo-1439405326853-58f2724f2b30?q=80&w=2070',
     },
     {
       id: 'cafe',
       titleKey: 'cafe',
       Icon: Coffee,
-      audioSrc: 'https://www.gstatic.com/assistant/ambientsounds/sounds/country_night.mp3', // Placeholder, couldn't find a direct cafe link from a reliable CDN
+      audioSrc: 'https://soundbible.com/grab.php?id=1630&type=mp3',
       imageSrc: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1974',
     },
   ];
