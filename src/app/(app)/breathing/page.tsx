@@ -44,20 +44,19 @@ export default function BreathingPage() {
     <div className="flex flex-col items-center justify-center h-[calc(100vh-3.5rem)] overflow-hidden">
       <div
         className={cn(
-          'relative rounded-full flex items-center justify-center transition-transform ease-in-out shadow-2xl',
+          'relative rounded-full flex items-center justify-center transition-transform ease-in-out shadow-2xl bg-primary/20',
         )}
         style={{
           width: 'clamp(200px, 40vw, 400px)',
           height: 'clamp(200px, 40vw, 400px)',
           transform: `scale(${currentCycle.scale})`,
           transitionDuration: `${currentCycle.duration}ms`,
-          background: 'radial-gradient(circle, #8A2BE2 0%, #4B0082 100%)',
-          boxShadow: '0 0 40px 10px rgba(138, 43, 226, 0.4)',
+          boxShadow: '0 0 80px 20px hsl(var(--primary) / 0.4)',
         }}
       >
         <div className="text-center flex flex-col items-center gap-4">
-          <Wind className="h-8 w-8 text-white/80"/>
-          <p className="text-2xl md:text-4xl font-headline font-semibold text-white tracking-wider">
+          <Wind className="h-8 w-8 text-primary-foreground/80"/>
+          <p className="text-2xl md:text-4xl font-headline font-semibold text-primary-foreground tracking-wider">
             {currentCycle.text}
           </p>
         </div>
