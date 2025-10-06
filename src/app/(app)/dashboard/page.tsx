@@ -3,7 +3,7 @@
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, HeartHand } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, HeartHandshake } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
 import Link from 'next/link';
@@ -120,7 +120,7 @@ export default function DashboardPage() {
         <Card className="flex flex-col hover:border-primary transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
-              <HeartHand className="h-6 w-6" /> {t('dashboardCards.pepTalkTitle')}
+              <HeartHandshake className="h-6 w-6" /> {t('dashboardCards.pepTalkTitle')}
             </CardTitle>
             <CardDescription>
               {t('dashboardCards.pepTalkDescription')}
