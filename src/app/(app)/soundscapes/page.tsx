@@ -51,7 +51,7 @@ export default function SoundscapesPage() {
       id: 'rain',
       titleKey: 'rain',
       Icon: CloudRain,
-      audioSrc: 'https://cdn.freesound.org/previews/142/142337_2463777-hq.mp3',
+      audioSrc: 'https://cdn.freesound.org/previews/652/652136_11861962-hq.mp3',
       imageSrc: 'https://images.unsplash.com/photo-1519692933481-e162a57d6721?q=80&w=2070',
     },
     {
