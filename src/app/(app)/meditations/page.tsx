@@ -97,6 +97,25 @@ export default function MeditationsPage() {
           </CardContent>
         </Card>
 
+        {isLoading && !session && (
+          <Card>
+            <CardHeader>
+                <Skeleton className="h-8 w-3/4" />
+            </CardHeader>
+            <CardContent className="space-y-6">
+                 <div className="flex flex-col items-center gap-4 py-8">
+                  <RefreshCw className="h-8 w-8 animate-spin text-primary" />
+                  <p className="text-muted-foreground">{t('meditationsPage.generating')}</p>
+                </div>
+                <div className="space-y-2">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-2/3" />
+                </div>
+            </CardContent>
+          </Card>
+        )}
+
         {session && (
           <Card>
             <CardHeader>
