@@ -1,7 +1,7 @@
 
 {
     "appName": "Zen Zone",
-    "appVersion": "Alpha 1.2",
+    "appVersion": "Alpha 1.3",
     "appSlogan": "Your space for calm and clarity.",
     "welcome": "Welcome",
     "dashboard": "Dashboard",
@@ -11,7 +11,7 @@
     "breathing": "Breathing",
     "meditations": "Meditations",
     "audioAffirmations": "Audio Affirmations",
-    "pocketCoach": "Pocket Coach",
+    "mindfulMoments": "Mindful Moments",
     "sandGarden": "Sand Garden",
     "settings": "Settings",
     "logout": "Log out",
@@ -50,9 +50,9 @@
         "audioAffirmationsTitle": "Audio Affirmations",
         "audioAffirmationsDescription": "Generate and listen to longer, themed audio sessions for positive reinforcement.",
         "audioAffirmationsButton": "Start Listening",
-        "pocketCoachTitle": "Pocket Coach",
-        "pocketCoachDescription": "Get a quick, encouraging audio pep talk.",
-        "pocketCoachButton": "Get Pep Talk",
+        "mindfulMomentsTitle": "Mindful Moments",
+        "mindfulMomentsDescription": "Get a quick, guided audio exercise to return to the present moment.",
+        "mindfulMomentsButton": "Take a Moment",
         "sandGardenTitle": "Zen Sand Garden",
         "sandGardenDescription": "Create calming patterns in a virtual sand garden to unwind.",
         "sandGardenButton": "Open Garden",
@@ -132,13 +132,13 @@
             "overcomingFear": "Overcoming Fear"
         }
     },
-    "pocketCoachPage": {
-        "title": "Pocket Coach",
-        "description": "Get a quick dose of audio encouragement to lift your spirits.",
-        "generateButton": "Get Pep Talk",
+    "mindfulMomentsPage": {
+        "title": "Mindful Moments",
+        "description": "Get a quick dose of audio mindfulness to bring you back to the present.",
+        "generateButton": "Generate Moment",
         "generating": "Generating...",
         "generatingAudio": "Brewing audio...",
-        "cardTitle": "A Message for You",
+        "cardTitle": "A Moment for You",
         "playerHint": "Press play to listen."
     },
     "sandGardenPage": {

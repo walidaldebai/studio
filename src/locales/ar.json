@@ -1,7 +1,7 @@
 
 {
     "appName": "منطقة زن",
-    "appVersion": "ألفا 1.2",
+    "appVersion": "ألفا 1.3",
     "appSlogan": "مساحتك للهدوء والوضوح.",
     "welcome": "أهلاً بك",
     "dashboard": "لوحة التحكم",
@@ -11,7 +11,7 @@
     "breathing": "التنفس",
     "meditations": "التأملات",
     "audioAffirmations": "تأكيدات صوتية",
-    "pocketCoach": "مدرب الجيب",
+    "mindfulMoments": "لحظات واعية",
     "sandGarden": "حديقة الرمل",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
@@ -50,9 +50,9 @@
         "audioAffirmationsTitle": "تأكيدات صوتية",
         "audioAffirmationsDescription": "أنشئ واستمع إلى جلسات صوتية أطول وذات طابع خاص للتعزيز الإيجابي.",
         "audioAffirmationsButton": "ابدأ الاستماع",
-        "pocketCoachTitle": "مدرب الجيب",
-        "pocketCoachDescription": "احصل على حديث حماسي صوتي سريع ومشجع.",
-        "pocketCoachButton": "احصل على تشجيع",
+        "mindfulMomentsTitle": "لحظات واعية",
+        "mindfulMomentsDescription": "احصل على تمرين صوتي سريع وموجه للعودة إلى اللحظة الحالية.",
+        "mindfulMomentsButton": "خذ لحظة",
         "sandGardenTitle": "حديقة زن الرملية",
         "sandGardenDescription": "اصنع أنماطًا هادئة في حديقة رملية افتراضية للاسترخاء.",
         "sandGardenButton": "افتح الحديقة",
@@ -132,13 +132,13 @@
             "overcomingFear": "التغلب على الخوف"
         }
     },
-    "pocketCoachPage": {
-        "title": "مدرب الجيب",
-        "description": "احصل على جرعة سريعة من التشجيع الصوتي لرفع معنوياتك.",
-        "generateButton": "احصل على حديث حماسي",
+    "mindfulMomentsPage": {
+        "title": "لحظات واعية",
+        "description": "احصل على جرعة سريعة من الوعي الصوتي لإعادتك إلى الحاضر.",
+        "generateButton": "إنشاء لحظة",
         "generating": "جاري الإنشاء...",
         "generatingAudio": "جاري تحضير الصوت...",
-        "cardTitle": "رسالة لك",
+        "cardTitle": "لحظة لك",
         "playerHint": "اضغط على تشغيل للاستماع."
     },
     "sandGardenPage": {

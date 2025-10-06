@@ -3,7 +3,7 @@
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, HeartHandshake, Mic, Bot } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, HeartHandshake, Mic, Ear } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
 import Link from 'next/link';
@@ -20,7 +20,10 @@ export default function DashboardPage() {
           className="text-4xl md:text-5xl font-headline font-bold"
           style={{ textShadow: '0 0 10px hsl(var(--primary) / 0.3)' }}
         >
-           <HeartHandshake className="h-10 w-10 inline-block bg-gradient-primary text-transparent bg-clip-text animate-text-gradient bg-[length:200%_auto]" /> <span className="bg-gradient-primary text-transparent bg-clip-text animate-text-gradient bg-[length:200%_auto]">{t('welcome')}, {user?.name}</span>
+          <span className="inline-block bg-gradient-primary text-transparent bg-clip-text animate-text-gradient bg-[length:200%_auto]">
+            <HeartHandshake className="h-10 w-10" />
+          </span>{' '}
+          <span className="bg-gradient-primary text-transparent bg-clip-text animate-text-gradient bg-[length:200%_auto]">{t('welcome')}, {user?.name}</span>
         </h1>
         <p className="mt-2 text-lg text-muted-foreground">
           {t('appSlogan')}
@@ -141,16 +144,16 @@ export default function DashboardPage() {
          <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
-              <Bot className="h-6 w-6" /> {t('dashboardCards.pocketCoachTitle')}
+              <Ear className="h-6 w-6" /> {t('dashboardCards.mindfulMomentsTitle')}
             </CardTitle>
             <CardDescription>
-              {t('dashboardCards.pocketCoachDescription')}
+              {t('dashboardCards.mindfulMomentsDescription')}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
             <Button asChild className="w-full">
-              <Link href="/pocket-coach">
-                {t('dashboardCards.pocketCoachButton')} <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href="/mindful-moments">
+                {t('dashboardCards.mindfulMomentsButton')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </CardContent>
