@@ -41,8 +41,8 @@ const prompt = ai.definePrompt({
 
   If the user's request is detailed enough, provide thoughtful wellness advice.
 
-  {{#if (eq specialization 'teacher')}}
-  The user is a teacher. Provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame the advice in a way that is practical for a teacher to implement during their workday or after school.
+  {{#if specialization}}
+  The user is a {{specialization}}. If their specialization is 'teacher', provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame the advice in a way that is practical for a teacher to implement during their workday or after school.
   {{/if}}
 
   User Profile:
