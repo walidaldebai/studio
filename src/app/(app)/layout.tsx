@@ -18,7 +18,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   if (!isLoaded || !user) {
     return (
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-screen bg-background">
         <header className="border-b">
           <div className="container flex h-14 items-center">
             <Skeleton className="h-6 w-32" />
@@ -36,7 +36,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col bg-background">
       <AppHeader />
       <main className="flex flex-1 flex-col animate-fade-in">{children}</main>
     </div>

@@ -16,6 +16,9 @@ export default {
       },
     },
     extend: {
+      backgroundImage: {
+        'gradient-main': 'radial-gradient(ellipse at top, hsl(262 84% 70% / 0.15), transparent), radial-gradient(ellipse at bottom, hsl(262 84% 59% / 0.2), transparent)',
+      },
       fontFamily: {
         body: ["'PT Sans'", 'sans-serif'],
         headline: ["'Alegreya'", 'serif'],
@@ -61,16 +64,6 @@ export default {
           '3': 'hsl(var(--chart-3))',
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
-        },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
         },
       },
       borderRadius: {
