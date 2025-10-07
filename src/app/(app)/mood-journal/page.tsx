@@ -7,7 +7,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Textarea } from '@/components/ui/textarea';
 import { useUser } from '@/context/user-provider';
 import { Smile, Meh, Frown, BookOpen, BarChart2, Lightbulb, RefreshCw } from 'lucide-react';
-import { ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Bar, Defs, LinearGradient, Stop } from 'recharts';
+import { ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Bar } from 'recharts';
+import { Defs } from 'recharts/lib/component/Defs';
+import { LinearGradient, Stop } from 'recharts/lib/component/Gradient';
 import { format, subDays, startOfDay } from 'date-fns';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
 import { analyzeMoodJournal, MoodJournalAnalysisInput } from '@/ai/flows/analyze-mood-journal';
