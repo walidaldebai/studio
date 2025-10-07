@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Wind, Languages, Headset, Palmtree, Mic, Ear, GraduationCap } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Wind, Languages, Headset, Palmtree, Mic, Ear, GraduationCap, Gift } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
@@ -17,7 +17,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
-import React from 'react';
+import React, { useState } from 'react';
+import { WhatsNewDialog } from './whats-new-dialog';
 
 function LanguageToggle() {
     const { language, setLanguage } = useLanguage();
@@ -43,6 +44,7 @@ export function AppHeader() {
   const router = useRouter();
   const { user, logout } = useUser();
   const { t } = useAppTranslation();
+  const [isWhatsNewOpen, setIsWhatsNewOpen] = useState(false);
 
   const navLinks = [
     { href: '/dashboard', label: t('dashboard'), icon: LayoutDashboard },
@@ -64,71 +66,78 @@ export function AppHeader() {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
-        <div className="mr-4 flex items-center">
-          <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
-            <HeartHandIcon className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline text-lg">{t('appName')}</span>
-            <Badge variant="outline">{t('appVersion')}</Badge>
-          </Link>
-          <div className="hidden md:flex items-center overflow-hidden w-full max-w-2xl">
-            <div className="animate-marquee whitespace-nowrap flex">
-                {duplicatedNavLinks.map(({ href, label, icon: Icon }, index) => (
-                <Link
-                    key={`${label}-${index}`}
-                    href={href}
-                    className={cn(
-                    'flex items-center gap-2 transition-colors hover:text-primary mx-4',
-                    pathname === href ? 'text-primary' : 'text-muted-foreground'
-                    )}
-                >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                </Link>
-                ))}
+    <>
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center">
+          <div className="mr-4 flex items-center">
+            <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
+              <HeartHandIcon className="h-6 w-6 text-primary" />
+              <span className="font-bold font-headline text-lg">{t('appName')}</span>
+              <Badge variant="outline">{t('appVersion')}</Badge>
+            </Link>
+            <div className="hidden md:flex items-center overflow-hidden w-full max-w-2xl">
+              <div className="animate-marquee whitespace-nowrap flex">
+                  {duplicatedNavLinks.map(({ href, label, icon: Icon }, index) => (
+                  <Link
+                      key={`${label}-${index}`}
+                      href={href}
+                      className={cn(
+                      'flex items-center gap-2 transition-colors hover:text-primary mx-4',
+                      pathname === href ? 'text-primary' : 'text-muted-foreground'
+                      )}
+                  >
+                      <Icon className="h-4 w-4" />
+                      {label}
+                  </Link>
+                  ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-1 items-center justify-end space-x-2">
-          <LanguageToggle />
-          <ThemeToggle />
-          {user && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                  <UserCircle className="h-8 w-8" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{user.name}</p>
-                    <p className="text-xs leading-none text-muted-foreground">{user.specialization}</p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                   <Link href="/settings" className="w-full flex">
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>{t('settings')}</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => {
-                  logout();
-                  router.push('/');
-                }}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>{t('logout')}</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
+          <div className="flex flex-1 items-center justify-end space-x-2">
+            <Button variant="ghost" size="icon" onClick={() => setIsWhatsNewOpen(true)}>
+                <Gift className="h-[1.2rem] w-[1.2rem]" />
+                <span className="sr-only">{t('whatsNew.title')}</span>
+            </Button>
+            <LanguageToggle />
+            <ThemeToggle />
+            {user && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    <UserCircle className="h-8 w-8" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{user.name}</p>
+                      <p className="text-xs leading-none text-muted-foreground">{user.specialization}</p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" className="w-full flex">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>{t('settings')}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => {
+                    logout();
+                    router.push('/');
+                  }}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>{t('logout')}</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+      <WhatsNewDialog isOpen={isWhatsNewOpen} onOpenChange={setIsWhatsNewOpen} />
+    </>
   );
 }
 
