@@ -1,7 +1,6 @@
-
 {
     "appName": "منطقة زن",
-    "appVersion": "ألفا 1.3",
+    "appVersion": "ألفا 2.0",
     "appSlogan": "مساحتك للهدوء والوضوح.",
     "welcome": "أهلاً بك",
     "dashboard": "لوحة التحكم",
@@ -13,6 +12,7 @@
     "audioAffirmations": "تأكيدات صوتية",
     "mindfulMoments": "لحظات واعية",
     "sandGarden": "حديقة الرمل",
+    "pocketCoach": "مدرب الجيب",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
     "onboarding": {
@@ -56,6 +56,9 @@
         "sandGardenTitle": "حديقة زن الرملية",
         "sandGardenDescription": "اصنع أنماطًا هادئة في حديقة رملية افتراضية للاسترخاء.",
         "sandGardenButton": "افتح الحديقة",
+        "pocketCoachTitle": "مدرب الجيب للمعلمين",
+        "pocketCoachDescription": "احصل على نصائح سريعة وعملية لتحديات التدريس اليومية.",
+        "pocketCoachButton": "اطلب نصيحة",
         "feedbackTitle": "الملاحظات والاقتراحات",
         "feedbackDescription": "إذا كان لديك أي أخطاء أو اقتراحات، يرجى إرسالها إلى"
     },
@@ -145,6 +148,20 @@
         "title": "حديقة زن الرملية",
         "description": "استخدم مؤشرك لرسم أنماط في الرمال. طريقة بسيطة لتهدئة عقلك.",
         "resetButton": "إعادة تعيين الحديقة"
+    },
+    "pocketCoachPage": {
+        "title": "مدرب الجيب للمعلمين",
+        "description": "اختر تحديًا للحصول على نصيحة سريعة وداعمة.",
+        "generating": "جاري الإنشاء...",
+        "adviceFor": "نصيحة لـ",
+        "errorMessage": "عذرًا، لا يمكن إنشاء نصيحة الآن.",
+        "stressors": {
+            "unrulyClassroom": "فصل دراسي فوضوي",
+            "difficultParent": "ولي أمر صعب",
+            "feelingOverwhelmed": "الشعور بالإرهاق",
+            "lackOfRecognition": "قلة التقدير",
+            "heavyWorkload": "عبء عمل ثقيل"
+        }
     },
     "settingsPage": {
         "title": "الإعدادات",

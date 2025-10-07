@@ -1,7 +1,6 @@
-
 {
     "appName": "Zen Zone",
-    "appVersion": "Alpha 1.3",
+    "appVersion": "Alpha 2.0",
     "appSlogan": "Your space for calm and clarity.",
     "welcome": "Welcome",
     "dashboard": "Dashboard",
@@ -13,6 +12,7 @@
     "audioAffirmations": "Audio Affirmations",
     "mindfulMoments": "Mindful Moments",
     "sandGarden": "Sand Garden",
+    "pocketCoach": "Pocket Coach",
     "settings": "Settings",
     "logout": "Log out",
     "onboarding": {
@@ -56,6 +56,9 @@
         "sandGardenTitle": "Zen Sand Garden",
         "sandGardenDescription": "Create calming patterns in a virtual sand garden to unwind.",
         "sandGardenButton": "Open Garden",
+        "pocketCoachTitle": "Pocket Coach for Teachers",
+        "pocketCoachDescription": "Get quick, actionable advice for daily teaching challenges.",
+        "pocketCoachButton": "Get a Tip",
         "feedbackTitle": "Feedback & Suggestions",
         "feedbackDescription": "If you have any bugs or suggestions, please send them to"
     },
@@ -145,6 +148,20 @@
         "title": "Zen Sand Garden",
         "description": "Use your cursor to rake patterns in the sand. A simple way to calm your mind.",
         "resetButton": "Reset Garden"
+    },
+    "pocketCoachPage": {
+        "title": "Pocket Coach for Teachers",
+        "description": "Choose a challenge to get a quick, supportive tip.",
+        "generating": "Generating...",
+        "adviceFor": "Advice for",
+        "errorMessage": "Sorry, could not generate a tip right now.",
+        "stressors": {
+            "unrulyClassroom": "Unruly Classroom",
+            "difficultParent": "Difficult Parent",
+            "feelingOverwhelmed": "Feeling Overwhelmed",
+            "lackOfRecognition": "Lack of Recognition",
+            "heavyWorkload": "Heavy Workload"
+        }
     },
     "settingsPage": {
         "title": "Settings",

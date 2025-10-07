@@ -1,61 +1,63 @@
 'use server';
 
 /**
- * @fileOverview A Genkit flow for generating a short, mindful moment script.
+ * @fileOverview A Genkit flow for generating a supportive message from a "Pocket Coach" for teachers.
  *
- * This flow creates a calming script for a brief mindfulness exercise.
+ * This flow takes a specific stressor and generates a short, actionable, and empathetic tip.
  *
  * @exports {
- *   generateMindfulMoment: (input: { language: 'en' | 'ar' }) => Promise<{ moment: string }>;
+ *   generatePocketCoachMessage: (input: PocketCoachInput) => Promise<PocketCoachOutput>;
+ *   PocketCoachInput: type
+ *   PocketCoachOutput: type
  * }
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 
-const GenerateMindfulMomentInputSchema = z.object({
-    language: z.enum(['en', 'ar']).default('en').describe('The language for the script.'),
+const PocketCoachInputSchema = z.object({
+  stressor: z.string().describe('The specific stressor the teacher is facing.'),
+  language: z.enum(['en', 'ar']).default('en').describe('The language for the message.'),
 });
 
-export type GenerateMindfulMomentInput = z.infer<typeof GenerateMindfulMomentInputSchema>;
+export type PocketCoachInput = z.infer<typeof PocketCoachInputSchema>;
 
-const GenerateMindfulMomentOutputSchema = z.object({
-  moment: z.string().describe('A short script for a guided mindful moment, around 60-90 seconds long. It should guide the user through a simple awareness exercise.'),
+const PocketCoachOutputSchema = z.object({
+  message: z.string().describe('A short, actionable, and empathetic tip for the teacher.'),
 });
 
-export type GenerateMindfulMomentOutput = z.infer<typeof GenerateMindfulMomentOutputSchema>;
+export type PocketCoachOutput = z.infer<typeof PocketCoachOutputSchema>;
 
-const mindfulMomentPrompt = ai.definePrompt({
-    name: 'mindfulMomentPrompt',
+const pocketCoachPrompt = ai.definePrompt({
+    name: 'pocketCoachPrompt',
     input: {
-        schema: GenerateMindfulMomentInputSchema,
+        schema: PocketCoachInputSchema,
     },
     output: {
-        schema: GenerateMindfulMomentOutputSchema,
+        schema: PocketCoachOutputSchema,
     },
-    prompt: `You are a calm and reassuring mindfulness guide. Generate a short script for a guided "Mindful Moment" of about 60-90 seconds.
-    The script should be in the language: {{{language}}}.
-    The theme is about finding a brief moment of peace and awareness in the present.
-    Focus on a simple practice, like a body scan, noticing sounds, or focusing on the breath.
-    Your tone should be gentle and inviting.
-    Do not use quotation marks.
-    The output key should be "moment".
+    prompt: `You are a "Pocket Coach" for teachers, providing brief, compassionate, and actionable advice. Your tone is supportive and understanding.
+    The teacher is dealing with the following stressor: {{{stressor}}}.
+    The response should be in this language: {{{language}}}.
+
+    Generate a single, encouraging message (2-3 sentences) that offers a simple, concrete strategy or a shift in perspective.
+    Do not use markdown or quotation marks.
     `,
 });
 
-const generateMindfulMomentFlow = ai.defineFlow(
+const generatePocketCoachMessageFlow = ai.defineFlow(
     {
-        name: 'generateMindfulMomentFlow',
-        inputSchema: GenerateMindfulMomentInputSchema,
-        outputSchema: GenerateMindfulMomentOutputSchema,
+        name: 'generatePocketCoachMessageFlow',
+        inputSchema: PocketCoachInputSchema,
+        outputSchema: PocketCoachOutputSchema,
     },
     async (input) => {
-        const { output } = await mindfulMomentPrompt(input);
+        const { output } = await pocketCoachPrompt(input);
         return output!;
     }
 );
 
 
-export async function generateMindfulMoment(input: GenerateMindfulMomentInput): Promise<GenerateMindfulMomentOutput> {
-    return generateMindfulMomentFlow(input);
+export async function generatePocketCoachMessage(input: PocketCoachInput): Promise<PocketCoachOutput> {
+    return generatePocketCoachMessageFlow(input);
 }

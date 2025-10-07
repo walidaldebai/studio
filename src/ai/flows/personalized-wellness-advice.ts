@@ -36,8 +36,8 @@ const prompt = ai.definePrompt({
   output: {schema: PersonalizedWellnessAdviceOutputSchema},
   prompt: `You are an AI wellness assistant. Your goal is to provide relevant and helpful advice based on the user's profile.
 
-  {{#if specialization}}
-  The user is a {{specialization}}. If their specialization is 'teacher', provide advice that is specifically tailored to the challenges and stressors of the teaching profession.
+  {{#if (eq specialization 'teacher')}}
+  The user is a teacher. Provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame your advice with empathy for the demands of education.
   {{/if}}
 
   User Profile:

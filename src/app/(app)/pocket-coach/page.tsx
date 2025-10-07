@@ -1,49 +1,51 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Sparkles, Play, Pause, RefreshCw, Volume2, Ear } from 'lucide-react';
-import { generateMindfulMoment, type GenerateMindfulMomentInput } from '@/ai/flows/generate-mindful-moment';
-import { convertTextToSpeech } from '@/ai/flows/text-to-speech';
+import { GraduationCap, Lightbulb, RefreshCw } from 'lucide-react';
+import { generatePocketCoachMessage, type PocketCoachInput } from '@/ai/flows/generate-pocket-coach-message';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
 
-export default function MindfulMomentsPage() {
+type TeacherStressor = 
+  | 'Unruly Classroom' 
+  | 'Difficult Parent' 
+  | 'Feeling Overwhelmed' 
+  | 'Lack of Recognition' 
+  | 'Heavy Workload';
+
+export default function PocketCoachPage() {
   const { t } = useAppTranslation();
   const { language } = useLanguage();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [session, setSession] = useState<{ moment: string; audio: string | null } | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const stressors: { value: TeacherStressor, label: string }[] = [
+    { value: 'Unruly Classroom', label: t('pocketCoachPage.stressors.unrulyClassroom') },
+    { value: 'Difficult Parent', label: t('pocketCoachPage.stressors.difficultParent') },
+    { value: 'Feeling Overwhelmed', label: t('pocketCoachPage.stressors.feelingOverwhelmed') },
+    { value: 'Lack of Recognition', label: t('pocketCoachPage.stressors.lackOfRecognition') },
+    { value: 'Heavy Workload', label: t('pocketCoachPage.stressors.heavyWorkload') },
+  ];
 
-  const handleGenerateSession = async () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [currentStressor, setCurrentStressor] = useState<TeacherStressor | null>(null);
+
+  const handleGetAdvice = async (stressor: TeacherStressor) => {
     setIsLoading(true);
-    setSession(null);
-    setIsPlaying(false);
+    setMessage(null);
+    setCurrentStressor(stressor);
 
     try {
-      const mindfulMomentInput: GenerateMindfulMomentInput = { language };
-      const { moment } = await generateMindfulMoment(mindfulMomentInput);
-      const { audio } = await convertTextToSpeech(moment);
-      setSession({ moment, audio });
-
+        const input: PocketCoachInput = { stressor, language };
+        const { message } = await generatePocketCoachMessage(input);
+        setMessage(message);
     } catch (error) {
-      console.error('Failed to generate session:', error);
+        console.error('Failed to get pocket coach message:', error);
+        setMessage(t('pocketCoachPage.errorMessage'));
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
-  };
-  
-  const togglePlayPause = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -52,59 +54,42 @@ export default function MindfulMomentsPage() {
         <Card>
           <CardHeader>
             <CardTitle className="font-headline text-3xl flex items-center gap-2">
-              <Ear /> {t('mindfulMomentsPage.title')}
+              <GraduationCap /> {t('pocketCoachPage.title')}
             </CardTitle>
-            <CardDescription>{t('mindfulMomentsPage.description')}</CardDescription>
+            <CardDescription>{t('pocketCoachPage.description')}</CardDescription>
           </CardHeader>
-          <CardContent>
-              <Button onClick={handleGenerateSession} disabled={isLoading} className="w-full">
-                <Sparkles className={`mr-2 h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
-                {isLoading ? t('mindfulMomentsPage.generating') : t('mindfulMomentsPage.generateButton')}
+          <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {stressors.map(({ value, label }) => (
+              <Button 
+                key={value}
+                variant="outline" 
+                className="h-auto py-4 flex flex-col gap-2 items-center text-center"
+                onClick={() => handleGetAdvice(value)}
+                disabled={isLoading}
+              >
+                <span>{label}</span>
               </Button>
+            ))}
           </CardContent>
         </Card>
 
-        {isLoading && !session && (
+        {(isLoading || message) && (
           <Card>
             <CardHeader>
-                 <div className="flex flex-col items-center gap-4 py-8">
-                  <RefreshCw className="h-8 w-8 animate-spin text-primary" />
-                  <p className="text-muted-foreground">{t('mindfulMomentsPage.generating')}</p>
-                </div>
+                <CardTitle className="flex items-center gap-2 font-headline">
+                    {isLoading ? <RefreshCw className="h-6 w-6 animate-spin" /> : <Lightbulb className="h-6 w-6 text-primary" />}
+                    {isLoading ? t('pocketCoachPage.generating') : `${t('pocketCoachPage.adviceFor')} "${currentStressor && stressors.find(s => s.value === currentStressor)?.label}"`}
+                </CardTitle>
             </CardHeader>
-          </Card>
-        )}
-
-        {session && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-headline flex items-center gap-2">
-                <Volume2 /> {t('mindfulMomentsPage.cardTitle')}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="prose prose-lg dark:prose-invert max-w-none text-center">
-                <p>{session.moment}</p>
-              </div>
-
-              {session.audio ? (
-                <div className="flex flex-col items-center gap-4">
-                  <audio
-                    ref={audioRef}
-                    src={session.audio}
-                    onEnded={() => setIsPlaying(false)}
-                    onPlay={() => setIsPlaying(true)}
-                    onPause={() => setIsPlaying(false)}
-                  />
-                  <Button onClick={togglePlayPause} size="icon" className="h-16 w-16 rounded-full">
-                    {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
-                  </Button>
-                  <p className="text-muted-foreground text-sm">{t('mindfulMomentsPage.playerHint')}</p>
+            <CardContent>
+              {isLoading ? (
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-5/6" />
                 </div>
               ) : (
-                <div className="flex flex-col items-center gap-4 py-4">
-                  <RefreshCw className="h-6 w-6 animate-spin text-primary" />
-                  <p className="text-muted-foreground text-sm">{t('mindfulMomentsPage.generatingAudio')}</p>
+                <div className="prose prose-lg dark:prose-invert max-w-none text-center italic">
+                  <p>&ldquo;{message}&rdquo;</p>
                 </div>
               )}
             </CardContent>

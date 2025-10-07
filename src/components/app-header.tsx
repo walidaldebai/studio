@@ -1,9 +1,8 @@
-
 'use client';
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Wind, Languages, Headset, Palmtree, Mic, Ear } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Wind, Languages, Headset, Palmtree, Mic, Ear, GraduationCap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
@@ -56,6 +55,10 @@ export function AppHeader() {
     { href: '/mindful-moments', label: t('mindfulMoments'), icon: Ear },
     { href: '/sand-garden', label: t('sandGarden'), icon: Palmtree },
   ];
+
+  if (user?.specialization.toLowerCase() === 'teacher') {
+    navLinks.splice(1, 0, { href: '/pocket-coach', label: t('pocketCoach'), icon: GraduationCap });
+  }
 
   const duplicatedNavLinks = [...navLinks, ...navLinks];
 
@@ -115,7 +118,7 @@ export function AppHeader() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => {
                   logout();
-                  router.push('/onboarding');
+                  router.push('/');
                 }}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>{t('logout')}</span>
