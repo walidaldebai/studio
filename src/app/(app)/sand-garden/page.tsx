@@ -97,43 +97,47 @@ export default function SandGardenPage() {
         return;
       };
       
-      const nextGrid = createGrid(cols.current, rows.current);
+      // Run simulation multiple times per frame to speed it up
+      for (let k = 0; k < 3; k++) {
+        const nextGrid = createGrid(cols.current, rows.current);
 
-      for (let i = 0; i < cols.current; i++) {
-        for (let j = 0; j < rows.current; j++) {
-          const state = grid.current[i][j];
-          if (state === 1) {
-            const below = j + 1;
-            
-            if (below >= rows.current) {
-                nextGrid[i][j] = 1;
-                continue;
-            }
+        for (let i = 0; i < cols.current; i++) {
+          for (let j = 0; j < rows.current; j++) {
+            const state = grid.current[i][j];
+            if (state === 1) {
+              const below = j + 1;
+              
+              if (below >= rows.current) {
+                  nextGrid[i][j] = 1;
+                  continue;
+              }
 
-            if (grid.current[i][below] === 0) {
-              nextGrid[i][below] = 1; // Move down
-            } else {
-                const dir = Math.random() < 0.5 ? -1 : 1;
-                const belowA_col = i + dir;
-                const belowB_col = i - dir;
+              if (grid.current[i][below] === 0) {
+                nextGrid[i][below] = 1; // Move down
+              } else {
+                  const dir = Math.random() < 0.5 ? -1 : 1;
+                  const belowA_col = i + dir;
+                  const belowB_col = i - dir;
 
-                const belowA = belowA_col >= 0 && belowA_col < cols.current ? grid.current[belowA_col][below] : -1;
-                const belowB = belowB_col >= 0 && belowB_col < cols.current ? grid.current[belowB_col][below] : -1;
-                
-                if (belowA === 0 && belowB === 0) {
-                    nextGrid[i + (Math.random() < 0.5 ? -1 : 1)][below] = 1;
-                } else if (belowA === 0) {
-                    nextGrid[belowA_col][below] = 1;
-                } else if (belowB === 0) {
-                    nextGrid[belowB_col][below] = 1;
-                } else {
-                   nextGrid[i][j] = 1;
-                }
+                  const belowA = belowA_col >= 0 && belowA_col < cols.current ? grid.current[belowA_col][below] : -1;
+                  const belowB = belowB_col >= 0 && belowB_col < cols.current ? grid.current[belowB_col][below] : -1;
+                  
+                  if (belowA === 0 && belowB === 0) {
+                      nextGrid[i + (Math.random() < 0.5 ? -1 : 1)][below] = 1;
+                  } else if (belowA === 0) {
+                      nextGrid[belowA_col][below] = 1;
+                  } else if (belowB === 0) {
+                      nextGrid[belowB_col][below] = 1;
+                  } else {
+                    nextGrid[i][j] = 1;
+                  }
+              }
             }
           }
         }
+        grid.current = nextGrid;
       }
-      grid.current = nextGrid;
+      
       draw(ctx, grid.current);
       animationFrameId.current = requestAnimationFrame(update);
     };
