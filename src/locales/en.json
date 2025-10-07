@@ -221,11 +221,10 @@
         "version": "Alpha 2.0",
         "description": "Here's a look at the latest features and improvements we've added to enhance your Zen Zone experience:",
         "features": [
-            "**Pocket Coach for Teachers**: A brand new feature providing instant, AI-powered tips for common classroom stressors.",
-            "**New & Improved 'About' Page**: A completely redesigned landing page with more information about our philosophy and a clear 'How It Works' guide.",
-            "**Better Imagery**: We've replaced generic placeholders with beautiful, meaningful images that better represent our features.",
-            "**Breathing Tool Fixed**: We've squashed the bugs on the breathing exercise page for a smoother, more calming experience.",
-            "**And More!**: Explore our full suite of tools including Guided Meditations, a Rant Chat, a Mood Journal, and more."
+            "**New Audio Features**: Introducing Guided Meditations, Audio Affirmations, and Mindful Moments. Generate unique, AI-powered audio sessions for relaxation and positivity.",
+            "**Complete Redesign**: The app has a fresh, new look and feel, designed to be more calming and intuitive.",
+            "**New 'About' Page**: Learn more about Zen Zone's mission and how to get the most out of the app on our new informational page.",
+            "**Performance Boost**: We've optimized the app under the hood for a faster, smoother, and more responsive experience."
         ]
     }
 }
