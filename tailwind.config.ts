@@ -17,7 +17,7 @@ export default {
     },
     extend: {
       backgroundImage: {
-        'gradient-main': 'radial-gradient(ellipse at top, hsl(180 82% 40% / 0.15), transparent), radial-gradient(ellipse at bottom, hsl(180 82% 35% / 0.2), transparent)',
+        'gradient-main': 'radial-gradient(ellipse at top, hsl(262 80% 50% / 0.15), transparent), radial-gradient(ellipse at bottom, hsl(262 80% 55% / 0.2), transparent)',
         'gradient-primary': 'linear-gradient(to right, hsl(var(--gradient-from)), hsl(var(--gradient-to)), hsl(var(--gradient-from)))',
       },
       fontFamily: {
