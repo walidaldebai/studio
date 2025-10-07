@@ -14,9 +14,9 @@
     },
     {
       "id": "about-journal",
-      "description": "An image of a person writing in a journal, representing mood tracking",
-      "imageUrl": "https://picsum.photos/seed/203/600/400",
-      "imageHint": "journal notebook"
+      "description": "An image of a book representing the mood journal",
+      "imageUrl": "https://picsum.photos/seed/204/600/400",
+      "imageHint": "book journal"
     }
   ]
 }
