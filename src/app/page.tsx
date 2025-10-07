@@ -97,11 +97,6 @@ export default function AboutPage() {
                 <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-foreground/80">
                     Zen Zone is your personal sanctuary for mental and emotional well-being. We blend modern technology with mindful practices to help you navigate life's challenges with greater peace and resilience.
                 </p>
-                <Button asChild size="lg" className="mt-8">
-                    <Link href="/onboarding">
-                        Begin Your Journey <ArrowRight className="ml-2" />
-                    </Link>
-                </Button>
             </div>
         </section>
 
