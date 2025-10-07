@@ -6,6 +6,7 @@ import { OnboardingForm } from './_components/onboarding-form';
 import { useAppTranslation } from '@/context/language-provider';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { cn } from '@/lib/utils';
 
 export default function OnboardingPage() {
   const { user, setUser, isLoaded } = useUser();
@@ -29,7 +30,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-background">
+    <main className={cn("flex min-h-screen flex-col items-center justify-center p-8 bg-background", "bg-gradient-main")}>
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
             <h1 className="text-4xl font-headline font-bold">{t('onboarding.title')}</h1>
