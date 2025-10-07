@@ -1,3 +1,4 @@
+
 'use client';
 
 import { AppHeader } from '@/components/app-header';
@@ -12,7 +13,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isLoaded && !user) {
-      router.push('/onboarding');
+      router.push('/');
     }
   }, [user, isLoaded, router]);
 

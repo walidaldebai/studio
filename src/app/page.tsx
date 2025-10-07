@@ -3,13 +3,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { Button, type ButtonProps } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowRight, BrainCircuit, MessageSquare, BookOpen, HeartHandshake } from 'lucide-react';
-import { AppHeader } from '@/components/app-header';
+import { BrainCircuit, MessageSquare, BookOpen } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { cn } from '@/lib/utils';
+import { useUser } from '@/context/user-provider';
+import type { PropsWithChildren } from 'react';
 
 
 function HeartHandIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -30,7 +30,20 @@ function HeartHandIcon(props: React.SVGProps<SVGSVGElement>) {
         <path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.82 2.94 0l.96-.96.96.96c.82.82 2.13.82 2.94 0v0a2.17 2.17 0 0 0 0-3.08L12 5Z" />
       </svg>
     )
-  }
+}
+
+function GetStartedButton({ children, ...props }: PropsWithChildren<ButtonProps>) {
+  const { user, isLoaded } = useUser();
+  const href = !isLoaded ? '/onboarding' : user ? '/dashboard' : '/onboarding';
+
+  return (
+    <Button asChild {...props}>
+      <Link href={href}>
+        {children}
+      </Link>
+    </Button>
+  )
+}
 
 export default function AboutPage() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'about-hero');
@@ -67,9 +80,7 @@ export default function AboutPage() {
             </Link>
             <div className="flex flex-1 items-center justify-end space-x-2">
                 <ThemeToggle />
-                <Button asChild>
-                    <Link href="/onboarding">Get Started</Link>
-                </Button>
+                <GetStartedButton>Get Started</GetStartedButton>
             </div>
         </div>
       </header>
@@ -140,9 +151,9 @@ export default function AboutPage() {
                 <p className="mt-3 max-w-xl mx-auto text-muted-foreground">
                     Create your personalized profile in just a few moments and unlock a space designed just for you.
                 </p>
-                <Button asChild size="lg" className="mt-8">
-                    <Link href="/onboarding">Sign Up Now</Link>
-                </Button>
+                <GetStartedButton size="lg" className="mt-8">
+                  Sign Up Now
+                </GetStartedButton>
             </div>
         </section>
       </main>
