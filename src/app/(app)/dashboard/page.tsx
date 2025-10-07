@@ -4,7 +4,7 @@
 import { useUser } from '@/context/user-provider';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, Mic, Ear, GraduationCap } from 'lucide-react';
+import { MessageSquare, BrainCircuit, ArrowRight, BookOpen, Mail, Wind, Headset, Palmtree, Mic, Ear, GraduationCap, ClipboardCheck } from 'lucide-react';
 import { DailyAffirmationCard } from './_components/daily-affirmation-card';
 import { useAppTranslation } from '@/context/language-provider';
 import Link from 'next/link';
@@ -55,23 +55,43 @@ export default function DashboardPage() {
           <DailyAffirmationCard />
           
           {user?.specialization.toLowerCase() === 'teacher' && (
-            <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 font-headline">
-                  <GraduationCap className="h-6 w-6" /> {t('dashboardCards.pocketCoachTitle')}
-                </CardTitle>
-                <CardDescription>
-                  {t('dashboardCards.pocketCoachDescription')}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow flex items-end">
-                <Button asChild className="w-full">
-                  <Link href="/pocket-coach">
-                    {t('dashboardCards.pocketCoachButton')} <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+            <>
+              <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 font-headline">
+                    <GraduationCap className="h-6 w-6" /> {t('dashboardCards.pocketCoachTitle')}
+                  </CardTitle>
+                  <CardDescription>
+                    {t('dashboardCards.pocketCoachDescription')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow flex items-end">
+                  <Button asChild className="w-full">
+                    <Link href="/pocket-coach">
+                      {t('dashboardCards.pocketCoachButton')} <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 font-headline">
+                    <ClipboardCheck className="h-6 w-6" /> {t('dashboardCards.lessonDestressorTitle')}
+                  </CardTitle>
+                  <CardDescription>
+                    {t('dashboardCards.lessonDestressorDescription')}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow flex items-end">
+                  <Button asChild className="w-full">
+                    <Link href="/lesson-destressor">
+                      {t('dashboardCards.lessonDestressorButton')} <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </>
           )}
 
           <Card className="flex flex-col transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 hover:border-primary">

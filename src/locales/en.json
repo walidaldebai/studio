@@ -13,6 +13,7 @@
     "mindfulMoments": "Mindful Moments",
     "sandGarden": "Sand Garden",
     "pocketCoach": "Pocket Coach",
+    "lessonDestressor": "Lesson De-Stressor",
     "settings": "Settings",
     "logout": "Log out",
     "onboarding": {
@@ -59,6 +60,9 @@
         "pocketCoachTitle": "Pocket Coach for Teachers",
         "pocketCoachDescription": "Get quick, actionable advice for daily teaching challenges.",
         "pocketCoachButton": "Get a Tip",
+        "lessonDestressorTitle": "Lesson Plan De-Stressor",
+        "lessonDestressorDescription": "Get creative, low-prep lesson ideas to ease your workload.",
+        "lessonDestressorButton": "Get an Idea",
         "feedbackTitle": "Feedback & Suggestions",
         "feedbackDescription": "If you have any bugs or suggestions, please send them to"
     },
@@ -162,6 +166,18 @@
             "lackOfRecognition": "Lack of Recognition",
             "heavyWorkload": "Heavy Workload"
         }
+    },
+    "lessonDestressorPage": {
+        "title": "Lesson De-Stressor",
+        "description": "Stuck on planning? Enter a topic and our AI will generate a creative, low-prep activity idea.",
+        "topicLabel": "Lesson Topic",
+        "topicPlaceholder": "E.g., The Water Cycle, Fractions, The French Revolution",
+        "generateButton": "Generate Idea",
+        "generating": "Generating...",
+        "ideaTitle": "Your Creative Lesson Idea",
+        "objectiveTitle": "Learning Objective",
+        "materialsTitle": "Materials Needed",
+        "activityTitle": "The Activity"
     },
     "settingsPage": {
         "title": "Settings",

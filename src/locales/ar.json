@@ -13,6 +13,7 @@
     "mindfulMoments": "لحظات واعية",
     "sandGarden": "حديقة الرمل",
     "pocketCoach": "مدرب الجيب",
+    "lessonDestressor": "مُخفف الدروس",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج",
     "onboarding": {
@@ -59,6 +60,9 @@
         "pocketCoachTitle": "مدرب الجيب للمعلمين",
         "pocketCoachDescription": "احصل على نصائح سريعة وعملية لتحديات التدريس اليومية.",
         "pocketCoachButton": "اطلب نصيحة",
+        "lessonDestressorTitle": "مُخفف خطط الدروس",
+        "lessonDestressorDescription": "احصل على أفكار إبداعية ومنخفضة التحضير للدروس لتخفيف التوتر.",
+        "lessonDestressorButton": "احصل على فكرة",
         "feedbackTitle": "الملاحظات والاقتراحات",
         "feedbackDescription": "إذا كان لديك أي أخطاء أو اقتراحات، يرجى إرسالها إلى"
     },
@@ -162,6 +166,18 @@
             "lackOfRecognition": "قلة التقدير",
             "heavyWorkload": "عبء عمل ثقيل"
         }
+    },
+    "lessonDestressorPage": {
+        "title": "مُخفف خطط الدروس",
+        "description": "عالق في التخطيط؟ أدخل موضوعًا وسيقوم الذكاء الاصطناعي لدينا بإنشاء فكرة نشاط إبداعي ومنخفض التحضير.",
+        "topicLabel": "موضوع الدرس",
+        "topicPlaceholder": "مثال: دورة الماء، الكسور، الثورة الفرنسية",
+        "generateButton": "إنشاء فكرة",
+        "generating": "جاري الإنشاء...",
+        "ideaTitle": "فكرتك الإبداعية للدرس",
+        "objectiveTitle": "الهدف التعليمي",
+        "materialsTitle": "المواد المطلوبة",
+        "activityTitle": "النشاط"
     },
     "settingsPage": {
         "title": "الإعدادات",

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Wind, Languages, Headset, Palmtree, Mic, Ear, GraduationCap, Gift } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, BrainCircuit, Settings, UserCircle, LogOut, BookOpen, Wind, Languages, Headset, Palmtree, Mic, Ear, GraduationCap, Gift, ClipboardCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
@@ -60,6 +60,7 @@ export function AppHeader() {
 
   if (user?.specialization.toLowerCase() === 'teacher') {
     navLinks.splice(1, 0, { href: '/pocket-coach', label: t('pocketCoach'), icon: GraduationCap });
+    navLinks.splice(2, 0, { href: '/lesson-destressor', label: t('lessonDestressor'), icon: ClipboardCheck });
   }
 
   const duplicatedNavLinks = [...navLinks, ...navLinks];
