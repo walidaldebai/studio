@@ -1,6 +1,7 @@
 
 'use client';
 
+import { Analytics } from "@vercel/analytics/next"
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button, type ButtonProps } from '@/components/ui/button';
