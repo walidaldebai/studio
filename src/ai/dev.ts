@@ -11,3 +11,4 @@ import '@/ai/flows/text-to-speech.ts';
 import '@/ai/flows/generate-audio-affirmation.ts';
 import '@/ai/flows/generate-mindful-moment.ts';
 import '@/ai/flows/generate-lesson-idea.ts';
+import '@/ai/flows/generate-pocket-coach-message.ts';
