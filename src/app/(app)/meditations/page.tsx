@@ -9,6 +9,7 @@ import { Headset, Play, Pause, RefreshCw, Wand2 } from 'lucide-react';
 import { generateMeditationScript, type GenerateMeditationInput } from '@/ai/flows/generate-meditation';
 import { convertTextToSpeech } from '@/ai/flows/text-to-speech';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
+import ReactMarkdown from 'react-markdown';
 
 type MeditationTheme = 'Stress Relief' | 'Focus' | 'Gratitude' | 'Sleep' | 'De-Stress';
 
@@ -142,8 +143,8 @@ export default function MeditationsPage() {
                 </div>
               )}
               
-              <div className="prose prose-sm dark:prose-invert max-w-none bg-muted p-4 rounded-lg">
-                <p className="whitespace-pre-wrap">{session.script}</p>
+              <div className="prose dark:prose-invert max-w-none bg-muted p-4 rounded-lg">
+                <ReactMarkdown>{session.script}</ReactMarkdown>
               </div>
             </CardContent>
           </Card>

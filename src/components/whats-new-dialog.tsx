@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Badge } from './ui/badge';
 import { useAppTranslation } from '@/context/language-provider';
+import ReactMarkdown from 'react-markdown';
 
 interface WhatsNewDialogProps {
   isOpen: boolean;
@@ -18,7 +19,7 @@ interface WhatsNewDialogProps {
 export function WhatsNewDialog({ isOpen, onOpenChange }: WhatsNewDialogProps) {
   const { t } = useAppTranslation();
   
-  const features = t('whatsNew.features', { returnObjects: true }) as Record<string, string>;
+  const features = t('whatsNew.features', { returnObjects: true }) as string[];
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -34,13 +35,11 @@ export function WhatsNewDialog({ isOpen, onOpenChange }: WhatsNewDialogProps) {
             {t('whatsNew.description')}
           </DialogDescription>
         </DialogHeader>
-        <div className="prose prose-sm dark:prose-invert max-w-none">
-          <ul>
-            {Object.values(features).map((feature, index) => (
-                <li key={index} dangerouslySetInnerHTML={{ __html: feature }} />
+        <ul className="prose prose-sm dark:prose-invert max-w-none list-disc pl-5 space-y-2">
+            {features.map((feature, index) => (
+                <li key={index}><ReactMarkdown components={{p: React.Fragment}}>{feature}</ReactMarkdown></li>
             ))}
-          </ul>
-        </div>
+        </ul>
       </DialogContent>
     </Dialog>
   );

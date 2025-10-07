@@ -13,6 +13,7 @@ import * as z from 'zod';
 import { BrainCircuit } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAppTranslation } from '@/context/language-provider';
+import ReactMarkdown from 'react-markdown';
 
 const formSchema = z.object({
   needs: z.string().min(10, {
@@ -103,8 +104,8 @@ export default function GuidancePage() {
                   <Skeleton className="h-4 w-3/4" />
                 </div>
               ) : (
-                <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap">
-                  {advice}
+                <div className="prose dark:prose-invert max-w-none">
+                  <ReactMarkdown>{advice}</ReactMarkdown>
                 </div>
               )}
             </CardContent>

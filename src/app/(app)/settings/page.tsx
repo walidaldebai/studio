@@ -25,6 +25,7 @@ import { generateAdminDashboardSuggestions } from '@/ai/flows/admin-dashboard-su
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { useAppTranslation } from '@/context/language-provider';
+import ReactMarkdown from 'react-markdown';
 
 
 const profileFormSchema = z.object({
@@ -290,8 +291,8 @@ export default function SettingsPage() {
                           <Skeleton className="h-4 w-5/6" />
                         </div>
                       ) : (
-                        <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap">
-                          {suggestions}
+                        <div className="prose dark:prose-invert max-w-none">
+                          <ReactMarkdown>{suggestions}</ReactMarkdown>
                         </div>
                       )}
                     </CardContent>

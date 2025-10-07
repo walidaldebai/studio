@@ -12,6 +12,7 @@ import { format, subDays, startOfDay } from 'date-fns';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
 import { analyzeMoodJournal, MoodJournalAnalysisInput } from '@/ai/flows/analyze-mood-journal';
 import { Skeleton } from '@/components/ui/skeleton';
+import ReactMarkdown from 'react-markdown';
 
 type Mood = 'Happy' | 'Neutral' | 'Sad';
 
@@ -244,8 +245,8 @@ export default function MoodJournalPage() {
                   <Skeleton className="h-4 w-5/6" />
                 </div>
               ) : analysis ? (
-                <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap">
-                    {analysis}
+                <div className="prose dark:prose-invert max-w-none">
+                    <ReactMarkdown>{analysis}</ReactMarkdown>
                 </div>
               ) : null}
              <Button onClick={handleAnalyzeMoods} disabled={isLoadingAnalysis || moodEntries.length === 0} className="mt-4">

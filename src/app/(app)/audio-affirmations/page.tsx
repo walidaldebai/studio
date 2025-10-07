@@ -9,6 +9,7 @@ import { Mic, Play, Pause, RefreshCw, Wand2 } from 'lucide-react';
 import { generateAudioAffirmation, type GenerateAudioAffirmationInput } from '@/ai/flows/generate-audio-affirmation';
 import { convertTextToSpeech } from '@/ai/flows/text-to-speech';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
+import ReactMarkdown from 'react-markdown';
 
 type AffirmationTheme = 'Self-Compassion' | 'Finding Joy' | 'Building Confidence' | 'Overcoming Fear';
 
@@ -141,8 +142,8 @@ export default function AudioAffirmationsPage() {
                 </div>
               )}
               
-              <div className="prose prose-sm dark:prose-invert max-w-none bg-muted p-4 rounded-lg">
-                <p className="whitespace-pre-wrap">{session.script}</p>
+              <div className="prose dark:prose-invert max-w-none bg-muted p-4 rounded-lg">
+                <ReactMarkdown>{session.script}</ReactMarkdown>
               </div>
             </CardContent>
           </Card>

@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { rantChatEmpathy } from '@/ai/flows/rant-chat-empathy';
 import { useUser } from '@/context/user-provider';
 import { useAppTranslation } from '@/context/language-provider';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
   id: number;
@@ -106,7 +107,9 @@ export default function RantChatPage() {
                         : 'bg-muted'
                     )}
                   >
-                    <p className="whitespace-pre-wrap">{message.text}</p>
+                    <div className="prose dark:prose-invert prose-sm max-w-none">
+                      <ReactMarkdown>{message.text}</ReactMarkdown>
+                    </div>
                   </div>
                   {message.sender === 'user' && (
                      <Avatar className="h-8 w-8">
