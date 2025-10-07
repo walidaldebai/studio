@@ -18,13 +18,7 @@ interface WhatsNewDialogProps {
 export function WhatsNewDialog({ isOpen, onOpenChange }: WhatsNewDialogProps) {
   const { t } = useAppTranslation();
   
-  const features = [
-    t('whatsNew.features.pocketCoach'),
-    t('whatsNew.features.aboutPage'),
-    t('whatsNew.features.images'),
-    t('whatsNew.features.breathingFix'),
-    t('whatsNew.features.fullSuite')
-  ];
+  const features = t('whatsNew.features', { returnObjects: true }) as Record<string, string>;
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -42,8 +36,8 @@ export function WhatsNewDialog({ isOpen, onOpenChange }: WhatsNewDialogProps) {
         </DialogHeader>
         <div className="prose prose-sm dark:prose-invert max-w-none">
           <ul>
-            {features.map((feature, index) => (
-                <li key={index}>{feature}</li>
+            {Object.values(features).map((feature, index) => (
+                <li key={index} dangerouslySetInnerHTML={{ __html: feature }} />
             ))}
           </ul>
         </div>
