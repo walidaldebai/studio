@@ -6,10 +6,11 @@ import { getFirestore, doc, setDoc, type Firestore } from 'firebase/firestore';
 import { firebaseConfig } from './firebase-config';
 
 let app: FirebaseApp;
-try {
-  app = getApp();
-} catch (e) {
+// This ensures we're not re-initializing the app on the client-side
+if (!getApps().length) {
   app = initializeApp(firebaseConfig);
+} else {
+  app = getApp();
 }
 
 const db: Firestore = getFirestore(app);
