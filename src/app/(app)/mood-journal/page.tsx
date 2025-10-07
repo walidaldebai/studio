@@ -8,8 +8,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { useUser } from '@/context/user-provider';
 import { Smile, Meh, Frown, BookOpen, BarChart2, Lightbulb, RefreshCw } from 'lucide-react';
 import { ResponsiveContainer, BarChart, XAxis, YAxis, Tooltip, Bar } from 'recharts';
-import { Defs } from 'recharts/lib/component/Defs';
-import { LinearGradient, Stop } from 'recharts/lib/component/Gradient';
 import { format, subDays, startOfDay } from 'date-fns';
 import { useAppTranslation, useLanguage } from '@/context/language-provider';
 import { analyzeMoodJournal, MoodJournalAnalysisInput } from '@/ai/flows/analyze-mood-journal';
@@ -200,12 +198,6 @@ export default function MoodJournalPage() {
             <div className="h-64 w-full">
                <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={getChartData()} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <Defs>
-                            <LinearGradient id="moodGradient" x1="0" y1="0" x2="0" y2="1">
-                                <Stop offset="5%" stopColor="hsl(var(--gradient-from))" stopOpacity={0.8}/>
-                                <Stop offset="95%" stopColor="hsl(var(--gradient-to))" stopOpacity={0.8}/>
-                            </LinearGradient>
-                        </Defs>
                         <XAxis dataKey="name" stroke="hsl(var(--foreground))" fontSize={12} />
                         <YAxis 
                             stroke="hsl(var(--foreground))" 
@@ -230,7 +222,7 @@ export default function MoodJournalPage() {
                             return null;
                             }}
                         />
-                        <Bar dataKey="mood" fill="url(#moodGradient)" radius={[4, 4, 0, 0]} />
+                        <Bar dataKey="mood" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
