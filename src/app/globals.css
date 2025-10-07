@@ -32,7 +32,7 @@
     --chart-5: 27 87% 67%;
 
     --gradient-from: 262 80% 50%;
-    --gradient-to: 282 80% 55%;
+    --gradient-to: 320 80% 60%;
   }
 
   .dark {
@@ -63,7 +63,7 @@
     --chart-5: 340 75% 55%;
 
     --gradient-from: 262 80% 50%;
-    --gradient-to: 282 80% 55%;
+    --gradient-to: 320 80% 60%;
   }
 }
 
