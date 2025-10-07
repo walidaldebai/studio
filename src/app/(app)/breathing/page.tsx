@@ -4,14 +4,14 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Wind } from 'lucide-react';
-import { useAppTranslation } from '@/context/language-provider';
+import { useAppTranslation, useLanguage } from '@/context/language-provider';
 import { Trans } from 'react-i18next';
 
 export default function BreathingPage() {
-  const { t } = useAppTranslation();
+  const { i18n } = useAppTranslation();
   const [isClient, setIsClient] = useState(false);
+  const [cycleIndex, setCycleIndex] = useState(0);
 
-  // Using a stable object reference for the array to satisfy the dependency array linter
   const breathingCycleConfig = {
     en: [
       { text: 'Breathe In', duration: 4000, scale: 1.2 },
@@ -27,13 +27,12 @@ export default function BreathingPage() {
     ],
   };
 
-  const breathingCycle = i18n.language === 'ar' ? breathingCycleConfig.ar : breathingCycleConfig.en;
-
-  const [cycleIndex, setCycleIndex] = useState(0);
+  const [breathingCycle, setBreathingCycle] = useState(breathingCycleConfig.en);
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
+    setBreathingCycle(i18n.language === 'ar' ? breathingCycleConfig.ar : breathingCycleConfig.en);
+  }, [i18n.language]);
 
   useEffect(() => {
     if (!isClient) return;
@@ -47,7 +46,7 @@ export default function BreathingPage() {
   }, [cycleIndex, isClient, breathingCycle]);
 
   if (!isClient) {
-    return null; // Don't render on the server
+    return null; // Don't render on the server to prevent mismatch
   }
 
   const currentCycle = breathingCycle[cycleIndex];

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useUser } from '@/context/user-provider';
@@ -14,15 +15,22 @@ export default function DashboardPage() {
   const { user } = useUser();
   const { t } = useAppTranslation();
   const [isWhatsNewOpen, setIsWhatsNewOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const version = 'alpha-2.0';
-    const hasSeenWhatsNew = localStorage.getItem('seenWhatsNew');
-    if (hasSeenWhatsNew !== version) {
-      setIsWhatsNewOpen(true);
-      localStorage.setItem('seenWhatsNew', version);
-    }
+    setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      const version = 'alpha-2.0';
+      const hasSeenWhatsNew = localStorage.getItem('seenWhatsNew');
+      if (hasSeenWhatsNew !== version) {
+        setIsWhatsNewOpen(true);
+        localStorage.setItem('seenWhatsNew', version);
+      }
+    }
+  }, [isClient]);
 
 
   return (
