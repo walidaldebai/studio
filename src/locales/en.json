@@ -225,6 +225,10 @@
             "**Complete Redesign**: The app has a fresh, new look and feel, designed to be more calming and intuitive.",
             "**New 'About' Page**: Learn more about Zen Zone's mission and how to get the most out of the app on our new informational page.",
             "**Performance Boost**: We've optimized the app under the hood for a faster, smoother, and more responsive experience."
-        ]
+        ],
+        "aiNote": {
+            "title": "AI Features Under Maintenance",
+            "description": "Our AI-powered features are currently undergoing improvements and are temporarily unavailable. We are working hard to resolve this and appreciate your patience."
+        }
     }
 }

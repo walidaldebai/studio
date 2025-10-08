@@ -11,6 +11,8 @@ import {
 import { Badge } from './ui/badge';
 import { useAppTranslation } from '@/context/language-provider';
 import ReactMarkdown from 'react-markdown';
+import { Alert, AlertDescription, AlertTitle } from './ui/alert';
+import { AlertCircle } from 'lucide-react';
 
 interface WhatsNewDialogProps {
   isOpen: boolean;
@@ -21,6 +23,7 @@ export function WhatsNewDialog({ isOpen, onOpenChange }: WhatsNewDialogProps) {
   const { t } = useAppTranslation();
   
   const features = t('whatsNew.features', { returnObjects: true }) as string[];
+  const aiNote = t('whatsNew.aiNote', { returnObjects: true }) as { title: string; description: string };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -41,6 +44,15 @@ export function WhatsNewDialog({ isOpen, onOpenChange }: WhatsNewDialogProps) {
                 <li key={index}><ReactMarkdown components={{p: React.Fragment}}>{feature}</ReactMarkdown></li>
             ))}
         </ul>
+
+        <Alert variant="destructive" className="mt-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>{aiNote.title}</AlertTitle>
+            <AlertDescription>
+                {aiNote.description}
+            </AlertDescription>
+        </Alert>
+
       </DialogContent>
     </Dialog>
   );
