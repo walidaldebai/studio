@@ -11,28 +11,8 @@ import { BrainCircuit, MessageSquare, BookOpen, User, CheckCircle, Sparkles } fr
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
 import type { PropsWithChildren } from 'react';
+import { ShoulderIcon } from "@/components/shoulder-icon";
 
-
-function ShoulderIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M8 18V14" />
-      <path d="M12 18V10" />
-      <path d="M16 18V14" />
-      <path d="M12 4v2" />
-      <path d="M12 20h.01" />
-    </svg>
-  );
-}
 
 function GetStartedButton({ children, ...props }: PropsWithChildren<ButtonProps>) {
   const { user, isLoaded } = useUser();
@@ -127,7 +107,7 @@ export default function AboutPage() {
                     Support, Shoulder to Shoulder
                 </h1>
                 <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-foreground/80">
-                    Kaatf (كاتف), from the Arabic for "shoulder to shoulder," represents our core belief in mutual support. It's your personal sanctuary for mental and emotional well-being, here to stand with you as you navigate life's challenges.
+                    Kaatf (كاتف), from the Arabic for "shoulder to shoulder," represents our core belief in mutual support. We aim to help people manage stress, anxiety, and the pressures of daily life by providing accessible and supportive tools.
                 </p>
             </div>
         </section>
