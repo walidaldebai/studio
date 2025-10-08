@@ -230,5 +230,9 @@
             "title": "AI Features Under Maintenance",
             "description": "Our AI-powered features are currently not working. We are working hard to fix them and appreciate your patience."
         }
+    },
+    "maintenanceBanner": {
+        "title": "AI Features Under Maintenance",
+        "description": "Our AI-powered features are currently not working. We are working hard to fix them and appreciate your patience."
     }
 }

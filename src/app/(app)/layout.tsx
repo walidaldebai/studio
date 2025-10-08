@@ -6,10 +6,14 @@ import { useUser } from '@/context/user-provider';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
+import { useAppTranslation } from '@/context/language-provider';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { user, isLoaded } = useUser();
   const router = useRouter();
+  const { t } = useAppTranslation();
 
   useEffect(() => {
     if (isLoaded && !user) {
@@ -39,7 +43,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
       <AppHeader />
-      <main className="flex flex-1 flex-col animate-fade-in">{children}</main>
+      <div className="container py-4">
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>{t('maintenanceBanner.title')}</AlertTitle>
+          <AlertDescription>
+            {t('maintenanceBanner.description')}
+          </AlertDescription>
+        </Alert>
+      </div>
+      <main className="flex flex-1 flex-col animate-fade-in pb-8">{children}</main>
     </div>
   );
 }
