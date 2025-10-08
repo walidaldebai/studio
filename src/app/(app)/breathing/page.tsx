@@ -1,10 +1,9 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Wind } from 'lucide-react';
-import { useAppTranslation, useLanguage } from '@/context/language-provider';
+import { useAppTranslation } from '@/context/language-provider';
 import { Trans } from 'react-i18next';
 
 export default function BreathingPage() {
