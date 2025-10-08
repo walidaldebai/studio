@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "about-hero",
-      "description": "A tranquil landscape for the about page hero section",
-      "imageUrl": "https://picsum.photos/seed/101/1920/1080",
-      "imageHint": "calm landscape"
+      "description": "An abstract image representing calm and clarity",
+      "imageUrl": "https://picsum.photos/seed/201/1920/1080",
+      "imageHint": "abstract calm"
     },
     {
       "id": "about-guidance",
