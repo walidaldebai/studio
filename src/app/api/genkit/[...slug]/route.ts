@@ -1,5 +1,3 @@
-'use server';
-
 import { defineNextHandler } from '@genkit-ai/next';
 import { ai } from '@/ai/genkit';
 import '@/ai/flows/admin-dashboard-suggestions';
@@ -14,4 +12,4 @@ import '@/ai/flows/personalized-wellness-advice';
 import '@/ai/flows/rant-chat-empathy';
 import '@/ai/flows/text-to-speech';
 
-export const POST = defineNextHandler(ai);
+export const POST = defineNextHandler({ ai });
