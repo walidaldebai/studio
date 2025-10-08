@@ -1,6 +1,4 @@
-'use server';
-
-import { defineNextHandler } from '@genkit-ai/next';
+import { defineNextHandler } from '@genkit-ai/next/server';
 import { ai } from '@/ai/genkit';
 import '@/ai/flows/admin-dashboard-suggestions';
 import '@/ai/flows/analyze-mood-journal';
