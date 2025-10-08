@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -33,7 +32,7 @@ const LessonIdeaOutputSchema = z.object({
 export type LessonIdeaOutput = z.infer<typeof LessonIdeaOutputSchema>;
 
 const lessonIdeaPrompt = ai.definePrompt({
-    name: 'lessonIdeaPrompt',
+    name: 'lessonIdeaPrompt_lessonPage',
     input: {
         schema: LessonIdeaInputSchema,
     },
@@ -55,7 +54,7 @@ const lessonIdeaPrompt = ai.definePrompt({
 
 const generateLessonIdeaFlow = ai.defineFlow(
     {
-        name: 'generateLessonIdeaFlow',
+        name: 'generateLessonIdeaFlow_lessonPage',
         inputSchema: LessonIdeaInputSchema,
         outputSchema: LessonIdeaOutputSchema,
     },
@@ -64,7 +63,6 @@ const generateLessonIdeaFlow = ai.defineFlow(
         return output!;
     }
 );
-
 
 export async function generateLessonIdea(input: LessonIdeaInput): Promise<LessonIdeaOutput> {
     return generateLessonIdeaFlow(input);

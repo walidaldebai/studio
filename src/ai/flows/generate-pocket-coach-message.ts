@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -30,7 +29,7 @@ const PocketCoachOutputSchema = z.object({
 export type PocketCoachOutput = z.infer<typeof PocketCoachOutputSchema>;
 
 const pocketCoachPrompt = ai.definePrompt({
-    name: 'pocketCoachPrompt',
+    name: 'pocketCoachPrompt_coachPage',
     input: {
         schema: PocketCoachInputSchema,
     },
@@ -48,7 +47,7 @@ const pocketCoachPrompt = ai.definePrompt({
 
 const generatePocketCoachMessageFlow = ai.defineFlow(
     {
-        name: 'generatePocketCoachMessageFlow',
+        name: 'generatePocketCoachMessageFlow_coachPage',
         inputSchema: PocketCoachInputSchema,
         outputSchema: PocketCoachOutputSchema,
     },

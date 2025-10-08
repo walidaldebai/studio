@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -37,7 +36,7 @@ const MoodJournalAnalysisOutputSchema = z.object({
 export type MoodJournalAnalysisOutput = z.infer<typeof MoodJournalAnalysisOutputSchema>;
 
 const analysisPrompt = ai.definePrompt({
-    name: 'analysisPrompt',
+    name: 'analysisPrompt_moodJournalPage',
     input: {
         schema: MoodJournalAnalysisInputSchema,
     },
@@ -63,7 +62,7 @@ const analysisPrompt = ai.definePrompt({
 
 const analyzeMoodJournalFlow = ai.defineFlow(
     {
-        name: 'analyzeMoodJournalFlow',
+        name: 'analyzeMoodJournalFlow_moodJournalPage',
         inputSchema: MoodJournalAnalysisInputSchema,
         outputSchema: MoodJournalAnalysisOutputSchema,
     },
