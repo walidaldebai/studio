@@ -13,24 +13,27 @@ import { useUser } from '@/context/user-provider';
 import type { PropsWithChildren } from 'react';
 
 
-function HeartHandIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-        <path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.82 2.94 0l.96-.96.96.96c.82.82 2.13.82 2.94 0v0a2.17 2.17 0 0 0 0-3.08L12 5Z" />
-      </svg>
-    )
+function ShoulderIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 22a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z" />
+      <path d="M16 2v17a3 3 0 0 1-3 3H7" />
+      <path d="M6 8h2" />
+      <path d="M6 12h2" />
+      <path d="M6 16h2" />
+    </svg>
+  );
 }
 
 function GetStartedButton({ children, ...props }: PropsWithChildren<ButtonProps>) {
@@ -94,8 +97,8 @@ export default function AboutPage() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
             <Link href="/" className="mr-6 flex items-center space-x-2">
-                <HeartHandIcon className="h-6 w-6 text-primary" />
-                <span className="font-bold font-headline text-lg">Zen Zone</span>
+                <ShoulderIcon className="h-6 w-6 text-primary" />
+                <span className="font-bold font-headline text-lg">Kaatf</span>
             </Link>
             <div className="flex flex-1 items-center justify-end space-x-2">
                 <ThemeToggle />
@@ -123,10 +126,10 @@ export default function AboutPage() {
             <div className="container relative z-20">
                 <h1 className="text-4xl md:text-6xl font-headline font-bold"
                     style={{ textShadow: '0 0 20px hsl(var(--background))' }}>
-                    Find Your Calm and Clarity
+                    Support, Shoulder to Shoulder
                 </h1>
                 <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-foreground/80">
-                    Zen Zone is your personal sanctuary for mental and emotional well-being. We blend modern technology with mindful practices to help you navigate life's challenges with greater peace and resilience.
+                    Kaatf (كتف), Arabic for "shoulder to shoulder," is your personal sanctuary for mental and emotional well-being. We're here to stand with you, offering support as you navigate life's challenges.
                 </p>
             </div>
         </section>
@@ -136,7 +139,7 @@ export default function AboutPage() {
             <div className="container text-center">
                 <h2 className="text-3xl md:text-4xl font-headline font-bold">Our Philosophy</h2>
                 <p className="mt-4 max-w-3xl mx-auto text-lg text-muted-foreground">
-                    We believe that everyone deserves a space to feel heard, understood, and supported. In a world that's always 'on', finding a moment for yourself can be tough. Zen Zone isn't about escaping reality, but about building the inner strength to engage with it more mindfully. Our AI is designed to be a compassionate companion—not a replacement for human connection, but a private, always-available resource to help you reflect and recharge.
+                    We believe that everyone deserves a space to feel heard, understood, and supported. In a world that's always 'on', finding a moment for yourself can be tough. Kaatf is built on the idea of solidarity—standing shoulder to shoulder with you. Our AI is designed to be a compassionate companion, a private and always-available resource to help you reflect and recharge.
                 </p>
             </div>
         </section>
@@ -204,7 +207,7 @@ export default function AboutPage() {
         {/* Call to Action Section */}
         <section className="py-20 border-t">
             <div className="container text-center">
-                <h2 className="text-3xl md:text-4xl font-headline font-bold">Ready to Find Your Zen?</h2>
+                <h2 className="text-3xl md:text-4xl font-headline font-bold">Ready to Find Your Support?</h2>
                 <p className="mt-3 max-w-xl mx-auto text-muted-foreground">
                     Create your personalized profile and unlock a space designed just for you. Your journey to clarity starts now.
                 </p>
@@ -217,7 +220,7 @@ export default function AboutPage() {
 
       <footer className="py-6 border-t">
         <div className="container text-center text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} Zen Zone. All Rights Reserved.
+            &copy; {new Date().getFullYear()} Kaatf. All Rights Reserved.
         </div>
       </footer>
     </div>

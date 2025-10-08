@@ -17,7 +17,7 @@ export default function SandGardenPage() {
   const grid = useRef<number[][]>();
   const [isInitialized, setIsInitialized] = useState(false);
   const resolution = 2;
-  const sandColor = '#f0e5d8';
+  const sandColor = '#d2b48c'; // A classic sand color
   const backgroundColor = '#2d2d2d';
 
   const createGrid = useCallback((c: number, r: number) => {
@@ -235,5 +235,3 @@ export default function SandGardenPage() {
     </div>
   );
 }
-
-    

@@ -1,8 +1,8 @@
 
 {
-    "appName": "Zen Zone",
+    "appName": "Kaatf",
     "appVersion": "Alpha 2.0",
-    "appSlogan": "Your space for calm and clarity.",
+    "appSlogan": "Your space for support and clarity.",
     "welcome": "Welcome",
     "dashboard": "Dashboard",
     "rantChat": "Rant Chat",
@@ -18,7 +18,7 @@
     "settings": "Settings",
     "logout": "Log out",
     "onboarding": {
-        "title": "Welcome to Zen Zone",
+        "title": "Welcome to Kaatf",
         "subtitle": "Let's set up your profile to personalize your experience.",
         "name": "Name",
         "namePlaceholder": "E.g., Jane Doe",
@@ -55,7 +55,7 @@
         "mindfulMomentsTitle": "Mindful Moments",
         "mindfulMomentsDescription": "Get a quick, guided audio exercise to return to the present moment.",
         "mindfulMomentsButton": "Take a Moment",
-        "sandGardenTitle": "Zen Sand Garden",
+        "sandGardenTitle": "Sand Garden",
         "sandGardenDescription": "Create calming patterns in a virtual sand garden to unwind.",
         "sandGardenButton": "Open Garden",
         "pocketCoachTitle": "Pocket Coach for Teachers",
@@ -150,7 +150,7 @@
         "playerHint": "Press play to listen."
     },
     "sandGardenPage": {
-        "title": "Zen Sand Garden",
+        "title": "Sand Garden",
         "description": "Use your cursor to rake patterns in the sand. A simple way to calm your mind.",
         "resetButton": "Reset Garden"
     },
@@ -219,11 +219,11 @@
         "title": "What's New",
         "badge": "LATEST UPDATES",
         "version": "Alpha 2.0",
-        "description": "Here's a look at the latest features and improvements we've added to enhance your Zen Zone experience:",
+        "description": "Here's a look at the latest features and improvements we've added to enhance your Kaatf experience:",
         "features": [
             "**New Audio Features**: Introducing Guided Meditations, Audio Affirmations, and Mindful Moments. Generate unique, AI-powered audio sessions for relaxation and positivity.",
             "**Complete Redesign**: The app has a fresh, new look and feel, designed to be more calming and intuitive.",
-            "**New 'About' Page**: Learn more about Zen Zone's mission and how to get the most out of the app on our new informational page.",
+            "**New 'About' Page**: Learn more about Kaatf's mission and how to get the most out of the app on our new informational page.",
             "**Performance Boost**: We've optimized the app under the hood for a faster, smoother, and more responsive experience."
         ],
         "aiNote": {
