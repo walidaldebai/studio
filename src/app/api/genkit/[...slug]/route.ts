@@ -1,4 +1,3 @@
-
 'use server';
 
 import { defineNextHandler } from '@genkit-ai/next';
