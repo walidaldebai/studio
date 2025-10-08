@@ -1,3 +1,5 @@
+'use server';
+
 import { defineNextHandler } from '@genkit-ai/next';
 import { ai } from '@/ai/genkit';
 import '@/ai/flows/admin-dashboard-suggestions';
