@@ -18,8 +18,6 @@ function ShoulderIcon(props: React.SVGProps<SVGSVGElement>) {
     <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -27,11 +25,11 @@ function ShoulderIcon(props: React.SVGProps<SVGSVGElement>) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M12 22a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z" />
-      <path d="M16 2v17a3 3 0 0 1-3 3H7" />
-      <path d="M6 8h2" />
-      <path d="M6 12h2" />
-      <path d="M6 16h2" />
+      <path d="M8 18V14" />
+      <path d="M12 18V10" />
+      <path d="M16 18V14" />
+      <path d="M12 4v2" />
+      <path d="M12 20h.01" />
     </svg>
   );
 }
@@ -129,7 +127,7 @@ export default function AboutPage() {
                     Support, Shoulder to Shoulder
                 </h1>
                 <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-foreground/80">
-                    Kaatf (كتف), Arabic for "shoulder to shoulder," is your personal sanctuary for mental and emotional well-being. We're here to stand with you, offering support as you navigate life's challenges.
+                    Kaatf (كاتف), from the Arabic for "shoulder to shoulder," represents our core belief in mutual support. It's your personal sanctuary for mental and emotional well-being, here to stand with you as you navigate life's challenges.
                 </p>
             </div>
         </section>

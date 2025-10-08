@@ -28,7 +28,7 @@ export default function RootLayout({
         />
         <link
           rel="icon"
-          href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(180 70% 40%)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2Z" /><path d="M16 2v17a3 3 0 0 1-3 3H7" /><path d="M6 8h2" /><path d="M6 12h2" /><path d="M6 16h2" /></svg>'
+          href='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22hsl(180%2C70%25%2C40%25)%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M8%2018V14%22%2F%3E%3Cpath%20d%3D%22M12%2018V10%22%2F%3E%3Cpath%20d%3D%22M16%2018V14%22%2F%3E%3Cpath%20d%3D%22M12%204v2%22%2F%3E%3Cpath%20d%3D%22M12%2020h.01%22%2F%3E%3C/svg%3E'
         />
       </head>
       <body className={cn("font-body antialiased", "bg-gradient-main")} suppressHydrationWarning>
