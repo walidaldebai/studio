@@ -59,11 +59,6 @@ const personalizedWellnessAdviceFlow = ai.defineFlow(
     outputSchema: PersonalizedWellnessAdviceOutputSchema,
   },
   async input => {
-    if (input.needs.length < 15) {
-        return {
-            advice: 'Your request is a bit brief. Could you please provide more details about your situation? The more information you give, the better I can tailor my advice to your specific needs.'
-        };
-    }
     const {output} = await prompt(input);
     return output!;
   }
