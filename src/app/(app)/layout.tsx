@@ -43,15 +43,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
       <AppHeader />
-      <div className="container py-4">
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>{t('maintenanceBanner.title')}</AlertTitle>
-          <AlertDescription>
-            {t('maintenanceBanner.description')}
-          </AlertDescription>
-        </Alert>
-      </div>
       <main className="flex flex-1 flex-col animate-fade-in pb-8">{children}</main>
     </div>
   );
