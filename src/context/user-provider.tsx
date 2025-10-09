@@ -62,6 +62,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       console.error("Failed to save user to localStorage", error);
     }
     
+    // Non-blocking call to save to Firestore
     saveUser(userProfile);
   };
 

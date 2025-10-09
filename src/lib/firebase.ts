@@ -6,14 +6,30 @@ import { getFirestore, doc, setDoc, type Firestore } from 'firebase/firestore';
 import { firebaseConfig } from './firebase-config';
 
 let app: FirebaseApp;
-// This ensures we're not re-initializing the app on the client-side
-if (!getApps().length) {
-  app = initializeApp(firebaseConfig);
-} else {
-  app = getApp();
+let db: Firestore;
+
+function initializeFirebase() {
+  if (!getApps().length) {
+    app = initializeApp(firebaseConfig);
+  } else {
+    app = getApp();
+  }
+  db = getFirestore(app);
 }
 
-const db: Firestore = getFirestore(app);
+// Initialize on first load
+if (typeof window !== 'undefined') {
+  initializeFirebase();
+}
+
+
+const getDb = (): Firestore => {
+    if (!db) {
+        initializeFirebase();
+    }
+    return db;
+}
+
 
 const saveUser = async (user: any) => {
   if (!user || !user.id) {
@@ -21,11 +37,12 @@ const saveUser = async (user: any) => {
     return;
   }
   try {
-    const userRef = doc(db, 'users', user.id);
+    const firestore = getDb();
+    const userRef = doc(firestore, 'users', user.id);
     await setDoc(userRef, user, { merge: true });
   } catch (error) {
     console.error("Error saving user to Firestore: ", error);
   }
 };
 
-export { db, saveUser };
+export { getDb, saveUser };
