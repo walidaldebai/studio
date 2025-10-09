@@ -24,10 +24,6 @@ const RantChatEmpathyOutputSchema = z.object({
 
 export type RantChatEmpathyOutput = z.infer<typeof RantChatEmpathyOutputSchema>;
 
-export async function rantChatEmpathy(input: RantChatEmpathyInput): Promise<RantChatEmpathyOutput> {
-  return rantChatEmpathyFlow(input);
-}
-
 const prompt = ai.definePrompt({
   name: 'rantChatEmpathyPrompt',
   input: {schema: RantChatEmpathyInputSchema},
@@ -57,3 +53,8 @@ const rantChatEmpathyFlow = ai.defineFlow(
     return output!;
   }
 );
+
+
+export async function rantChatEmpathy(input: RantChatEmpathyInput): Promise<RantChatEmpathyOutput> {
+  return rantChatEmpathyFlow(input);
+}

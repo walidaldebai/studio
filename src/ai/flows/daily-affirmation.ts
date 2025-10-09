@@ -33,18 +33,6 @@ export type DailyAffirmationOutput = z.infer<
   typeof DailyAffirmationOutputSchema
 >;
 
-const dailyAffirmationFlow = ai.defineFlow(
-  {
-    name: 'dailyAffirmationFlow',
-    inputSchema: DailyAffirmationInputSchema,
-    outputSchema: DailyAffirmationOutputSchema,
-  },
-  async (input) => {
-    const {output} = await dailyAffirmationPrompt(input);
-    return output!;
-  }
-);
-
 const dailyAffirmationPrompt = ai.definePrompt({
   name: 'dailyAffirmationPrompt',
   input: {
@@ -59,6 +47,19 @@ const dailyAffirmationPrompt = ai.definePrompt({
   Do not include quotation marks.
   `,
 });
+
+const dailyAffirmationFlow = ai.defineFlow(
+  {
+    name: 'dailyAffirmationFlow',
+    inputSchema: DailyAffirmationInputSchema,
+    outputSchema: DailyAffirmationOutputSchema,
+  },
+  async (input) => {
+    const {output} = await dailyAffirmationPrompt(input);
+    return output!;
+  }
+);
+
 
 /**
  * Generates a daily affirmation.

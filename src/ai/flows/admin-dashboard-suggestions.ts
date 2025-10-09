@@ -42,19 +42,6 @@ export type AdminDashboardSuggestionsOutput = z.infer<
   typeof AdminDashboardSuggestionsOutputSchema
 >;
 
-// Define the flow itself
-const adminDashboardSuggestionsFlow = ai.defineFlow(
-  {
-    name: 'adminDashboardSuggestionsFlow',
-    inputSchema: AdminDashboardSuggestionsInputSchema,
-    outputSchema: AdminDashboardSuggestionsOutputSchema,
-  },
-  async input => {
-    const {output} = await adminDashboardSuggestionsPrompt(input);
-    return output!;
-  }
-);
-
 // Define the prompt
 const adminDashboardSuggestionsPrompt = ai.definePrompt({
   name: 'adminDashboardSuggestionsPrompt',
@@ -72,6 +59,21 @@ const adminDashboardSuggestionsPrompt = ai.definePrompt({
   Usage Data: {{{usageData}}}
   `,
 });
+
+
+// Define the flow itself
+const adminDashboardSuggestionsFlow = ai.defineFlow(
+  {
+    name: 'adminDashboardSuggestionsFlow',
+    inputSchema: AdminDashboardSuggestionsInputSchema,
+    outputSchema: AdminDashboardSuggestionsOutputSchema,
+  },
+  async input => {
+    const {output} = await adminDashboardSuggestionsPrompt(input);
+    return output!;
+  }
+);
+
 
 /**
  * Generates admin dashboard suggestions based on user feedback and app usage data.
