@@ -55,7 +55,7 @@ export default function BreathingPage() {
         <div
             className={cn(
                 'relative flex flex-col items-center justify-center',
-                'transition-transform ease-in-out shadow-2xl bg-gradient-to-br from-primary to-[hsl(var(--gradient-to))]',
+                'transition-transform ease-in-out shadow-2xl bg-gradient-primary bg-[length:200%_auto]',
                 'rounded-full'
             )}
             style={{

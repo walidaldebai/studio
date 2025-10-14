@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -17,7 +18,7 @@ export default {
     },
     extend: {
       backgroundImage: {
-        'gradient-main': 'radial-gradient(ellipse at top, hsl(180 70% 40% / 0.1), transparent), radial-gradient(ellipse at bottom, hsl(200 80% 50% / 0.15), transparent)',
+        'gradient-main': 'radial-gradient(ellipse at top, hsl(var(--gradient-from) / 0.1), transparent 70%), radial-gradient(ellipse at bottom, hsl(var(--gradient-to) / 0.15), transparent 70%)',
         'gradient-primary': 'linear-gradient(to right, hsl(var(--gradient-from)), hsl(var(--gradient-to)), hsl(var(--gradient-from)))',
       },
       fontFamily: {
