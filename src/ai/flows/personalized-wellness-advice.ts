@@ -10,7 +10,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 
 const PersonalizedWellnessAdviceInputSchema = z.object({
   name: z.string().describe("The user's name."),
@@ -55,7 +55,7 @@ const personalizedWellnessAdviceFlow = ai.defineFlow(
     outputSchema: PersonalizedWellnessAdviceOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await prompt.generate(input);
     return output!;
   }
 );

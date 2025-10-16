@@ -74,7 +74,7 @@ const analyzeMoodJournalFlow = ai.defineFlow(
                 : 'For a helpful analysis, try logging your mood for a few more days. The more data, the better the insights!';
             return { analysis: message };
         }
-        const { output } = await analysisPrompt(input);
+        const { output } = await analysisPrompt.generate(input);
         return output!;
     }
 );

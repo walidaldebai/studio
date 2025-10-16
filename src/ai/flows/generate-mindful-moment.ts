@@ -12,7 +12,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 
 const GenerateMindfulMomentInputSchema = z.object({
     language: z.enum(['en', 'ar']).default('en').describe('The language for the script.'),
@@ -51,7 +51,7 @@ const generateMindfulMomentFlow = ai.defineFlow(
         outputSchema: GenerateMindfulMomentOutputSchema,
     },
     async (input) => {
-        const { output } = await mindfulMomentPrompt(input);
+        const { output } = await mindfulMomentPrompt.generate(input);
         return output!;
     }
 );

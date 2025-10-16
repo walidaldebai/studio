@@ -60,7 +60,7 @@ const generateLessonIdeaFlow = ai.defineFlow(
         outputSchema: LessonIdeaOutputSchema,
     },
     async (input) => {
-        const { output } = await lessonIdeaPrompt(input);
+        const { output } = await lessonIdeaPrompt.generate(input);
         return output!;
     }
 );

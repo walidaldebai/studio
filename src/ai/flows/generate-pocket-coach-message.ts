@@ -53,7 +53,7 @@ const generatePocketCoachMessageFlow = ai.defineFlow(
         outputSchema: PocketCoachOutputSchema,
     },
 async (input) => {
-        const { output } = await pocketCoachPrompt(input);
+        const { output } = await pocketCoachPrompt.generate(input);
         return output!;
     }
 );

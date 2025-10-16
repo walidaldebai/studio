@@ -57,7 +57,7 @@ const generateAudioAffirmationFlow = ai.defineFlow(
         outputSchema: GenerateAudioAffirmationOutputSchema,
     },
     async (input) => {
-        const { output } = await affirmationPrompt(input);
+        const { output } = await affirmationPrompt.generate(input);
         return output!;
     }
 );

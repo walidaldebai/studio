@@ -57,7 +57,7 @@ const generateMeditationFlow = ai.defineFlow(
         outputSchema: GenerateMeditationOutputSchema,
     },
     async (input) => {
-        const { output } = await meditationPrompt(input);
+        const { output } = await meditationPrompt.generate(input);
         return output!;
     }
 );

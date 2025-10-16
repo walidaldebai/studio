@@ -10,7 +10,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 
 const RantChatEmpathyInputSchema = z.object({
   rant: z.string().describe("The user's rant or expression of frustration."),
@@ -50,7 +50,7 @@ const rantChatEmpathyFlow = ai.defineFlow(
     outputSchema: RantChatEmpathyOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await prompt.generate(input);
     return output!;
   }
 );

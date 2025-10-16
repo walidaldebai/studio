@@ -14,7 +14,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 
 // Define the input schema for the flow
 const AdminDashboardSuggestionsInputSchema = z.object({
@@ -70,7 +70,7 @@ const adminDashboardSuggestionsFlow = ai.defineFlow(
     outputSchema: AdminDashboardSuggestionsOutputSchema,
   },
   async input => {
-    const {output} = await adminDashboardSuggestionsPrompt(input);
+    const {output} = await adminDashboardSuggestionsPrompt.generate(input);
     return output!;
   }
 );
