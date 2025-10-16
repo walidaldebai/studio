@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -15,7 +14,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'zod';
+import {z} from 'genkit';
 
 const DailyAffirmationInputSchema = z.object({
   language: z.enum(['en', 'ar']).default('en').describe('The language for the affirmation.'),
@@ -56,7 +55,7 @@ const dailyAffirmationFlow = ai.defineFlow(
     outputSchema: DailyAffirmationOutputSchema,
   },
   async (input) => {
-    const {output} = await dailyAffirmationPrompt.generate(input);
+    const {output} = await dailyAffirmationPrompt(input);
     return output!;
   }
 );

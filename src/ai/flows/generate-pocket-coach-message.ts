@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -52,8 +51,8 @@ const generatePocketCoachMessageFlow = ai.defineFlow(
         inputSchema: PocketCoachInputSchema,
         outputSchema: PocketCoachOutputSchema,
     },
-async (input) => {
-        const { output } = await pocketCoachPrompt.generate(input);
+    async (input) => {
+        const { output } = await pocketCoachPrompt(input);
         return output!;
     }
 );

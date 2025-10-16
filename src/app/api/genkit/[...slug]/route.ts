@@ -1,5 +1,4 @@
-import { defineNextHandler } from '@genkit-ai/next';
-import { ai } from '@/ai/genkit';
+import { defineNextHandler } from '@genkit-ai/next/server';
 import * as adminDashboardSuggestions from '@/ai/flows/admin-dashboard-suggestions';
 import * as analyzeMoodJournal from '@/ai/flows/analyze-mood-journal';
 import * as dailyAffirmation from '@/ai/flows/daily-affirmation';
@@ -26,7 +25,7 @@ const flows = [
   textToSpeech,
 ];
 
+// NOTE: This will NOT work in local dev on Windows.
 export const POST = defineNextHandler({
-  ai,
   flows,
 });

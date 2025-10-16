@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -10,7 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'zod';
+import {z} from 'genkit';
 
 const RantChatEmpathyInputSchema = z.object({
   rant: z.string().describe("The user's rant or expression of frustration."),
@@ -50,11 +49,10 @@ const rantChatEmpathyFlow = ai.defineFlow(
     outputSchema: RantChatEmpathyOutputSchema,
   },
   async input => {
-    const {output} = await prompt.generate(input);
+    const {output} = await prompt(input);
     return output!;
   }
 );
-
 
 export async function rantChatEmpathy(input: RantChatEmpathyInput): Promise<RantChatEmpathyOutput> {
   return rantChatEmpathyFlow(input);

@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -10,7 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'zod';
+import {z} from 'genkit';
 
 const PersonalizedWellnessAdviceInputSchema = z.object({
   name: z.string().describe("The user's name."),
@@ -55,12 +54,16 @@ const personalizedWellnessAdviceFlow = ai.defineFlow(
     outputSchema: PersonalizedWellnessAdviceOutputSchema,
   },
   async input => {
-    const {output} = await prompt.generate(input);
+    if (input.needs.length < 15) {
+        return {
+            advice: 'Your request is a bit brief. Could you please provide more details about your situation? The more information you give, the better I can tailor my advice to your specific needs.'
+        };
+    }
+    const {output} = await prompt(input);
     return output!;
   }
 );
 
 export async function getPersonalizedWellnessAdvice(input: PersonalizedWellnessAdviceInput): Promise<PersonalizedWellnessAdviceOutput> {
-  const output = await personalizedWellnessAdviceFlow(input);
-  return output;
+  return personalizedWellnessAdviceFlow(input);
 }

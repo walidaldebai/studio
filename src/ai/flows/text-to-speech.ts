@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -12,13 +11,15 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
+import { z } from 'genkit';
 import wav from 'wav';
 import { googleAI } from '@genkit-ai/google-genai';
 
 const TextToSpeechOutputSchema = z.object({
   audio: z.string().describe("The base64-encoded WAV audio data URI."),
 });
+
+export type TextToSpeechOutput = z.infer<typeof TextToSpeechOutputSchema>;
 
 async function toWav(
   pcmData: Buffer,
@@ -83,6 +84,6 @@ const textToSpeechFlow = ai.defineFlow(
 );
 
 
-export async function convertTextToSpeech(script: string): Promise<{ audio: string }> {
+export async function convertTextToSpeech(script: string): Promise<TextToSpeechOutput> {
     return textToSpeechFlow(script);
 }

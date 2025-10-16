@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -60,7 +59,7 @@ const generateLessonIdeaFlow = ai.defineFlow(
         outputSchema: LessonIdeaOutputSchema,
     },
     async (input) => {
-        const { output } = await lessonIdeaPrompt.generate(input);
+        const { output } = await lessonIdeaPrompt(input);
         return output!;
     }
 );

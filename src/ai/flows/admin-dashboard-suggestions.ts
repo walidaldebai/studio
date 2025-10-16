@@ -1,4 +1,3 @@
-
 'use server';
 
 /**
@@ -14,7 +13,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'zod';
+import {z} from 'genkit';
 
 // Define the input schema for the flow
 const AdminDashboardSuggestionsInputSchema = z.object({
@@ -61,7 +60,6 @@ const adminDashboardSuggestionsPrompt = ai.definePrompt({
   `,
 });
 
-
 // Define the flow itself
 const adminDashboardSuggestionsFlow = ai.defineFlow(
   {
@@ -70,11 +68,10 @@ const adminDashboardSuggestionsFlow = ai.defineFlow(
     outputSchema: AdminDashboardSuggestionsOutputSchema,
   },
   async input => {
-    const {output} = await adminDashboardSuggestionsPrompt.generate(input);
+    const {output} = await adminDashboardSuggestionsPrompt(input);
     return output!;
   }
 );
-
 
 /**
  * Generates admin dashboard suggestions based on user feedback and app usage data.
