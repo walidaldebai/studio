@@ -5,8 +5,7 @@
  * It is crucial for this file to exist and be correctly configured for any AI functionality to work.
  */
 
-import {genkit} from 'genkit';
-import {configureGenkit} from 'genkit/config';
+import {genkit, configureGenkit} from 'genkit';
 import {googleAI} from '@genkit-ai/google-genai';
 
 // This is the main AI instance that will be used throughout the app.
