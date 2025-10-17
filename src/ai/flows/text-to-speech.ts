@@ -10,15 +10,14 @@
  * }
  */
 
-import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/google-genai';
+import {z} from 'zod';
 import wav from 'wav';
-import { googleAI } from '@genkit-ai/google-genai';
 
 const TextToSpeechOutputSchema = z.object({
   audio: z.string().describe("The base64-encoded WAV audio data URI."),
 });
-
 export type TextToSpeechOutput = z.infer<typeof TextToSpeechOutputSchema>;
 
 async function toWav(
@@ -36,7 +35,7 @@ async function toWav(
 
     const bufs: Buffer[] = [];
     writer.on('error', reject);
-    writer.on('data', (d) => bufs.push(d));
+    writer.on('data', (d: Buffer) => bufs.push(d));
     writer.on('end', () => {
       resolve(Buffer.concat(bufs).toString('base64'));
     });
@@ -48,7 +47,7 @@ async function toWav(
 
 const textToSpeechFlow = ai.defineFlow(
   {
-    name: 'textToSpeechFlow',
+    name: 'convertTextToSpeech',
     inputSchema: z.string(),
     outputSchema: TextToSpeechOutputSchema,
   },
@@ -82,7 +81,6 @@ const textToSpeechFlow = ai.defineFlow(
     };
   }
 );
-
 
 export async function convertTextToSpeech(script: string): Promise<TextToSpeechOutput> {
     return textToSpeechFlow(script);

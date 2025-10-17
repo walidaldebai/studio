@@ -13,8 +13,8 @@
  * }
  */
 
-import { ai } from '@/ai/genkit';
-import { z } from 'zod';
+import {ai} from '@/ai/genkit';
+import {z} from 'zod';
 
 const MoodEntrySchema = z.object({
   date: z.string().describe('The ISO date string of the entry.'),
@@ -26,43 +26,16 @@ const MoodJournalAnalysisInputSchema = z.object({
   entries: z.array(MoodEntrySchema).describe('An array of mood journal entries from the last 30 days.'),
   language: z.enum(['en', 'ar']).default('en').describe('The language for the analysis output.'),
 });
-
 export type MoodJournalAnalysisInput = z.infer<typeof MoodJournalAnalysisInputSchema>;
 
 const MoodJournalAnalysisOutputSchema = z.object({
-  analysis: z.string().describe('A thoughtful and empathetic analysis of the user\'s mood patterns, including potential insights and gentle observations.'),
+  analysis: z.string().describe("A thoughtful and empathetic analysis of the user's mood patterns, including potential insights and gentle observations."),
 });
-
 export type MoodJournalAnalysisOutput = z.infer<typeof MoodJournalAnalysisOutputSchema>;
-
-const analysisPrompt = ai.definePrompt({
-    name: 'analysisPrompt_moodJournalPage',
-    input: {
-        schema: MoodJournalAnalysisInputSchema,
-    },
-    output: {
-        schema: MoodJournalAnalysisOutputSchema,
-    },
-    prompt: `You are an empathetic and insightful AI wellness assistant. Your task is to analyze a user's mood journal entries from the last 30 days and provide a gentle, supportive summary.
-
-    Your response must be in the following language: {{{language}}}.
-
-    Analyze the provided entries to identify patterns, such as frequent moods, correlations between notes and moods, or changes over time. Your tone should be encouraging and non-judgmental.
-
-    If there are very few entries, acknowledge that and suggest the user log their mood more frequently to get richer insights.
-
-    Do not give medical advice. Focus on emotional wellness and self-awareness. Frame your observations as gentle suggestions or things to consider.
-
-    Here are the user's mood entries:
-    {{#each entries}}
-    - Date: {{date}}, Mood: {{mood}}{{#if note}}, Note: "{{note}}"{{/if}}
-    {{/each}}
-    `,
-});
 
 const analyzeMoodJournalFlow = ai.defineFlow(
     {
-        name: 'analyzeMoodJournalFlow_moodJournalPage',
+        name: 'analyzeMoodJournal',
         inputSchema: MoodJournalAnalysisInputSchema,
         outputSchema: MoodJournalAnalysisOutputSchema,
     },
@@ -73,8 +46,32 @@ const analyzeMoodJournalFlow = ai.defineFlow(
                 : 'For a helpful analysis, try logging your mood for a few more days. The more data, the better the insights!';
             return { analysis: message };
         }
-        const { output } = await analysisPrompt(input);
-        return output!;
+
+        const entriesText = input.entries.map(e => `- Date: ${e.date}, Mood: ${e.mood}${e.note ? `, Note: "${e.note}"` : ''}`).join('\n');
+
+        const prompt = `You are an empathetic and insightful AI wellness assistant. Your task is to analyze a user's mood journal entries from the last 30 days and provide a gentle, supportive summary.
+
+        Your response must be in the following language: ${input.language}.
+
+        Analyze the provided entries to identify patterns, such as frequent moods, correlations between notes and moods, or changes over time. Your tone should be encouraging and non-judgmental.
+
+        If there are very few entries, acknowledge that and suggest the user log their mood more frequently to get richer insights.
+
+        Do not give medical advice. Focus on emotional wellness and self-awareness. Frame your observations as gentle suggestions or things to consider.
+
+        Here are the user's mood entries:
+        ${entriesText}
+        `;
+
+        const llmResponse = await ai.generate({
+            prompt,
+            model: 'googleai/gemini-pro',
+            output: {
+                schema: MoodJournalAnalysisOutputSchema,
+            },
+        });
+
+        return llmResponse.output!;
     }
 );
 

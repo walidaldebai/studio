@@ -9,7 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z} from 'zod';
 
 const PersonalizedWellnessAdviceInputSchema = z.object({
   name: z.string().describe("The user's name."),
@@ -25,31 +25,9 @@ const PersonalizedWellnessAdviceOutputSchema = z.object({
 });
 export type PersonalizedWellnessAdviceOutput = z.infer<typeof PersonalizedWellnessAdviceOutputSchema>;
 
-const prompt = ai.definePrompt({
-  name: 'personalizedWellnessAdvicePrompt',
-  input: {schema: PersonalizedWellnessAdviceInputSchema},
-  output: {schema: PersonalizedWellnessAdviceOutputSchema},
-  prompt: `You are an AI wellness assistant. Your goal is to provide relevant and helpful advice based on the user's profile.
-
-  {{#if (eq specialization 'teacher')}}
-  The user is a teacher. Provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame your advice with empathy for the demands of education.
-  {{/if}}
-
-  User Profile:
-  Name: {{{name}}}
-  Gender: {{{gender}}}
-  Specialization: {{{specialization}}}
-  {{#if healthIssues}}
-  Health Issues: {{{healthIssues}}}
-  {{/if}}
-
-  User Needs: {{{needs}}}
-  `,
-});
-
 const personalizedWellnessAdviceFlow = ai.defineFlow(
   {
-    name: 'personalizedWellnessAdviceFlow',
+    name: 'getPersonalizedWellnessAdvice',
     inputSchema: PersonalizedWellnessAdviceInputSchema,
     outputSchema: PersonalizedWellnessAdviceOutputSchema,
   },
@@ -59,8 +37,33 @@ const personalizedWellnessAdviceFlow = ai.defineFlow(
             advice: 'Your request is a bit brief. Could you please provide more details about your situation? The more information you give, the better I can tailor my advice to your specific needs.'
         };
     }
-    const {output} = await prompt(input);
-    return output!;
+
+    let prompt = `You are an AI wellness assistant. Your goal is to provide relevant and helpful advice based on the user's profile.
+
+    User Profile:
+    Name: ${input.name}
+    Gender: ${input.gender}
+    Specialization: ${input.specialization}
+    User Needs: ${input.needs}
+    `;
+
+    if (input.healthIssues) {
+      prompt += `\nHealth Issues: ${input.healthIssues}`;
+    }
+
+    if (input.specialization.toLowerCase() === 'teacher') {
+        prompt += '\nThe user is a teacher. Provide advice that is specifically tailored to the challenges and stressors of the teaching profession. Frame your advice with empathy for the demands of education.';
+    }
+
+    const llmResponse = await ai.generate({
+        prompt: prompt,
+        model: 'googleai/gemini-pro',
+        output: {
+            schema: PersonalizedWellnessAdviceOutputSchema,
+        },
+    });
+    
+    return llmResponse.output!;
   }
 );
 
