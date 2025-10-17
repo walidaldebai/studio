@@ -1,4 +1,6 @@
-import { defineNextHandler } from '@genkit-ai/next/server';
+
+'use server';
+import {defineNextHandler} from '@genkit-ai/next';
 import * as adminDashboardSuggestions from '@/ai/flows/admin-dashboard-suggestions';
 import * as analyzeMoodJournal from '@/ai/flows/analyze-mood-journal';
 import * as dailyAffirmation from '@/ai/flows/daily-affirmation';
@@ -11,21 +13,18 @@ import * as personalizedWellnessAdvice from '@/ai/flows/personalized-wellness-ad
 import * as rantChatEmpathy from '@/ai/flows/rant-chat-empathy';
 import * as textToSpeech from '@/ai/flows/text-to-speech';
 
-const flows = [
-  adminDashboardSuggestions,
-  analyzeMoodJournal,
-  dailyAffirmation,
-  generateAudioAffirmation,
-  generateLessonIdea,
-  generateMeditation,
-  generateMindfulMoment,
-  generatePocketCoachMessage,
-  personalizedWellnessAdvice,
-  rantChatEmpathy,
-  textToSpeech,
-];
-
-// NOTE: This will NOT work in local dev on Windows.
 export const POST = defineNextHandler({
-  flows,
+  flows: [
+    adminDashboardSuggestions.generateAdminDashboardSuggestions,
+    analyzeMoodJournal.analyzeMoodJournal,
+    dailyAffirmation.getDailyAffirmation,
+    generateAudioAffirmation.generateAudioAffirmation,
+    generateLessonIdea.generateLessonIdea,
+    generateMeditation.generateMeditationScript,
+    generateMindfulMoment.generateMindfulMoment,
+    generatePocketCoachMessage.generatePocketCoachMessage,
+    personalizedWellnessAdvice.getPersonalizedWellnessAdvice,
+    rantChatEmpathy.rantChatEmpathy,
+    textToSpeech.convertTextToSpeech,
+  ],
 });
