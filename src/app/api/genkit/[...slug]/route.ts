@@ -1,7 +1,7 @@
 // IMPORTANT: Do NOT add 'use server' to this file.
 // This is a Next.js API route handler, not a Server Action.
 
-import {createGenkitHandler} from '@genkit-ai/next';
+import {genkitNext} from '@genkit-ai/next';
 import {ai} from '@/ai/genkit';
 import '@/ai/flows/admin-dashboard-suggestions';
 import '@/ai/flows/analyze-mood-journal';
@@ -15,6 +15,8 @@ import '@/ai/flows/personalized-wellness-advice';
 import '@/ai/flows/rant-chat-empathy';
 import '@/ai/flows/text-to-speech';
 
-export const {GET, POST} = createGenkitHandler({
-  ...ai,
+const handler = genkitNext({
+  ai,
 });
+
+export {handler as GET, handler as POST};
