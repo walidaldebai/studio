@@ -1,16 +1,14 @@
-
 'use client';
 
-import { Analytics } from "@vercel/analytics/next"
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button, type ButtonProps } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { PlaceHolderImages, type PlaceHolderImage } from '@/lib/placeholder-images';
 import { BrainCircuit, MessageSquare, BookOpen, User, CheckCircle, Sparkles } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useUser } from '@/context/user-provider';
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { ShoulderIcon } from "@/components/shoulder-icon";
 
 
@@ -27,12 +25,25 @@ function GetStartedButton({ children, ...props }: PropsWithChildren<ButtonProps>
   )
 }
 
+interface Feature {
+  icon: ReactNode;
+  title: string;
+  description: string;
+  image?: PlaceHolderImage;
+}
+
+interface HowItWorksStep {
+  icon: ReactNode;
+  title: string;
+  description: string;
+}
+
 export default function AboutPage() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'about-hero');
   const guidanceImage = PlaceHolderImages.find(p => p.id === 'about-guidance');
   const journalImage = PlaceHolderImages.find(p => p.id === 'about-journal');
-  
-  const features = [
+
+  const features: Feature[] = [
     {
       icon: <BrainCircuit className="h-10 w-10 text-primary" />,
       title: "AI-Powered Guidance",
@@ -52,7 +63,7 @@ export default function AboutPage() {
     }
   ];
 
-  const howItWorksSteps = [
+  const howItWorksSteps: HowItWorksStep[] = [
     {
       icon: <User className="h-8 w-8 text-primary" />,
       title: "1. Create Your Profile",
